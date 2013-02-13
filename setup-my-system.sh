@@ -12,6 +12,7 @@ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 sed -i s/robbyrussell/blinks/ ~/.zshrc
 sed -i s/\(git\)/\(git\ yum\)/ ~/.zshrc
+chsh -s /bin/zsh
 
 echo "Setting up vim"
 cp /etc/vimrc ~/.vimrc
