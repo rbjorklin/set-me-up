@@ -1,0 +1,12 @@
+anonymouspro font http://www.ms-studio.com/FontSales/anonymouspro.html
+inconsolata font http://www.levien.com/type/myfonts/inconsolata.html
+xterm terminal http://invisible-island.net/xterm
+tmux terminal-multiplexer http://tmux.sourceforge.net/
+mosh ssh-replacement http://mosh.mit.edu/
+solarized color-scheme http://ethanschoonover.com/solarized
+solarized ls https://github.com/seebi/dircolors-solarized
+solarized xresources https://github.com/solarized/xresources
+sublime text-editor http://www.sublimetext.com/
+zsh shell https://github.com/robbyrussell/oh-my-zsh
+defense hosts-file http://someonewhocares.org/hosts/
+color-profile icc http://www.notebookcheck.net/uploads/tx_nbc2/UX31.icc
