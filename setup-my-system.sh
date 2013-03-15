@@ -2,12 +2,10 @@
 
 cd ~/
 
-#echo "Installing Development Tools"
-#sudo yum group install "Development Tools"
-#echo "Installing git, tmux..."
-#sudo yum install git tmux zsh vim-enhanced mosh levien-inconsolata-fonts xterm wget irssi
-echo "Setup for Arch is manual for now. Fix!"
-exit 1
+echo "Installing Development Tools"
+sudo yum group install "Development Tools"
+echo "Installing git, tmux..."
+sudo yum install git tmux zsh vim-enhanced mosh levien-inconsolata-fonts xterm wget irssi
 
 echo "Setting up ZSH"
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
