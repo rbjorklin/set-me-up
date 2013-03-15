@@ -46,6 +46,8 @@ echo "Xft.dpi: 96" >> ~/.Xresources
 echo "Xft.hintstyle: hintfull" >> ~/.Xresources
 echo "Xft.hinting: true" >> ~/.Xresources
 
+xrdb ~/.Xresources
+
 echo "Fetching Solarized .dircolors"
 git clone git://github.com/seebi/dircolors-solarized.git
 mv dircolors-solarized/dircolors.256dark ~/.dircolors
