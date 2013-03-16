@@ -7,6 +7,13 @@ sudo yum group install "Development Tools"
 echo "Installing git, tmux..."
 sudo yum install git tmux zsh vim-enhanced mosh levien-inconsolata-fonts xterm wget irssi task
 
+echo "Setting up RPM-Fusion"
+wget --content-disposition --user-agent="Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0" "http://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-$(rpm -E %fedora)" -O RPM-GPG-KEY-rpmfusion-nonfree-fedora-$(rpm -E %fedora)
+wget --content-disposition --user-agent="Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0" "http://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-$(rpm -E %fedora)" -O RPM-GPG-KEY-rpmfusion-free-fedora-$(rpm -E %fedora)
+sudo rpm --import RPM-GPG-KEY-rpmfusion-free-fedora-$(rpm -E %fedora)
+sudo rpm --import RPM-GPG-KEY-rpmfusion-nonfree-fedora-$(rpm -E %fedora)
+sudo yum install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
 echo "Setting up ZSH"
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
