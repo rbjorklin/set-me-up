@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd ~/
-
 echo "Installing Development Tools"
 sudo yum group install "Development Tools"
 echo "Installing git, tmux..."
@@ -19,20 +17,11 @@ sudo sed -i s/KEYMAP=".*"/KEYMAP=\"en-latin9\"/ /etc/vconsole.conf
 
 echo "Setting up ZSH"
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-sed -i s/robbyrussell/blinks/ ~/.zshrc
-sed -i s/\(git\)/\(git\ yum\)/ ~/.zshrc
+cp ./dotfiles/.zshrc ~/.zshrc
 chsh -s /bin/zsh
 
 echo "Setting up vim"
-cp /etc/vimrc ~/.vimrc
-
-echo "set background=dark" >> ~/.vimrc
-echo "colors solarized" >> ~/.vimrc
-echo "set tabstop=2" >> ~/.vimrc
-echo "set expandtab" >> ~/.vimrc
-echo "set shiftwidth=2" >> ~/.vimrc
-echo "set number" >> ~/.vimrc
+cp ./dotfiles/.vimrc ~/.vimrc
 
 git clone git://github.com/altercation/solarized.git
 mkdir ~/.vim
@@ -68,17 +57,11 @@ git clone https://github.com/scala/scala-dist.git
 mv ~/scala-dist/tool-support/src/vim/* ~/.vim 
 rm -rf ~/scala-dist
 
-echo "Setting vi binds for tmux"
-echo "set -g history-limit 50000                 " >> ~/.tmux.conf
-echo "setw -g mode-keys vi                       " >> ~/.tmux.conf
-echo "unbind [                                   " >> ~/.tmux.conf
-echo "unbind p                                   " >> ~/.tmux.conf
-echo "unbind Escape                              " >> ~/.tmux.conf
-echo "bind-key Escape copy-mode                  " >> ~/.tmux.conf
-echo "bind-key p paste-buffer                    " >> ~/.tmux.conf
-echo "bind-key -t vi-copy v begin-selection      " >> ~/.tmux.conf
-echo "bind-key -t vi-copy y copy-selection       " >> ~/.tmux.conf
-echo "bind-key C-c run 'tmux show-buffer | xclip'" >> ~/.tmux.conf
+echo "Setting up tmux"
+cp ./dotfiles/.tmux.conf ~/
+
+echo "Setting up task"
+cp ./dotfiles/.taskrc ~/
 
 echo "Zenbook UX31 color profile"
 echo "http://www.notebookcheck.net/uploads/tx_nbc2/UX31.icc"
