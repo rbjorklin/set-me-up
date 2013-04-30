@@ -1,3 +1,5 @@
 [user]
 	email = robin.bjorklin@gmail.com
 	name = Robin Bjorklin
+[push]
+	default = simple
