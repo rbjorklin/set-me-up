@@ -45,6 +45,18 @@ plugins=(git taskwarrior virtualenv python archlinux vi-mode systemd tmux)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+
 bindkey -v
+
+# Aliaeses
 alias ts="task merge ssh://musclemill.se/home/rbjorklin/.task/"
 alias t="task"
+alias tm="tmux attach || tmux new"
+
+# Variables
+export TERM=xterm-256color
+export VISUAL="vim"
+export EDITOR="vim"
+
+# Stuff
+eval `dircolors ~/.dircolors`
