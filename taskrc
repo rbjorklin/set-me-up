@@ -12,7 +12,7 @@
 
 # Files
 weekstart=Monday
-data.location=/home/rbjorklin/.task
+data.location=~/.task
 dateformat=Y-M-D
 dateformat.annotation=Y-M-D
 dateformat.edit=Y-M-D H:N:S
