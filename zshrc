@@ -47,6 +47,8 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 bindkey -v
+bindkey "^[[A" up-line-or-search
+bindkey "^[[B" down-line-or-search
 
 # Aliaeses
 alias ts="task merge ssh://musclemill.se/home/rbjorklin/.task/"
