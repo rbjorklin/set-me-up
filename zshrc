@@ -40,7 +40,7 @@ ZSH_THEME="blinks"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git taskwarrior virtualenv python archlinux vi-mode systemd tmux)
+plugins=(git taskwarrior virtualenv python vi-mode systemd tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -61,4 +61,5 @@ export VISUAL="vim"
 export EDITOR="vim"
 
 # Stuff
-eval `dircolors ~/.dircolors`
+# Seems to not be needed
+#eval `dircolors ~/.dircolors`

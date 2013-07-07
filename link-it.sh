@@ -3,8 +3,7 @@
 linkit () {
   DIR=`pwd`
   FILE=$1
-  rm ~/.$FILE
-  ln -s $PWD/$FILE ~/.$FILE
+  ln -sf $PWD/$FILE ~/.$FILE
 }
 
 all () {
