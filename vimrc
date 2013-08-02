@@ -8,21 +8,24 @@ call vundle#rc()
 " let Vundle manage Vundle, required! 
 Bundle 'gmarik/vundle'
 
-" My Bundles here:
-" original repos on github
+" Solarized color scheme
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'derekwyatt/vim-scala'
+" Scala syntax highlighting
+Bundle 'derekwyatt/vim-scala'                
+" Sidebar browser for easy file access
+Bundle 'scrooloose/nerdtree'                 
+" Syntax checks
+Bundle 'scrooloose/syntastic'                
+" Fuzzy search
+Bundle 'kien/ctrlp.vim'                      
+" Improved staus bar
+Bundle 'Lokaltog/powerline'                  
 
 filetype plugin indent on     " required!
 " End of Vundle part
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -51,27 +54,41 @@ endif " has("autocmd")
 
 set background=dark
 colors solarized
-set expandtab
-set shiftwidth=2
-set softtabstop=2
-set number
-set showmatch
-set smartcase
+if exists('+colorcolumn')
+  set colorcolumn=80    " use visual indicator at 80 char mark
+endif
+set history=50		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
+set showcmd		" display incomplete commands
+set incsearch		" do incremental searching
+set expandtab           " expand tabs to spaces
+set shiftwidth=2        " make tab key create two spaces
+set softtabstop=2       " match indentation to two spaces 
+set number              " show line numbers
+set showmatch           " show matching brackets and parentheses
+set ignorecase          " smartcase below depends on this
+set smartcase           " do case insensitive search when using lowercase
 set smarttab
-set autoindent
-set pastetoggle=F2
-set visualbell
-set noerrorbells
+set autoindent          " copy indent from current line to new line
+set visualbell          " make screen flash instead of audible beep
+set noerrorbells        " ignore errorbells
 set nobackup
 set noswapfile
 
+" unmap arrow keys
 noremap  <Up> <nop>
 noremap  <Down> <nop>
 noremap  <Left> <nop>
 noremap  <Right> <nop>
 
-function InvNum ()
-  set invnumber
-endfunction
-
-map <F3> :call InvNum()<CR>
+"function InvNum ()
+"  set invnumber
+"endfunction
+"
+"map <F4> :call InvNum()<CR>
+" toggle line numbering
+map <F4> :set invnumber<CR>
+" toggle paste mode
+set pastetoggle=F2
+" show or hide the NERDTree
+map <F1> :NERDTreeToggle<CR>
