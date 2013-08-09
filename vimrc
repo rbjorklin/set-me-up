@@ -19,20 +19,12 @@ Bundle 'scrooloose/syntastic'
 " Fuzzy search
 Bundle 'kien/ctrlp.vim'                      
 " Improved staus bar
-Bundle 'Lokaltog/powerline'                  
+ Bundle 'Lokaltog/vim-powerline'                  
+" Class outline viewer
+Bundle 'majutsushi/tagbar'
 
 filetype plugin indent on     " required!
 " End of Vundle part
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -57,10 +49,12 @@ colors solarized
 if exists('+colorcolumn')
   set colorcolumn=80    " use visual indicator at 80 char mark
 endif
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+set history=50          " keep 50 lines of command line history
+set ruler               " show the cursor position all the time
+set showcmd             " display incomplete commands
+set incsearch           " do incremental searching
 set expandtab           " expand tabs to spaces
 set shiftwidth=2        " make tab key create two spaces
 set softtabstop=2       " match indentation to two spaces 
@@ -74,6 +68,13 @@ set visualbell          " make screen flash instead of audible beep
 set noerrorbells        " ignore errorbells
 set nobackup
 set noswapfile
+set laststatus=2        " always show the statusline
+set encoding=utf-8      " necessary to show Unicode glyphs
+set t_Co=256            " tell Vim that the terminal supports 256 colors
+syntax on               " syntax highlighting
+set hlsearch            " switch on highlighting the last used search pattern 
+
+let g:ctrlp_extensions = ['line'] " enable fuzzy search for lines extension
 
 " unmap arrow keys
 noremap  <Up> <nop>
@@ -87,8 +88,12 @@ noremap  <Right> <nop>
 "
 "map <F4> :call InvNum()<CR>
 " toggle line numbering
-map <F4> :set invnumber<CR>
+map <F1> :set invnumber<CR>
 " toggle paste mode
-set pastetoggle=F2
+map <F2> :set invpaste<CR>
 " show or hide the NERDTree
-map <F1> :NERDTreeToggle<CR>
+map <F3> :NERDTreeToggle<CR>
+" show or hide tagbar
+map <F4> :TagbarToggle<CR>
+" CtrlP fuzzy line search
+map <F5> :CtrlPLine<CR>

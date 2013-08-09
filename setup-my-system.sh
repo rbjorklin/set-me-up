@@ -20,7 +20,9 @@ sudo rpm --import RPM-GPG-KEY-rpmfusion-nonfree-fedora-$(rpm -E %fedora)
 sudo yum install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 echo "Installing good to have applications"
-sudo yum install git tmux zsh vim-enhanced mosh levien-inconsolata-fonts xterm irssi task transmission-cli transmission-gtk vlc firefox
+sudo yum install \
+  git tmux zsh vim-enhanced ctags ctags-etags mosh levien-inconsolata-fonts \
+  xterm irssi task transmission-cli transmission-gtk vlc firefox
 
 echo "Setting colemak for CLI"
 sudo sed -i s/KEYMAP=".*"/KEYMAP=\"en-latin9\"/ /etc/vconsole.conf
