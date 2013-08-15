@@ -19,9 +19,11 @@ Bundle 'scrooloose/syntastic'
 " Fuzzy search
 Bundle 'kien/ctrlp.vim'                      
 " Improved staus bar
- Bundle 'Lokaltog/vim-powerline'                  
+Bundle 'Lokaltog/vim-powerline'                  
 " Class outline viewer
 Bundle 'majutsushi/tagbar'
+" Make it easy to format text
+Bundle 'godlygeek/tabular'
 
 filetype plugin indent on     " required!
 " End of Vundle part
@@ -75,7 +77,12 @@ syntax on               " syntax highlighting
 set hlsearch            " switch on highlighting the last used search pattern 
 
 let g:ctrlp_extensions = ['line'] " enable fuzzy search for lines extension
+let mapleader = " "
 
+map <Leader>o o<ESC>
+map <Leader>O O<ESC>
+map <Leader>w :w<CR>
+map <Leader>q :q<CR>
 " unmap arrow keys
 noremap  <Up> <nop>
 noremap  <Down> <nop>
