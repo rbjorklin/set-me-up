@@ -5,34 +5,53 @@ filetype off " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle, required! 
+" let Vundle manage Vundle, required!
 Bundle 'gmarik/vundle'
 
 " Solarized color scheme
 Bundle 'altercation/vim-colors-solarized'
 " Scala syntax highlighting
-Bundle 'derekwyatt/vim-scala'                
+"Bundle 'derekwyatt/vim-scala'
 " Sidebar browser for easy file access
-Bundle 'scrooloose/nerdtree'                 
+Bundle 'scrooloose/nerdtree'
 " Syntax checks
-Bundle 'scrooloose/syntastic'                
+Bundle 'scrooloose/syntastic'
 " Fuzzy search
-Bundle 'kien/ctrlp.vim'                      
+Bundle 'kien/ctrlp.vim'
 " Improved staus bar
-Bundle 'Lokaltog/vim-powerline'                  
+"Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 " Class outline viewer
 Bundle 'majutsushi/tagbar'
 " Make it easy to format text
 Bundle 'godlygeek/tabular'
+" Go plugin
+Bundle 'fatih/vim-go'
+" Python flake8
+"Bundle 'nvie/vim-flake8'
 
 filetype plugin indent on     " required!
 " End of Vundle part
+
+"NeoVim handles ESC keys as alt+key set this for faster sequences
+set timeout
+set timeoutlen=750
+set ttimeoutlen=250
+if has('nvim')
+   set ttimeout
+   set ttimeoutlen=0
+endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
+
+  " go support
+  " ----------
+  autocmd BufNewFile,BufRead *.go setlocal ft=go
+  autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=4
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -58,8 +77,8 @@ set ruler               " show the cursor position all the time
 set showcmd             " display incomplete commands
 set incsearch           " do incremental searching
 set expandtab           " expand tabs to spaces
-set shiftwidth=2        " make tab key create two spaces
-set softtabstop=2       " match indentation to two spaces 
+set shiftwidth=4        " make tab key create two spaces
+set softtabstop=4       " match indentation to two spaces
 set number              " show line numbers
 set showmatch           " show matching brackets and parentheses
 set ignorecase          " smartcase below depends on this
@@ -74,7 +93,8 @@ set laststatus=2        " always show the statusline
 set encoding=utf-8      " necessary to show Unicode glyphs
 set t_Co=256            " tell Vim that the terminal supports 256 colors
 syntax on               " syntax highlighting
-set hlsearch            " switch on highlighting the last used search pattern 
+set hlsearch            " switch on highlighting the last used search pattern
+set mouse=""            " disable that stupid mouse support as it breaks the clipboard
 
 let g:ctrlp_extensions = ['line'] " enable fuzzy search for lines extension
 let mapleader = " "

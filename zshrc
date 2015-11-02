@@ -12,7 +12,7 @@ ZSH_THEME="blinks"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Comment this out to disable bi-weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
@@ -40,7 +40,7 @@ ZSH_THEME="blinks"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git taskwarrior virtualenv python vi-mode systemd)
+plugins=(fedora golang git taskwarrior pip virtualenv virtualenvwrapper python vi-mode systemd)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -51,15 +51,19 @@ bindkey "^[[A" up-line-or-search
 bindkey "^[[B" down-line-or-search
 
 # Aliaeses
-alias ts="task merge ssh://musclemill.se/home/rbjorklin/.task/"
 alias t="task"
 alias tm="tmux attach || tmux new"
+alias slideshow "for pic in *.JPG ; do ; cp $pic slide.jpg ; sleep 1 ; done & gthumb -f slide.jpg"
+alias cs50start='VBoxHeadless --startvm "CS50 Appliance 2014" > /dev/null &'
 
 # Variables
-export TERM=xterm-256color
+#export TERM=xterm-256color
 export VISUAL="vim"
 export EDITOR="vim"
 
 # Stuff
 # Seems to not be needed
 #eval `dircolors ~/.dircolors`
+#export PATH=/opt/openocd/0.8.0-rc2/bin:/opt/sourcery/bin:$PATH
+export PATH=${PATH}:/opt/spotify/bin
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/spotify/lib
