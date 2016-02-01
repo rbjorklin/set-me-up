@@ -2,33 +2,31 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible " be iMproved
 filetype off " required!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.config/nvim/bundle/Vundle.vim/
+call vundle#begin()
 
 " let Vundle manage Vundle, required!
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
 " Solarized color scheme
-Bundle 'altercation/vim-colors-solarized'
-" Scala syntax highlighting
-"Bundle 'derekwyatt/vim-scala'
+Plugin 'altercation/vim-colors-solarized'
 " Sidebar browser for easy file access
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 " Syntax checks
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 " Fuzzy search
-Bundle 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 " Improved staus bar
-"Bundle 'Lokaltog/vim-powerline'
-Bundle 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 " Class outline viewer
-Bundle 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 " Make it easy to format text
-Bundle 'godlygeek/tabular'
+Plugin 'godlygeek/tabular'
 " Go plugin
-Bundle 'fatih/vim-go'
-" Python flake8
-"Bundle 'nvie/vim-flake8'
+Plugin 'fatih/vim-go'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
 
 filetype plugin indent on     " required!
 " End of Vundle part
@@ -117,10 +115,10 @@ noremap  <Right> <nop>
 " toggle line numbering
 map <F1> :set invnumber<CR>
 " toggle paste mode
-map <F2> :set invpaste<CR>
+map <Leader>p :set invpaste<CR>
 " show or hide the NERDTree
-map <F3> :NERDTreeToggle<CR>
+map <Leader>n :NERDTreeToggle<CR>
 " show or hide tagbar
-map <F4> :TagbarToggle<CR>
+map <Leader>t :TagbarToggle<CR>
 " CtrlP fuzzy line search
-map <F5> :CtrlPLine<CR>
+map <Leader>f :CtrlPLine<CR>

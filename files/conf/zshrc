@@ -40,30 +40,25 @@ CASE_SENSITIVE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(fedora golang git taskwarrior pip virtualenv virtualenvwrapper python vi-mode systemd)
+plugins=(fedora golang git taskwarrior pip python systemd)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-bindkey -v
-bindkey "^[[A" up-line-or-search
-bindkey "^[[B" down-line-or-search
+#bindkey -v
+#bindkey "^[[A" up-line-or-search
+#bindkey "^[[B" down-line-or-search
 
 # Aliaeses
 alias t="task"
 alias tm="tmux attach || tmux new"
 alias slideshow "for pic in *.JPG ; do ; cp $pic slide.jpg ; sleep 1 ; done & gthumb -f slide.jpg"
-alias cs50start='VBoxHeadless --startvm "CS50 Appliance 2014" > /dev/null &'
 
 # Variables
-#export TERM=xterm-256color
 export VISUAL="vim"
 export EDITOR="vim"
 
-# Stuff
-# Seems to not be needed
-#eval `dircolors ~/.dircolors`
-#export PATH=/opt/openocd/0.8.0-rc2/bin:/opt/sourcery/bin:$PATH
+# Spotify
 export PATH=${PATH}:/opt/spotify/bin
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/spotify/lib
