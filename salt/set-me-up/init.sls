@@ -4,7 +4,7 @@ curl-installed:
 
 rpmfusion-pkgrepo:
   cmd.script:
-    - source: salt://rpmfusion.sh
+    - source: salt://scripts/rpmfusion.sh
     - unless: rpm -q rpmfusion-free-release rpmfusion-nonfree-release
 
 dnf-plugins-core:
@@ -12,17 +12,20 @@ dnf-plugins-core:
     - name: dnf -y install dnf-plugins-core
     - unless: rpm -q dnf-plugins-core
 
-neovim-pkgrepo:
+neovim-repo:
   cmd.run:
     - name: dnf -y copr enable dperson/neovim
-    - unless: dnf copr search neovim | grep -m 1 -o dperson/neovim
+    - unless: dnf repolist | grep -m 1 dperson-neovim
 
-fedora-spotify:
-  pkgrepo.managed:
-    - humanname: negativo17 - Spotify
-    - baseurl: http://negativo17.org/repos/spotify/fedora-$releasever/$basearch/
-    - gpgkey: http://negativo17.org/repos/RPM-GPG-KEY-slaanesh
-    - gpgcheck: 1
+spotify-repo:
+  cmd.run:
+    - name: dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.repo
+    - unless: dnf repolist | grep -m 1 spotify
+
+c-dev-pkg-group:
+  cmd.run:
+    - name: dnf groupinstall "C Development Tools and Libraries"
+    - unless: dnf grouplist | grep -Pzo "Installed groups:(.*\n)*Available groups:" | grep "C Development Tools and Libraries"
 
 useful-applications-installed:
   pkg.latest:
@@ -39,6 +42,11 @@ useful-applications-installed:
       - ctags
       - neovim
       - spotify-client
+
+st-terminal:
+  cmd.script:
+    - source: salt://scripts/build-st.sh
+    - unless: test -f /usr/local/bin/st
 
 vconsole-colemak:
   file.managed:

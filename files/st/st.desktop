@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=st
+Comment=st is a simple virtual terminal emulator for X which sucks less
+Exec=st
+Terminal=false
+Type=Application
+Icon=utilities-terminal
+Categories=System;TerminalEmulator;
+X-Desktop-File-Install-Version=0.22
