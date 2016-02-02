@@ -1,11 +1,32 @@
+curl-installed:
+  pkg.latest:
+    - name: curl
+
 rpmfusion-pkgrepo:
   cmd.script:
     - source: salt://rpmfusion.sh
+    - unless: rpm -q rpmfusion-free-release rpmfusion-nonfree-release
+
+dnf-plugins-core:
+  cmd.run:
+    - name: dnf -y install dnf-plugins-core
+    - unless: rpm -q dnf-plugins-core
+
+neovim-pkgrepo:
+  cmd.run:
+    - name: dnf -y copr enable dperson/neovim
+    - unless: dnf copr search neovim | grep -m 1 -o dperson/neovim
+
+fedora-spotify:
+  pkgrepo.managed:
+    - humanname: negativo17 - Spotify
+    - baseurl: http://negativo17.org/repos/spotify/fedora-$releasever/$basearch/
+    - gpgkey: http://negativo17.org/repos/RPM-GPG-KEY-slaanesh
+    - gpgcheck: 1
 
 useful-applications-installed:
-  pkg.installed:
+  pkg.latest:
     - pkgs:
-      - curl
       - git
       - tmux
       - mosh
@@ -17,6 +38,7 @@ useful-applications-installed:
       - zsh
       - ctags
       - neovim
+      - spotify-client
 
 vconsole-colemak:
   file.managed:
