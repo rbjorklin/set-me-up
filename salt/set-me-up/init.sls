@@ -1,6 +1,7 @@
 curl-installed:
   pkg.latest:
     - name: curl
+    - refresh: True
 
 rpmfusion-pkgrepo:
   cmd.script:
@@ -24,7 +25,7 @@ spotify-repo:
 
 c-dev-pkg-group:
   cmd.run:
-    - name: dnf groupinstall "C Development Tools and Libraries"
+    - name: dnf groupinstall -y "C Development Tools and Libraries"
     - unless: dnf grouplist | grep -Pzo "Installed groups:(.*\n)*Available groups:" | grep "C Development Tools and Libraries"
 
 useful-applications-installed:
