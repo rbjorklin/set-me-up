@@ -73,6 +73,7 @@ oh-my-zsh-zshrc:
 someone-who-cares-hosts:
   cmd.run:
     - name: curl -s -o /etc/hosts http://someonewhocares.org/hosts/zero/hosts
+    - unless: test "$(curl -s http://someonewhocares.org/hosts/zero/hosts | sha512sum)" = "$(cat /etc/hosts | sha512sum)"
 
 nvim-init-vim:
   file.symlink:
