@@ -1,32 +1,28 @@
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible " be iMproved
-filetype off " required!
-set rtp+=~/.config/nvim/bundle/Vundle.vim/
-call vundle#begin()
-
-" let Vundle manage Vundle, required!
-Plugin 'VundleVim/Vundle.vim'
+filetype off " required for Vundle!
+call plug#begin('~/.config/nvim/plugged')
 
 " Solarized color scheme
-Plugin 'altercation/vim-colors-solarized'
-" Sidebar browser for easy file access
-Plugin 'scrooloose/nerdtree'
-" Syntax checks
-Plugin 'scrooloose/syntastic'
+Plug 'altercation/vim-colors-solarized'
+" File explorer, on-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Async syntax checks
+Plug 'benekastah/neomake'
 " Fuzzy search
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 " Improved staus bar
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 " Class outline viewer
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 " Make it easy to format text
-Plugin 'godlygeek/tabular'
+Plug 'godlygeek/tabular'
 " Go plugin
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for': 'go' }
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 
 filetype plugin indent on     " required!
 " End of Vundle part
@@ -34,7 +30,7 @@ filetype plugin indent on     " required!
 "NeoVim handles ESC keys as alt+key set this for faster sequences
 set timeout
 set timeoutlen=750
-set ttimeoutlen=250
+set ttimeoutlen=100
 if has('nvim')
    set ttimeout
    set ttimeoutlen=0
@@ -47,9 +43,11 @@ if has("autocmd")
   autocmd FileType text setlocal textwidth=78
 
   " go support
-  " ----------
   autocmd BufNewFile,BufRead *.go setlocal ft=go
   autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=4
+
+  " Run Neomake on write file
+  autocmd! BufWritePost * Neomake
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -68,9 +66,10 @@ colors solarized
 if exists('+colorcolumn')
   set colorcolumn=80    " use visual indicator at 80 char mark
 endif
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-set history=50          " keep 50 lines of command line history
+
+set scrolloff=1
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set history=100         " keep 50 lines of command line history
 set ruler               " show the cursor position all the time
 set showcmd             " display incomplete commands
 set incsearch           " do incremental searching
