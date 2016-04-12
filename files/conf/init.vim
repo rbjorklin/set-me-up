@@ -62,7 +62,7 @@ if has("autocmd")
 endif " has("autocmd")
 
 set background=dark
-colors solarized
+silent! colors solarized
 if exists('+colorcolumn')
   set colorcolumn=80    " use visual indicator at 80 char mark
 endif

@@ -83,14 +83,19 @@ nvim-init-vim:
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
-nvim-vundle:
-  git.latest:
-    - name:  https://github.com/gmarik/vundle.git
-    - target: /home/{{ pillar['user'] }}/.config/nvim/bundle/Vundle.vim
+nvim-vim-plug:
+  cmd.run:
+    - name: curl -sfLo /home/{{ pillar['user'] }}/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    - unless: test -f /home/{{ pillar['user'] }}/.config/nvim/autoload/plug.vim
+    - user: {{ pillar['user'] }}
 
 nvim-vundle-plugins:
-  cmd.run:
-    - name: sudo -u {{ pillar['user'] }} nvim +PluginInstall +qall > /dev/null
+  cmd.script:
+    - source: salt://scripts/nvim-plugins.sh
+    - unless: test -d /home/{{ pillar['user'] }}/.config/nvim/plugged
+    - user: {{ pillar['user'] }}
+    - require:
+      - cmd: nvim-vim-plug
 
 solarized-xresources:
   file.symlink:
