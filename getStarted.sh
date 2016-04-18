@@ -3,4 +3,4 @@
 sudo mkdir -p /etc/salt/minion.d
 sudo cp /srv/files/local.conf /etc/salt/minion.d/
 sudo dnf install -y salt-minion
-sudo salt-call -l quiet state.highstate
+sudo salt-call -l quiet saltutil.refresh_pillar && sudo salt-call -l quiet state.highstate

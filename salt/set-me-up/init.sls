@@ -43,6 +43,11 @@ useful-applications-installed:
       - ctags
       - neovim
       - spotify-client
+      - patch
+      - xorg-x11-proto-devel
+      - fontconfig-devel
+      - libXft-devel
+      - libXext-devel
 
 st-terminal:
   cmd.script:
