@@ -20,6 +20,8 @@ Plug 'majutsushi/tagbar'
 Plug 'godlygeek/tabular'
 " Go plugin
 Plug 'fatih/vim-go', { 'for': 'go' }
+" Auto completion
+Plug 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required

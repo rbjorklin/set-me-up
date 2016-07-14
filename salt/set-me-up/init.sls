@@ -48,6 +48,17 @@ useful-applications-installed:
       - fontconfig-devel
       - libXft-devel
       - libXext-devel
+      - automake
+      - gcc
+      - gcc-c++
+      - kernel-devel
+      - cmake
+      - python3-devel
+      - python3-msgpack
+      - python3-greenlet
+      - python3-neovim
+      - golang
+      - gotags
 
 st-terminal:
   cmd.script:
@@ -94,13 +105,19 @@ nvim-vim-plug:
     - unless: test -f /home/{{ pillar['user'] }}/.config/nvim/autoload/plug.vim
     - user: {{ pillar['user'] }}
 
-nvim-vundle-plugins:
+nvim-vim-plug-install-plugins:
   cmd.script:
     - source: salt://scripts/nvim-plugins.sh
     - unless: test -d /home/{{ pillar['user'] }}/.config/nvim/plugged
     - user: {{ pillar['user'] }}
     - require:
       - cmd: nvim-vim-plug
+
+nvim-build-YouCompleteMe:
+  cmd.run:
+    - name: cd /home/{{ pillar['user'] }}/.config/nvim/plugged/YouCompleteMe ; python3 install.py --gocode-completer
+    - unless: test -f /home/{{ pillar['user'] }}/.config/nvim/plugged/YouCompleteMe/third_party/ycmd/ycm_core.so
+    - user: {{ pillar['user'] }}
 
 solarized-xresources:
   file.symlink:

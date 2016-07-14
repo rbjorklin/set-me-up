@@ -1,9 +1,20 @@
 [Desktop Entry]
 Name=st
 Comment=st is a simple virtual terminal emulator for X which sucks less
+TryExec=st
 Exec=st
 Terminal=false
 Type=Application
 Icon=utilities-terminal
 Categories=System;TerminalEmulator;
 X-Desktop-File-Install-Version=0.22
+StartupNotify=false
+Actions=tmux;tmux-attach;
+
+[Desktop Action tmux]
+Name=st tmux
+Exec=st -e tmux
+
+[Desktop Action tmux-attach]
+Name=st tmux attach
+Exec=st -e tmux attach
