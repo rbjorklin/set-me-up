@@ -51,6 +51,8 @@ source $ZSH/oh-my-zsh.sh
 #bindkey "^[[B" down-line-or-search
 
 # Aliaeses
+alias mit-scheme="rlwrap mit-scheme"
+alias racket="racket -il readline"
 alias t="task"
 alias tm="tmux attach || tmux new"
 alias slideshow "for pic in *.JPG ; do ; cp $pic slide.jpg ; sleep 1 ; done & gthumb -f slide.jpg"

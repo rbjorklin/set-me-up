@@ -9,7 +9,7 @@ Plug 'altercation/vim-colors-solarized'
 " File explorer, on-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Async syntax checks
-Plug 'benekastah/neomake'
+Plug 'neomake/neomake'
 " Fuzzy search
 Plug 'kien/ctrlp.vim'
 " Improved staus bar
@@ -18,10 +18,12 @@ Plug 'bling/vim-airline'
 Plug 'majutsushi/tagbar'
 " Make it easy to format text
 Plug 'godlygeek/tabular'
-" Go plugin
-Plug 'fatih/vim-go', { 'for': 'go' }
 " Auto completion
 Plug 'Valloric/YouCompleteMe'
+" Go plugin
+Plug 'fatih/vim-go', { 'for': 'go' }
+" Rust plugin
+Plug 'rust-lang/rust.vim', { 'for': 'rs' }
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
