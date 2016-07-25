@@ -56,6 +56,7 @@ alias racket="racket -il readline"
 alias t="task"
 alias tm="tmux attach || tmux new"
 alias slideshow "for pic in *.JPG ; do ; cp $pic slide.jpg ; sleep 1 ; done & gthumb -f slide.jpg"
+alias vim="vim -p" # Make vim open files in tabs by default
 
 # Variables
 export VISUAL="vim"

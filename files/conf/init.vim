@@ -96,6 +96,7 @@ set t_Co=256            " tell Vim that the terminal supports 256 colors
 syntax on               " syntax highlighting
 set hlsearch            " switch on highlighting the last used search pattern
 set mouse=""            " disable that stupid mouse support as it breaks the clipboard
+set hidden              " make it possible to keep buffer undo history when changing buffers
 
 let g:ctrlp_extensions = ['line'] " enable fuzzy search for lines extension
 let mapleader = " "
