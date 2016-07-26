@@ -48,7 +48,7 @@ if has("autocmd")
 
   " go support
   autocmd BufNewFile,BufRead *.go setlocal ft=go
-  autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=4
+  autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=4 foldmethod=syntax
 
   " Run Neomake on write file
   autocmd! BufWritePost * Neomake
