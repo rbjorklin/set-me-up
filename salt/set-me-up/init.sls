@@ -1,3 +1,4 @@
+# vim: set shiftwidth=2 tabstop=2 softtabstop=2 expandtab autoindent syntax=yaml:
 curl-installed:
   pkg.latest:
     - name: curl
@@ -18,15 +19,12 @@ neovim-repo:
     - name: dnf -y copr enable dperson/neovim
     - unless: dnf repolist | grep -m 1 dperson-neovim
 
+{% if pillar['type'].lower() == 'desktop' %}
 spotify-repo:
   cmd.run:
     - name: dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.repo
     - unless: dnf repolist | grep -m 1 spotify
-
-c-dev-pkg-group:
-  cmd.run:
-    - name: dnf groupinstall -y "C Development Tools and Libraries"
-    - unless: dnf grouplist | grep -Pzo "Installed groups:(.*\n)*Available groups:" | grep "C Development Tools and Libraries"
+{% endif %}
 
 useful-applications-installed:
   pkg.latest:
@@ -34,20 +32,16 @@ useful-applications-installed:
       - git
       - tmux
       - mosh
-      - firefox
-      - vlc
+{% if pillar['type'].lower() == 'slim' %}
+      - vim-enhanced
+{% endif %}
+{% if pillar['type'] in ['desktop', 'server'] %}
+      - neovim
+      - ctags
       - irssi
       - task
-      - levien-inconsolata-fonts
       - zsh
-      - ctags
-      - neovim
-      - spotify-client
-      - patch
-      - xorg-x11-proto-devel
-      - fontconfig-devel
-      - libXft-devel
-      - libXext-devel
+      # BEGIN YouCompleteMe build dependencies
       - automake
       - gcc
       - gcc-c++
@@ -59,16 +53,38 @@ useful-applications-installed:
       - python3-neovim
       - golang
       - gotags
+      # END YouCompleteMe
+{% endif %}
+{% if pillar['type'].lower() == 'desktop' %}
+      - firefox
+      - vlc
+      - levien-inconsolata-fonts
+      - spotify-client
+      # BEGIN st build dependencies
+      - patch
+      - xorg-x11-proto-devel
+      - fontconfig-devel
+      - libXft-devel
+      - libXext-devel
+      # END st
 
 st-terminal:
   cmd.script:
     - source: salt://scripts/build-st.sh
     - unless: test -f /usr/local/bin/st
 
-vconsole-colemak:
-  file.managed:
-    - name: /etc/vconsole.conf
-    - source: salt://conf/vconsole.conf
+someone-who-cares-hosts:
+  cmd.run:
+    - name: curl -s -o /etc/hosts http://someonewhocares.org/hosts/zero/hosts
+    - unless: test "$(curl -s http://someonewhocares.org/hosts/zero/hosts | sha512sum)" = "$(cat /etc/hosts | sha512sum)"
+{% endif %}
+
+{% if pillar['user'].lower() != 'n/a' %}
+create-user-{{ pillar['user'] }}:
+  user.present:
+    - name: {{ pillar['user'] }}
+    - shell: /usr/bin/zsh
+    - remove_groups: False
 
 oh-my-zsh:
   git.latest:
@@ -81,16 +97,6 @@ oh-my-zsh-zshrc:
     - target: /srv/files/conf/zshrc
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
-
-{{ pillar['user'] }}:
-  user.present:
-    - shell: /usr/bin/zsh
-    - remove_groups: False
-
-someone-who-cares-hosts:
-  cmd.run:
-    - name: curl -s -o /etc/hosts http://someonewhocares.org/hosts/zero/hosts
-    - unless: test "$(curl -s http://someonewhocares.org/hosts/zero/hosts | sha512sum)" = "$(cat /etc/hosts | sha512sum)"
 
 nvim-init-vim:
   file.symlink:
@@ -105,26 +111,23 @@ nvim-vim-plug:
     - unless: test -f /home/{{ pillar['user'] }}/.config/nvim/autoload/plug.vim
     - user: {{ pillar['user'] }}
 
+nvim-vim-plug-update-plugins:
+  cmd.script:
+    - source: salt://scripts/nvim-plugins-update.sh
+    - onlyif: test -d /home/{{ pillar['user'] }}/.config/nvim/plugged
+    - user: {{ pillar['user'] }}
+
 nvim-vim-plug-install-plugins:
   cmd.script:
-    - source: salt://scripts/nvim-plugins.sh
+    - source: salt://scripts/nvim-plugins-install.sh
     - unless: test -d /home/{{ pillar['user'] }}/.config/nvim/plugged
     - user: {{ pillar['user'] }}
-    - require:
-      - cmd: nvim-vim-plug
 
 nvim-build-YouCompleteMe:
   cmd.run:
     - name: cd /home/{{ pillar['user'] }}/.config/nvim/plugged/YouCompleteMe ; python3 install.py --gocode-completer
     - unless: test -f /home/{{ pillar['user'] }}/.config/nvim/plugged/YouCompleteMe/third_party/ycmd/ycm_core.so
     - user: {{ pillar['user'] }}
-
-solarized-xresources:
-  file.symlink:
-    - name: /home/{{ pillar['user'] }}/.Xresources
-    - target: /srv/files/conf/Xresources
-    - user: {{ pillar['user'] }}
-    - group: {{ pillar['user'] }}
 
 tmux-conf:
   file.symlink:
@@ -133,10 +136,19 @@ tmux-conf:
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
+{% if pillar['type'].lower() in ['desktop', 'server'] %}
 task-conf:
   file.symlink:
     - name: /home/{{ pillar['user'] }}/.taskrc
     - target: /srv/files/conf/taskrc
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
+{% endif %}
+
+solarized-xresources:
+  file.symlink:
+    - name: /home/{{ pillar['user'] }}/.Xresources
+    - target: /srv/files/conf/Xresources
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
@@ -145,6 +157,15 @@ fix-ownership:
     - name: /home/{{ pillar['user'] }}
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
+    - mode: 750
     - recurse:
       - user
       - group
+{% endif %}
+
+{% if pillar['type'] in ['desktop', 'server'] %}
+vconsole-colemak:
+  file.managed:
+    - name: /etc/vconsole.conf
+    - source: salt://conf/vconsole.conf
+{% endif %}
