@@ -164,7 +164,7 @@ fix-ownership:
     - name: /home/{{ pillar['user'] }}
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
-    - mode: 750
+    - mode: 700
     - recurse:
       - user
       - group
