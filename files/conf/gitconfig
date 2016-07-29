@@ -3,3 +3,5 @@
 	name = Robin Bjorklin
 [push]
 	default = simple
+[github]
+        user = rbjorklin
