@@ -77,6 +77,20 @@ someone-who-cares-hosts:
   cmd.run:
     - name: curl -s -o /etc/hosts http://someonewhocares.org/hosts/zero/hosts
     - unless: test "$(curl -s http://someonewhocares.org/hosts/zero/hosts | sha512sum)" = "$(cat /etc/hosts | sha512sum)"
+
+solarized-xresources:
+  file.symlink:
+    - name: /home/{{ pillar['user'] }}/.Xresources
+    - target: /srv/files/conf/Xresources
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
+
+gitconfig:
+  file.symlink:
+    - name: /home/{{ pillar['user'] }}/.gitconfig
+    - target: /srv/files/conf/gitconfig
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
 {% endif %}
 
 {% if pillar['user'].lower() != 'n/a' %}
@@ -102,13 +116,7 @@ nvim-init-vim:
   file.symlink:
     - name: /home/{{ pillar['user'] }}/.config/nvim/init.vim
     - target: /srv/files/conf/init.vim
-    - user: {{ pillar['user'] }}
-    - group: {{ pillar['user'] }}
-
-gitconfig:
-  file.symlink:
-    - name: /home/{{ pillar['user'] }}/.gitconfig
-    - target: /srv/files/conf/gitconfig
+    - makedirs: True
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
@@ -151,13 +159,6 @@ task-conf:
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 {% endif %}
-
-solarized-xresources:
-  file.symlink:
-    - name: /home/{{ pillar['user'] }}/.Xresources
-    - target: /srv/files/conf/Xresources
-    - user: {{ pillar['user'] }}
-    - group: {{ pillar['user'] }}
 
 fix-ownership:
   file.directory:
