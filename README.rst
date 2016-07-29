@@ -7,5 +7,5 @@ Running getStarted.sh does an initial setup of the system to my liking. This is 
 You want to use this?
 =====================
 
-* `git clone https://github.com/rbjorklin/set-me-up /srv`
-* `sudo /srv/getStarted.sh <username> [desktop|server]`
+* ``git clone https://github.com/rbjorklin/set-me-up /srv``
+* ``sudo /srv/getStarted.sh [<username>|n/a] [desktop|server|slim]``
