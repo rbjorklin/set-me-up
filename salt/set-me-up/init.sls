@@ -105,6 +105,13 @@ nvim-init-vim:
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
+gitconfig:
+  file.symlink:
+    - name: /home/{{ pillar['user'] }}/.gitconfig
+    - target: /srv/files/conf/gitconfig
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
+
 nvim-vim-plug:
   cmd.run:
     - name: curl -sfLo /home/{{ pillar['user'] }}/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
