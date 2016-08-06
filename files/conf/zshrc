@@ -49,6 +49,7 @@ source $ZSH/oh-my-zsh.sh
 #bindkey -v
 #bindkey "^[[A" up-line-or-search
 #bindkey "^[[B" down-line-or-search
+bindkey "^u" backward-kill-line # makes ctrl + u behave the same as bash (emacs)
 
 # Aliaeses
 alias mit-scheme="rlwrap mit-scheme"
