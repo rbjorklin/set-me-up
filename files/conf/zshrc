@@ -64,6 +64,6 @@ export VISUAL="vim"
 export EDITOR="vim"
 
 # Spotify
-export PATH=${PATH}:/opt/spotify/bin:~/.software/idea-IC-145.972.3/bin
+export PATH=${PATH}:/opt/spotify/bin:~/.local/bin
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/spotify/lib
 export DOCKER_HOST=tcp://localhost:2375
