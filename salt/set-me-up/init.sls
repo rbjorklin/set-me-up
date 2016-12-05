@@ -140,7 +140,8 @@ nvim-vim-plug-install-plugins:
 
 nvim-build-YouCompleteMe:
   cmd.run:
-    - name: cd /home/{{ pillar['user'] }}/.config/nvim/plugged/YouCompleteMe ; python3 install.py --gocode-completer
+    - name: python3 install.py --gocode-completer
+    - cwd: /home/{{ pillar['user'] }}/.config/nvim/plugged/YouCompleteMe
     - unless: test -f /home/{{ pillar['user'] }}/.config/nvim/plugged/YouCompleteMe/third_party/ycmd/ycm_core.so
     - user: {{ pillar['user'] }}
 
