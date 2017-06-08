@@ -40,7 +40,7 @@ useful-applications-installed:
 {% if pillar['type'].lower() == 'slim' %}
       - vim-enhanced
 {% endif %}
-{% if pillar['type'] in ['desktop', 'server'] %}
+{% if pillar['type'].lower() in ['desktop', 'server'] %}
       - neovim
       - ctags
       - irssi
@@ -64,7 +64,10 @@ useful-applications-installed:
       - firefox
       - vlc
       - levien-inconsolata-fonts
+      - mozilla-fira-mono-fonts
+      - mozilla-fira-sans-fonts
       - spotify-client
+      - gpaste
       # BEGIN st build dependencies
       - patch
       - xorg-x11-proto-devel
