@@ -69,6 +69,8 @@ useful-applications-installed:
       - spotify-client
       - java-1.8.0-openjdk-devel
       - gpaste
+      - VirtualBox
+      - akmod-VirtualBox
       # BEGIN st build dependencies
       - patch
       - xorg-x11-proto-devel
@@ -77,10 +79,12 @@ useful-applications-installed:
       - libXext-devel
       # END st
 
-st-terminal:
-  cmd.script:
-    - source: salt://scripts/build-st.sh
-    - unless: test -f /usr/local/bin/st
+{% set vagrantDownload = salt['cmd.run']('curl -s https://www.vagrantup.com/downloads.html | grep -o "https://.*x86_64\.rpm"') %}
+
+vagrant-installed:
+  cmd.run:
+    - name: curl -s {{ vagrantDownload }} -o /tmp/vagrant_x86_64.rpm && dnf install -y /tmp/vagrant_x86_64.rpm && rm -f /tmp/vagrant_x86_64.rpm
+    - unless: rpm -q vagrant
 
 someone-who-cares-hosts:
   cmd.run:
