@@ -67,6 +67,7 @@ useful-applications-installed:
       - mozilla-fira-mono-fonts
       - mozilla-fira-sans-fonts
       - spotify-client
+      - java-1.8.0-openjdk-devel
       - gpaste
       # BEGIN st build dependencies
       - patch
@@ -184,5 +185,7 @@ fix-ownership:
 vconsole-colemak:
   file.managed:
     - name: /etc/vconsole.conf
-    - source: salt://conf/vconsole.conf
+    - contents: |
+        KEYMAP="us-colemak"
+        FONT="eurlatgr"
 {% endif %}
