@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 #bindkey "^[[B" down-line-or-search
 bindkey "^u" backward-kill-line # makes ctrl + u behave the same as bash (emacs)
 
-# Aliaeses
+# Aliases
 alias mit-scheme="rlwrap mit-scheme"
 alias racket="racket -il readline"
 alias t="task"
