@@ -20,6 +20,11 @@ neovim-repo:
     - unless: dnf repolist | grep -m 1 dperson-neovim
 
 {% if pillar['type'].lower() == 'desktop' %}
+gnome-app-switcher-only-current-workspace:
+  cmd.run:
+    - name: gsettings set org.gnome.shell.app-switcher current-workspace-only true
+    - unless: gsettings get org.gnome.shell.app-switcher current-workspace-only | grep true
+
 spotify-repo:
   cmd.run:
     - name: dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.repo
