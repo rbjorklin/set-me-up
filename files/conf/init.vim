@@ -2,7 +2,7 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible " be iMproved
 filetype off " required for Vundle!
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 " Solarized color scheme
 Plug 'altercation/vim-colors-solarized'
@@ -19,7 +19,7 @@ Plug 'majutsushi/tagbar'
 " Make it easy to format text
 Plug 'godlygeek/tabular'
 " Auto completion
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --gocode-completer' }
 " Go plugin
 Plug 'fatih/vim-go', { 'for': 'go' }
 " Rust plugin

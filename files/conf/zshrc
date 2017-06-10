@@ -58,6 +58,7 @@ alias t="task"
 alias tm="tmux attach || tmux new"
 alias slideshow "for pic in *.JPG ; do ; cp $pic slide.jpg ; sleep 1 ; done & gthumb -f slide.jpg"
 alias vim="vim -p" # Make vim open files in tabs by default
+alias upgrade_intellij="sudo salt-call state.sls set-me-up.upgrade-intellij pillar=\"{\"user\":\"$USER\"}\""
 
 # Variables
 export VISUAL="vim"
@@ -67,3 +68,7 @@ export EDITOR="vim"
 export PATH=${PATH}:/opt/spotify/bin:~/.local/bin
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/spotify/lib
 export DOCKER_HOST=tcp://localhost:2375
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

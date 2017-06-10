@@ -5,8 +5,14 @@ curl-installed:
     - refresh: True
 
 rpmfusion-pkgrepo:
-  cmd.script:
-    - source: salt://scripts/rpmfusion.sh
+  cmd.run:
+    - name: |
+        curl -L -s -o RPM-GPG-KEY-rpmfusion-nonfree-fedora-$(rpm -E %fedora) "http://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-$(rpm -E %fedora)"
+        curl -L -s -o RPM-GPG-KEY-rpmfusion-free-fedora-$(rpm -E %fedora) "http://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-$(rpm -E %fedora)"
+        rpm --import RPM-GPG-KEY-rpmfusion-free-fedora-$(rpm -E %fedora)
+        rpm --import RPM-GPG-KEY-rpmfusion-nonfree-fedora-$(rpm -E %fedora)
+        rm RPM-GPG-KEY-rpmfusion-*free-fedora-$(rpm -E %fedora)
+        dnf install -y http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     - unless: rpm -q rpmfusion-free-release rpmfusion-nonfree-release
 
 dnf-plugins-core:
@@ -24,6 +30,7 @@ gnome-app-switcher-only-current-workspace:
   cmd.run:
     - name: gsettings set org.gnome.shell.app-switcher current-workspace-only true
     - unless: gsettings get org.gnome.shell.app-switcher current-workspace-only | grep true
+    - runas: {{ pillar['user'] }}
 
 spotify-repo:
   cmd.run:
@@ -37,6 +44,8 @@ useful-applications-installed:
       - git
       - tmux
       - mosh
+      - zip
+      - unzip
 {% if pillar['type'].lower() == 'slim' %}
       - vim-enhanced
 {% endif %}
@@ -61,8 +70,10 @@ useful-applications-installed:
       # END YouCompleteMe
 {% endif %}
 {% if pillar['type'].lower() == 'desktop' %}
+      - jq
       - firefox
       - vlc
+      - thunderbird
       - levien-inconsolata-fonts
       - mozilla-fira-mono-fonts
       - mozilla-fira-sans-fonts
@@ -71,13 +82,6 @@ useful-applications-installed:
       - gpaste
       - VirtualBox
       - akmod-VirtualBox
-      # BEGIN st build dependencies
-      - patch
-      - xorg-x11-proto-devel
-      - fontconfig-devel
-      - libXft-devel
-      - libXext-devel
-      # END st
 
 {% set vagrantDownload = salt['cmd.run']('curl -s https://www.vagrantup.com/downloads.html | grep -o "https://.*x86_64\.rpm"') %}
 
@@ -90,13 +94,6 @@ someone-who-cares-hosts:
   cmd.run:
     - name: curl -s -o /etc/hosts http://someonewhocares.org/hosts/zero/hosts
     - unless: test "$(curl -s http://someonewhocares.org/hosts/zero/hosts | sha512sum)" = "$(cat /etc/hosts | sha512sum)"
-
-solarized-xresources:
-  file.symlink:
-    - name: /home/{{ pillar['user'] }}/.Xresources
-    - target: /srv/files/conf/Xresources
-    - user: {{ pillar['user'] }}
-    - group: {{ pillar['user'] }}
 
 gitconfig:
   file.symlink:
@@ -135,28 +132,18 @@ nvim-init-vim:
 
 nvim-vim-plug:
   cmd.run:
-    - name: curl -sfLo /home/{{ pillar['user'] }}/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    - unless: test -f /home/{{ pillar['user'] }}/.config/nvim/autoload/plug.vim
-    - user: {{ pillar['user'] }}
-
-nvim-vim-plug-update-plugins:
-  cmd.script:
-    - source: salt://scripts/nvim-plugins-update.sh
-    - onlyif: test -d /home/{{ pillar['user'] }}/.config/nvim/plugged
-    - user: {{ pillar['user'] }}
+    - name: curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    - unless: test -f ~/.local/share/nvim/site/autoload/plug.vim
+    - runas: {{ pillar['user'] }}
 
 nvim-vim-plug-install-plugins:
-  cmd.script:
-    - source: salt://scripts/nvim-plugins-install.sh
-    - unless: test -d /home/{{ pillar['user'] }}/.config/nvim/plugged
-    - user: {{ pillar['user'] }}
-
-nvim-build-YouCompleteMe:
   cmd.run:
-    - name: python3 install.py --gocode-completer
-    - cwd: /home/{{ pillar['user'] }}/.config/nvim/plugged/YouCompleteMe
-    - unless: test -f /home/{{ pillar['user'] }}/.config/nvim/plugged/YouCompleteMe/third_party/ycmd/ycm_core.so
-    - user: {{ pillar['user'] }}
+    - name: nvim --headless -c PlugInstall -c quitall
+    - unless: test -d ~/.local/share/nvim/plugged
+    - runas: {{ pillar['user'] }}
+
+{% include 'set-me-up/upgrade-intellij.sls' %}
+    - unless: test -d ~/.local/share/intellij
 
 tmux-conf:
   file.symlink:
@@ -164,6 +151,12 @@ tmux-conf:
     - target: /srv/files/conf/tmux.conf
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
+
+sdkman-installed:
+  cmd.run:
+    - name: curl -s "https://get.sdkman.io" | zsh
+    - runas: {{ pillar['user'] }}
+    - unless: test -d ~/.sdkman
 
 {% if pillar['type'].lower() in ['desktop', 'server'] %}
 task-conf:
