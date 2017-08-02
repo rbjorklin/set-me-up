@@ -69,6 +69,11 @@ export PATH=${PATH}:/opt/spotify/bin:~/.local/bin
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/spotify/lib
 export DOCKER_HOST=tcp://localhost:2375
 
+function load-jdk9() {
+    export PATH=~/.local/share/jdk-9/bin:${PATH}:/opt/spotify/bin:~/.local/bin
+    export LD_LIBRARY_PATH=~/.local/share/jdk-9/lib:${LD_LIBRARY_PATH}:/opt/spotify/lib
+}
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
