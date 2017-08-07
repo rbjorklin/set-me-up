@@ -32,6 +32,12 @@ gnome-app-switcher-only-current-workspace:
     - unless: gsettings get org.gnome.shell.app-switcher current-workspace-only | grep true
     - runas: {{ pillar['user'] }}
 
+gnome-calendar-show-week:
+  cmd.run:
+    - name: gsettings set org.gnome.desktop.calendar show-weekdate true
+    - unless: gsettings get org.gnome.desktop.calendar show-weekdate | grep true
+    - runas: {{ pillar['user'] }}
+
 spotify-repo:
   cmd.run:
     - name: dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.repo

@@ -58,7 +58,6 @@ alias t="task"
 alias tm="tmux attach || tmux new"
 alias slideshow "for pic in *.JPG ; do ; cp $pic slide.jpg ; sleep 1 ; done & gthumb -f slide.jpg"
 alias vim="vim -p" # Make vim open files in tabs by default
-alias upgrade_intellij="sudo salt-call state.sls set-me-up.upgrade-intellij pillar=\"{\"user\":\"$USER\"}\""
 
 # Variables
 export VISUAL="vim"
@@ -68,6 +67,13 @@ export EDITOR="vim"
 export PATH=${PATH}:/opt/spotify/bin:~/.local/bin
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/spotify/lib
 export DOCKER_HOST=tcp://localhost:2375
+
+# Load the kubectl completion code for zsh[1] into the current shell                                    
+which kubectl &> /dev/null && source <(kubectl completion zsh)
+
+function upgrade_intellij() {
+    sudo salt-call state.sls set-me-up.upgrade-intellij pillar="{\"user\":\"$USER\"}"
+}
 
 function load-jdk9() {
     export PATH=~/.local/share/jdk-9/bin:${PATH}:/opt/spotify/bin:~/.local/bin
