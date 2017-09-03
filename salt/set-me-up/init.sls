@@ -89,12 +89,13 @@ useful-applications-installed:
       - VirtualBox
       - akmod-VirtualBox
 
-{% set vagrantDownload = salt['cmd.run']('curl -s https://www.vagrantup.com/downloads.html | grep -o "https://.*x86_64\.rpm"') %}
+{% set vagrantDownload = salt['cmd.run']('curl -s https://www.vagrantup.com/downloads.html | grep -m 1 -o "https://.*x86_64\.rpm"') %}
+{% set vagrantVersion = salt['cmd.run']('echo ' + vagrantDownload + ' | egrep -m 1 -o "[0-9]\.[0-9]+\.[0-9]+" | head -n 1') %}
 
 vagrant-installed:
   cmd.run:
     - name: curl -s {{ vagrantDownload }} -o /tmp/vagrant_x86_64.rpm && dnf install -y /tmp/vagrant_x86_64.rpm && rm -f /tmp/vagrant_x86_64.rpm
-    - unless: rpm -q vagrant
+    - unless: rpm -q vagrant-{{ vagrantVersion }}
 
 someone-who-cares-hosts:
   cmd.run:
