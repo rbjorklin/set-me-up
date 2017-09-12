@@ -20,10 +20,12 @@ dnf-plugins-core:
     - name: dnf -y install dnf-plugins-core
     - unless: rpm -q dnf-plugins-core
 
+{% if pillar['type'].lower() == 'server' %}
 neovim-repo:
   cmd.run:
-    - name: dnf -y copr enable dperson/neovim
-    - unless: dnf repolist | grep -m 1 dperson-neovim
+    - name: curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo
+    - unless: test -f /etc/yum.repos.d/dperson-neovim-epel-7.repo
+{% endif %}
 
 {% if pillar['type'].lower() == 'desktop' %}
 gnome-app-switcher-only-current-workspace:
