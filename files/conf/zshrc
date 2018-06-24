@@ -68,7 +68,7 @@ export PATH=${PATH}:/opt/spotify/bin:~/.local/bin
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/spotify/lib
 export DOCKER_HOST=tcp://localhost:2375
 
-# Load the kubectl completion code for zsh[1] into the current shell                                    
+# Load the kubectl completion code for zsh[1] into the current shell
 which kubectl &> /dev/null && source <(kubectl completion zsh)
 
 function upgrade_intellij() {
@@ -81,5 +81,9 @@ function load-jdk9() {
 }
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# opam configuration
+test -r /home/rbjorklin/.opam/opam-init/init.zsh && . /home/rbjorklin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# Needed for topkg to install correctly, see: https://github.com/ocaml/opam-repository/issues/34#issuecomment-9321796
+export OCAML_TOPLEVEL_PATH=~/.opam/default/lib

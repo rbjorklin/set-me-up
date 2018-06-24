@@ -9,9 +9,9 @@ Plug 'altercation/vim-colors-solarized'
 " File explorer, on-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Async syntax checks
-Plug 'neomake/neomake'
+Plug 'vim-syntastic/syntastic'
 " Fuzzy search
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Improved staus bar
 Plug 'bling/vim-airline'
 " Class outline viewer
@@ -24,12 +24,16 @@ Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --gocode-completer'
 Plug 'fatih/vim-go', { 'for': 'go' }
 " Rust plugin
 Plug 'rust-lang/rust.vim', { 'for': 'rs' }
-" Clojure plugin
+" Clojure syntax highlighting
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
-" Clojure plugin
+" Clojure REPL support
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+" Clojure extended syntax highlighting
+Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 " Rainbow colored parentheses, prime for Clojure
-Plug 'kien/rainbow_parentheses.vim', { 'for': 'clojure' }
+Plug 'junegunn/rainbow_parentheses.vim', { 'for': 'clojure' }
+" OCaml auto indent
+Plug 'OCamlPro/ocp-indent', { 'for': 'ocaml' }
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -52,14 +56,11 @@ if has("autocmd")
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
 
-  autocmd BufNewFile,BufRead *.clj RainbowParenthesesToggle
+  autocmd BufNewFile,BufRead *.clj RainbowParentheses!!
 
   " go support
   autocmd BufNewFile,BufRead *.go setlocal ft=go
   autocmd FileType go setlocal shiftwidth=8 tabstop=8 softtabstop=4 foldmethod=syntax
-
-  " Run Neomake on write file
-  autocmd! BufWritePost * Neomake
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -135,22 +136,26 @@ map <Leader>t :TagbarToggle<CR>
 " CtrlP fuzzy line search
 map <Leader>f :CtrlPLine<CR>
 
+" OCaml auto-completion with merlin
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+
 " Adjusted Rainbow parentheses colors, `black` was changed to `darkgray`
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkgray',    'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+" let g:rbpt_colorpairs = [
+"     \ ['brown',       'RoyalBlue3'],
+"     \ ['Darkblue',    'SeaGreen3'],
+"     \ ['darkgray',    'DarkOrchid3'],
+"     \ ['darkgreen',   'firebrick3'],
+"     \ ['darkcyan',    'RoyalBlue3'],
+"     \ ['darkred',     'SeaGreen3'],
+"     \ ['darkmagenta', 'DarkOrchid3'],
+"     \ ['brown',       'firebrick3'],
+"     \ ['gray',        'RoyalBlue3'],
+"     \ ['darkgray',    'SeaGreen3'],
+"     \ ['darkmagenta', 'DarkOrchid3'],
+"     \ ['Darkblue',    'firebrick3'],
+"     \ ['darkgreen',   'RoyalBlue3'],
+"     \ ['darkcyan',    'SeaGreen3'],
+"     \ ['darkred',     'DarkOrchid3'],
+"     \ ['red',         'firebrick3'],
+"     \ ]
