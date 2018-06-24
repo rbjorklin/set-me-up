@@ -32,6 +32,8 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 " Rainbow colored parentheses, prime for Clojure
 Plug 'junegunn/rainbow_parentheses.vim', { 'for': 'clojure' }
+" Superior Lisp Interaction Mode for Vim
+Plug 'kovisoft/slimv', { 'for': 'clojure' }
 " OCaml auto indent
 Plug 'OCamlPro/ocp-indent', { 'for': 'ocaml' }
 
