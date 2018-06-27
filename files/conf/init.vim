@@ -36,6 +36,8 @@ Plug 'junegunn/rainbow_parentheses.vim', { 'for': 'clojure' }
 Plug 'kovisoft/slimv', { 'for': 'clojure' }
 " OCaml auto indent
 Plug 'OCamlPro/ocp-indent', { 'for': 'ocaml' }
+" Vim indent guide
+Plug 'nathanaelkane/vim-indent-guides',
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -112,6 +114,10 @@ set hidden              " make it possible to keep buffer undo history when chan
 let g:ctrlp_extensions = ['line'] " enable fuzzy search for lines extension
 let mapleader = " "
 
+" https://github.com/nathanaelkane/vim-indent-guides
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+
 map <Leader>o o<ESC>
 map <Leader>O O<ESC>
 map <Leader>w :w<CR>
@@ -139,8 +145,8 @@ map <Leader>t :TagbarToggle<CR>
 map <Leader>f :CtrlPLine<CR>
 
 " OCaml auto-completion with merlin
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
+" let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+" execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 " Adjusted Rainbow parentheses colors, `black` was changed to `darkgray`
 " let g:rbpt_colorpairs = [
@@ -161,3 +167,8 @@ execute "set rtp+=" . g:opamshare . "/merlin/vim"
 "     \ ['darkred',     'DarkOrchid3'],
 "     \ ['red',         'firebrick3'],
 "     \ ]
+
+" Shift Insert does something magic?
+map <S-Insert> "*gP
+cmap <S-Insert> <C-R>*
+imap <S-Insert> <C-R>*

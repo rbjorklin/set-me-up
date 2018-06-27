@@ -4,7 +4,7 @@ install-intellij:
   cmd.run:
     - name: |
         rm -rf ~/.local/share/intellij
-        URL=$(curl -s "https://data.services.jetbrains.com/products/releases?code=IIC&latest=true&type=release" | jq -r '.IIC[0].downloads.linuxWithoutJDK.link')
+        URL=$(curl -s "https://data.services.jetbrains.com/products/releases?code=IIC&latest=true&type=release" | jq -r '.IIC[0].downloads.linux.link')
         curl -s -o /tmp/intellij.tar.gz -L "$URL"
         mkdir -p ~/.local/share/intellij
         cd ~/.local/share/intellij

@@ -58,6 +58,8 @@ alias t="task"
 alias tm="tmux attach || tmux new"
 alias slideshow "for pic in *.JPG ; do ; cp $pic slide.jpg ; sleep 1 ; done & gthumb -f slide.jpg"
 alias vim="vim -p" # Make vim open files in tabs by default
+alias urldecode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.unquote_plus(sys.argv[1]))"'
+alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.quote_plus(sys.argv[1]))"'
 
 # Variables
 export VISUAL="vim"
