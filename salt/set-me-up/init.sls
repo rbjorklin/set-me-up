@@ -167,6 +167,16 @@ sdkman-installed:
     - runas: {{ pillar['user'] }}
     - unless: test -d ~/.sdkman
 
+lein-installed:
+  cmd.run:
+    - name: curl -s -L -o /usr/local/bin/lein https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    - unless: test -f /usr/local/bin/lein
+
+lein-completion-installed:
+  cmd.run:
+    - name: curl -s -L -o /usr/share/zsh/site-functions/_lein https://raw.githubusercontent.com/technomancy/leiningen/master/zsh_completion.zsh
+    - unless: test -f /usr/share/zsh/site-functions/_lein
+
 {% if pillar['type'].lower() in ['desktop', 'server'] %}
 task-conf:
   file.symlink:
