@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Activity Logger
+GenericName=Activity Logger
+Comment=Writes screensaver lock & unlock events to ~/.time_log.csv
+Keywords=activity;logger;log;
+Exec=/srv/files/script/activity_logger.py
+Icon=org.gnome.clocks
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Utility;Clock;
+StartupNotify=false
+DBusActivatable=false
