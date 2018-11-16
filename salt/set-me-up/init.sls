@@ -205,3 +205,12 @@ vconsole-colemak:
         KEYMAP="us-colemak"
         FONT="eurlatgr"
 {% endif %}
+
+systemd-resolved:
+  service.running:
+    - name: systemd-resolved
+    - enable: True
+  file.symlink:
+    - name: /etc/resolv.conf
+    - target: /srv/files/conf/gitconfig
+    - force: True

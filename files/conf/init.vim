@@ -37,7 +37,11 @@ Plug 'junegunn/rainbow_parentheses.vim', { 'for': 'clojure' }
 " OCaml auto indent
 Plug 'OCamlPro/ocp-indent', { 'for': 'ocaml' }
 " Vim indent guide
-Plug 'nathanaelkane/vim-indent-guides',
+Plug 'nathanaelkane/vim-indent-guides'
+" Improved rst editing
+Plug 'gu-fan/riv.vim'
+" Instant feedback on rst editing
+Plug 'gu-fan/InstantRst'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -110,6 +114,8 @@ syntax on               " syntax highlighting
 set hlsearch            " switch on highlighting the last used search pattern
 set mouse=""            " disable that stupid mouse support as it breaks the clipboard
 set hidden              " make it possible to keep buffer undo history when changing buffers
+
+let g:riv_disable_folding=1
 
 let g:ctrlp_extensions = ['line'] " enable fuzzy search for lines extension
 let mapleader = " "
