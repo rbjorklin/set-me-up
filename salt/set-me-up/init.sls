@@ -62,8 +62,8 @@ base-applications-installed:
 {% if pillar['type'].lower() == 'desktop' %}
 
 {% for application, url in [('vagrant', 'https://www.vagrantup.com/downloads.html'), ('slack', 'https://slack.com/downloads/instructions/fedora')] %}
-{% set applicationDownload = salt['cmd.run']('curl -s ' + url + ' | grep -m 1 -o "https://.*x86_64\.rpm"') %}
-{% set applicationVersion = salt['cmd.run']('echo ' + applicationDownload + ' | egrep -m 1 -o "[0-9]\.[0-9]+\.[0-9]+"') %}
+{% set applicationDownload = salt['cmd.shell']('curl -s ' + url + ' | grep -m 1 -o "https://.*x86_64\.rpm" | head -n 1') %}
+{% set applicationVersion = salt['cmd.shell']('echo ' + applicationDownload + ' | egrep -m 1 -o "[0-9]\.[0-9]+\.[0-9]+" | head -n 1') %}
 
 {{ application }}-installed:
   cmd.run:
@@ -122,10 +122,11 @@ spotify-repo:
 docker-ce-repo:
   cmd.run:
     - name: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-    - unless: dnf repolist | grep -m 1 docker-ce
+    - unless: test -f /etc/yum.repos.d/docker-ce.repo
 
 desktop-applications-installed:
   pkg.latest:
+    - refresh: True
     - pkgs:
       - jq
       - firefox
@@ -155,21 +156,21 @@ gnome-terminal-with-tmux-for-startup:
     - name: /home/{{ pillar['user'] }}/.local/share/applications/org.gnome.Terminal.tmux.desktop
     - makedirs: True
     - contents: |
-      [Desktop Entry]
-      Name=Terminal with tmux
-      Comment=Use the command line
-      Keywords=shell;prompt;command;commandline;cmd;
-      TryExec=gnome-terminal
-      Exec=gnome-terminal -- tmux
-      Icon=utilities-terminal
-      Type=Application
-      X-GNOME-DocPath=gnome-terminal/index.html
-      X-GNOME-Bugzilla-Bugzilla=GNOME
-      X-GNOME-Bugzilla-Product=gnome-terminal
-      X-GNOME-Bugzilla-Component=BugBuddyBugs
-      Categories=GNOME;GTK;System;TerminalEmulator;
-      StartupNotify=true
-      X-GNOME-SingleWindow=false
+        [Desktop Entry]
+        Name=Terminal with tmux
+        Comment=Use the command line
+        Keywords=shell;prompt;command;commandline;cmd;
+        TryExec=gnome-terminal
+        Exec=gnome-terminal -- tmux
+        Icon=utilities-terminal
+        Type=Application
+        X-GNOME-DocPath=gnome-terminal/index.html
+        X-GNOME-Bugzilla-Bugzilla=GNOME
+        X-GNOME-Bugzilla-Product=gnome-terminal
+        X-GNOME-Bugzilla-Component=BugBuddyBugs
+        Categories=GNOME;GTK;System;TerminalEmulator;
+        StartupNotify=true
+        X-GNOME-SingleWindow=false
 {% endif %}
 
 someone-who-cares-hosts:
@@ -275,16 +276,6 @@ fix-ownership:
     - recurse:
       - user
       - group
-{% endif %}
-
-{% if pillar['type'] in ['desktop', 'server'] %}
-vconsole-colemak:
-  file.managed:
-    - name: /etc/vconsole.conf
-    - contents: |
-        KEYMAP="us-colemak"
-        FONT="eurlatgr"
-{% endif %}
 
 systemd-resolved:
   service.running:
