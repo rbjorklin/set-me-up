@@ -171,6 +171,44 @@ gnome-terminal-with-tmux-for-startup:
         Categories=GNOME;GTK;System;TerminalEmulator;
         StartupNotify=true
         X-GNOME-SingleWindow=false
+
+firefox-on-wayland-desktop-app:
+  file.managed:
+    - name: /usr/share/applications/firefox-on-wayland.desktop
+    - contents: |
+        [Desktop Entry]
+        Version=1.0
+        Name=Firefox on Wayland
+        GenericName=Web Browser
+        Comment=Browse the Web
+        Exec=/usr/local/bin/firefox-on-wayland %u
+        Icon=firefox
+        Terminal=false
+        Type=Application
+        MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;text/mml;x-scheme-handler/http;x-scheme-handler/https;
+        StartupNotify=true
+        Categories=Network;WebBrowser;
+        Keywords=web;browser;internet;
+        Actions=new-window;new-private-window;
+        X-Desktop-File-Install-Version=0.23
+        
+        [Desktop Action new-window]
+        Name=Open a New Window
+        Exec=/usr/local/bin/firefox-on-wayland --new-window %u
+        
+        [Desktop Action new-private-window]
+        Name=Open a New Private Window
+        Exec=/usr/local/bin/firefox-on-wayland --private-window %u
+
+firefox-on-wayland-wrapper:
+  file.managed:
+    - name: /usr/local/bin/firefox-on-wayland
+    - mode: 755
+    - contents: |
+        #!/bin/bash
+        
+        export GDK_BACKEND=wayland
+        exec firefox "$@"
 {% endif %}
 
 someone-who-cares-hosts:
