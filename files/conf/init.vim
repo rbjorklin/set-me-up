@@ -32,10 +32,10 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 " Rainbow colored parentheses, prime for Clojure
 Plug 'junegunn/rainbow_parentheses.vim', { 'for': 'clojure' }
-" Superior Lisp Interaction Mode for Vim
-"Plug 'kovisoft/slimv', { 'for': 'clojure' }
 " OCaml auto indent
 Plug 'OCamlPro/ocp-indent', { 'for': 'ocaml' }
+" OCaml auto format
+Plug 'sbdchd/neoformat', { 'for': 'ocaml' }
 " Vim indent guide
 Plug 'nathanaelkane/vim-indent-guides'
 " Improved rst editing
@@ -140,39 +140,42 @@ noremap  <Right> <nop>
 "
 "map <F4> :call InvNum()<CR>
 " toggle line numbering
-map <F1> :set invnumber<CR>
+noremap <F1> :set invnumber<CR>
 " toggle paste mode
-map <Leader>p :set invpaste<CR>
+noremap <Leader>p :set invpaste<CR>
 " show or hide the NERDTree
-map <Leader>n :NERDTreeToggle<CR>
+noremap <Leader>n :NERDTreeToggle<CR>
 " show or hide tagbar
-map <Leader>t :TagbarToggle<CR>
+noremap <Leader>T :TagbarToggle<CR>
 " CtrlP fuzzy line search
-map <Leader>f :CtrlPLine<CR>
+noremap <Leader>f :CtrlPLine<CR>
+" strip all trailing spaces
+noremap <Leader><Leader> :%s/\s\+$//g<CR>
 
 " OCaml auto-completion with merlin
-" let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-" execute "set rtp+=" . g:opamshare . "/merlin/vim"
+" See Vim section http://dev.realworldocaml.org/install.html
+if executable('ocamlmerlin') && executable('ocamlformat') && has('python')
+    let s:opamshare = substitute(system('opam config var share'), '\n$', '', '''') . "/merlin"
+    let s:ocp_indent = substitute(system('opam config var ocp-indent:share'), '\n$', '', '''') . "/vim"
+    execute "set rtp+=".s:opamshare."/vim"
+    execute "set rtp+=".s:opamshare."/vimbufsync"
+    execute "set rtp+=".s:ocp_indent.""
+    "autocmd FileType ocaml source s:opamshare."/typerex/ocp-indent/ocp-indent.vim"
+    let g:syntastic_ocaml_checkers = ['merlin']
+    autocmd FileType ocaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    augroup fmt
+        autocmd!
+        autocmd BufWritePre *.ml,*.mli undojoin | Neoformat
+    augroup end
 
-" Adjusted Rainbow parentheses colors, `black` was changed to `darkgray`
-" let g:rbpt_colorpairs = [
-"     \ ['brown',       'RoyalBlue3'],
-"     \ ['Darkblue',    'SeaGreen3'],
-"     \ ['darkgray',    'DarkOrchid3'],
-"     \ ['darkgreen',   'firebrick3'],
-"     \ ['darkcyan',    'RoyalBlue3'],
-"     \ ['darkred',     'SeaGreen3'],
-"     \ ['darkmagenta', 'DarkOrchid3'],
-"     \ ['brown',       'firebrick3'],
-"     \ ['gray',        'RoyalBlue3'],
-"     \ ['darkgray',    'SeaGreen3'],
-"     \ ['darkmagenta', 'DarkOrchid3'],
-"     \ ['Darkblue',    'firebrick3'],
-"     \ ['darkgreen',   'RoyalBlue3'],
-"     \ ['darkcyan',    'SeaGreen3'],
-"     \ ['darkred',     'DarkOrchid3'],
-"     \ ['red',         'firebrick3'],
-"     \ ]
+    " List all occurrences of identifier under cursor in current buffer.
+    nmap <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
+    nmap <LocalLeader>#  <Plug>(MerlinSearchOccurrencesBackward)
+
+    " Rename all occurrences of identifier under cursor to <ident>.
+    nmap <LocalLeader>r  <Plug>(MerlinRename)
+    nmap <LocalLeader>R  <Plug>(MerlinRenameAppend)
+endif
 
 " Shift Insert does something magic?
 map <S-Insert> "*gP
