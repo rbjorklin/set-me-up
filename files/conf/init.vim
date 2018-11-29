@@ -42,6 +42,8 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'gu-fan/riv.vim'
 " Instant feedback on rst editing
 Plug 'gu-fan/InstantRst'
+" Surrond word with parentheses, quotes etc.
+Plug 'tpope/vim-surround'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
