@@ -70,8 +70,14 @@ export PATH=${PATH}:/opt/spotify/bin:~/.local/bin:/usr/local/bin
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/spotify/lib
 export DOCKER_HOST=tcp://localhost:2375
 
-# Load the kubectl completion code for zsh[1] into the current shell
-which kubectl &> /dev/null && source <(kubectl completion zsh)
+# LazyLoad the kubectl completion code for zsh into the current shell
+function kubectl() {
+    if ! type __start_kubectl &> /dev/null ; then
+        source <(command kubectl completion zsh)
+    fi
+
+    command kubectl "$@"
+}
 
 function upgrade_intellij() {
     sudo salt-call state.sls set-me-up.upgrade-intellij pillar="{\"user\":\"$USER\"}"
