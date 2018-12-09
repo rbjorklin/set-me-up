@@ -145,6 +145,7 @@ desktop-applications-installed:
       - gnome-tweaks
       - freetype-freeworld # Fedora subpixel font rendering
       - docker-ce
+      - kernel-modules-extra # xpad etc.
 
 docker-ce-running:
   service.running:
