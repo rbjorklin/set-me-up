@@ -147,6 +147,15 @@ desktop-applications-installed:
       - docker-ce
       - kernel-modules-extra # xpad etc.
 
+docker-ce-dropin:
+  file.managed:
+    - name: /etc/systemd/system/docker.service.d/localhost-tcp.conf
+    - makedirs: True
+    - contents: |
+        [Service]
+        ExecStart=
+        ExecStart=/usr/bin/dockerd -H unix:// -H tcp://127.0.0.1:2375
+
 docker-ce-running:
   service.running:
     - name: docker
