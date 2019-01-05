@@ -240,12 +240,12 @@ create-user-{{ pillar['user'] }}:
     - shell: /usr/bin/zsh
     - remove_groups: False
 
-oh-my-zsh:
-  git.latest:
-    - name: https://github.com/robbyrussell/oh-my-zsh.git
-    - target: /home/{{ pillar['user'] }}/.oh-my-zsh
+antigen-download:
+  file.managed:
+    - name: /home/{{ pillar['user'] }}/.antigen.zsh
+    - source: https://git.io/antigen
 
-oh-my-zsh-zshrc:
+zshrc-symlink:
   file.symlink:
     - name: /home/{{ pillar['user'] }}/.zshrc
     - target: /srv/files/conf/zshrc

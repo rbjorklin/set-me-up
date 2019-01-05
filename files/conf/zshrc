@@ -1,73 +1,32 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+source ~/.antigen.zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="blinks"
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
 
-# Set to this to use case-sensitive completion
-CASE_SENSITIVE="true"
+# Adapt autosuggest color to Solarized
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=11
 
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+# makes ctrl + u behave the same as bash (emacs)
+bindkey "^u" backward-kill-line 
 
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
+# Load the theme.
+antigen theme rbjorklin/rbjorklin-zsh-theme
 
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
+# Tell Antigen that you're done.
+antigen apply
 
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(fedora git golang pip python virtualenv systemd taskwarrior)
-
-source $ZSH/oh-my-zsh.sh
-
-# Customize to your needs...
-
-#bindkey -v
-#bindkey "^[[A" up-line-or-search
-#bindkey "^[[B" down-line-or-search
-bindkey "^u" backward-kill-line # makes ctrl + u behave the same as bash (emacs)
-
-# Aliases
-alias mit-scheme="rlwrap mit-scheme"
-alias racket="racket -il readline"
-alias t="task"
-alias tm="tmux attach || tmux new"
-alias slideshow "for pic in *.JPG ; do ; cp $pic slide.jpg ; sleep 1 ; done & gthumb -f slide.jpg"
-alias vim="vim -p" # Make vim open files in tabs by default
+# Make vim open files in tabs by default
+alias vim="vim -p"
 alias urldecode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.unquote_plus(sys.argv[1]))"'
 alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.quote_plus(sys.argv[1]))"'
 
 # Variables
 export VISUAL="vim"
 export EDITOR="vim"
-
-# Spotify
-export PATH=${PATH}:/opt/spotify/bin:~/.local/bin:/usr/local/bin
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/spotify/lib
 export DOCKER_HOST=tcp://localhost:2375
 
 # LazyLoad the kubectl completion code for zsh into the current shell
@@ -79,17 +38,10 @@ function kubectl() {
     command kubectl "$@"
 }
 
-function upgrade_intellij() {
-    sudo salt-call state.sls set-me-up.upgrade-intellij pillar="{\"user\":\"$USER\"}"
-}
-
-function load-jdk9() {
-    export PATH=~/.local/share/jdk-9/bin:${PATH}:/opt/spotify/bin:~/.local/bin
-    export LD_LIBRARY_PATH=~/.local/share/jdk-9/lib:${LD_LIBRARY_PATH}:/opt/spotify/lib
-}
-
 # opam configuration
-test -r /home/rbjorklin/.opam/opam-init/init.zsh && . /home/rbjorklin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh &> /dev/null || true
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# Put machine specific stuff here
+if [[ -f ~/.zshrc.custom ]] ; then
+    source ~/.zshrc.custom
+fi
