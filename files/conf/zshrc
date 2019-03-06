@@ -6,6 +6,7 @@ antigen use oh-my-zsh
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle junegunn/fzf
 
 # Adapt autosuggest color to Solarized
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=11
@@ -19,6 +20,9 @@ antigen theme rbjorklin/rbjorklin-zsh-theme
 # Tell Antigen that you're done.
 antigen apply
 
+#ZSH customizations
+setopt HIST_IGNORE_SPACE
+
 # Make vim open files in tabs by default
 alias vim="vim -p"
 alias urldecode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.unquote_plus(sys.argv[1]))"'
@@ -28,6 +32,7 @@ alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.q
 export VISUAL="vim"
 export EDITOR="vim"
 export DOCKER_HOST=tcp://localhost:2375
+export PATH="${PATH}:${HOME}/.local/bin"
 
 # LazyLoad the kubectl completion code for zsh into the current shell
 function kubectl() {
