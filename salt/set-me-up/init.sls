@@ -35,6 +35,7 @@ base-applications-installed:
       - mosh
       - zip
       - unzip
+      - ripgrep
 {% if pillar['type'].lower() == 'slim' %}
       - vim-enhanced
 {% endif %}
