@@ -171,12 +171,12 @@ if executable('ocamlmerlin') && executable('ocamlformat') && has('python')
     augroup end
 
     " List all occurrences of identifier under cursor in current buffer.
-    nmap <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
-    nmap <LocalLeader>#  <Plug>(MerlinSearchOccurrencesBackward)
+    nmap <Leader>*  <Plug>(MerlinSearchOccurrencesForward)
+    nmap <Leader>#  <Plug>(MerlinSearchOccurrencesBackward)
 
     " Rename all occurrences of identifier under cursor to <ident>.
-    nmap <LocalLeader>r  <Plug>(MerlinRename)
-    nmap <LocalLeader>R  <Plug>(MerlinRenameAppend)
+    nmap <Leader>r  <Plug>(MerlinRename)
+    nmap <Leader>R  <Plug>(MerlinRenameAppend)
 endif
 
 " Shift Insert does something magic?

@@ -15,17 +15,24 @@ rpmfusion-pkgrepo:
         dnf install -y http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     - unless: rpm -q rpmfusion-free-release rpmfusion-nonfree-release
 
+vscode-gpg-key:
+  cmd.run:
+    - name: rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    - unless: rpm -q gpg-pubkey-be1229cf-5631588c
+
+vscode-pkgrepo:
+  pkgrepo.managed:
+    - name: VSCode
+    - humanname: Visual Studio Code
+    - baseurl: https://packages.microsoft.com/yumrepos/vscode
+    - enabled: 1
+    - gpgcheck: 1
+    - gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+
 dnf-plugins-core:
   cmd.run:
     - name: dnf -y install dnf-plugins-core
     - unless: rpm -q dnf-plugins-core
-
-{% if pillar['type'].lower() == 'server' %}
-neovim-repo:
-  cmd.run:
-    - name: curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo
-    - unless: test -f /etc/yum.repos.d/dperson-neovim-epel-7.repo
-{% endif %}
 
 base-applications-installed:
   pkg.latest:
@@ -36,15 +43,12 @@ base-applications-installed:
       - zip
       - unzip
       - ripgrep
-{% if pillar['type'].lower() == 'slim' %}
-      - vim-enhanced
-{% endif %}
-{% if pillar['type'].lower() in ['desktop', 'server'] %}
       - neovim
       - ctags
       - irssi
       - task
       - zsh
+      - code
       # BEGIN YouCompleteMe build dependencies
       - automake
       - gcc
@@ -58,9 +62,6 @@ base-applications-installed:
       - golang
       - gotags
       # END YouCompleteMe
-{% endif %}
-
-{% if pillar['type'].lower() == 'desktop' %}
 
 {% for application, url in [('vagrant', 'https://www.vagrantup.com/downloads.html'), ('slack', 'https://slack.com/downloads/instructions/fedora')] %}
 {% set applicationDownload = salt['cmd.shell']('curl -s ' + url + ' | grep -m 1 -o "https://.*x86_64\.rpm" | head -n 1') %}
@@ -183,45 +184,6 @@ gnome-terminal-with-tmux-for-startup:
         StartupNotify=true
         X-GNOME-SingleWindow=false
 
-firefox-on-wayland-desktop-app:
-  file.managed:
-    - name: /usr/share/applications/firefox-on-wayland.desktop
-    - contents: |
-        [Desktop Entry]
-        Version=1.0
-        Name=Firefox on Wayland
-        GenericName=Web Browser
-        Comment=Browse the Web
-        Exec=/usr/local/bin/firefox-on-wayland %u
-        Icon=firefox
-        Terminal=false
-        Type=Application
-        MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;text/mml;x-scheme-handler/http;x-scheme-handler/https;
-        StartupNotify=true
-        Categories=Network;WebBrowser;
-        Keywords=web;browser;internet;
-        Actions=new-window;new-private-window;
-        X-Desktop-File-Install-Version=0.23
-        
-        [Desktop Action new-window]
-        Name=Open a New Window
-        Exec=/usr/local/bin/firefox-on-wayland --new-window %u
-        
-        [Desktop Action new-private-window]
-        Name=Open a New Private Window
-        Exec=/usr/local/bin/firefox-on-wayland --private-window %u
-
-firefox-on-wayland-wrapper:
-  file.managed:
-    - name: /usr/local/bin/firefox-on-wayland
-    - mode: 755
-    - contents: |
-        #!/bin/bash
-        
-        export GDK_BACKEND=wayland
-        exec firefox "$@"
-{% endif %}
-
 someone-who-cares-hosts:
   cmd.run:
     - name: curl -s -o /etc/hosts http://someonewhocares.org/hosts/zero/hosts
@@ -245,6 +207,7 @@ antigen-download:
   file.managed:
     - name: /home/{{ pillar['user'] }}/.antigen.zsh
     - source: https://git.io/antigen
+    - skip_verify: True
 
 zshrc-symlink:
   file.symlink:
@@ -289,7 +252,6 @@ sdkman-installed:
     - runas: {{ pillar['user'] }}
     - unless: test -d ~/.sdkman
 
-{% if pillar['type'].lower() in ['desktop', 'server'] %}
 task-conf:
   file.symlink:
     - name: /home/{{ pillar['user'] }}/.taskrc
@@ -304,7 +266,6 @@ vconsole-colemak:
         KEYMAP="us-colemak"
         FONT="eurlatgr"
 {% endif %}
-{% endif %}
 
 lein-installed:
   cmd.run:
@@ -316,21 +277,24 @@ lein-completion-installed:
     - name: curl -s -L -o /usr/share/zsh/site-functions/_lein https://raw.githubusercontent.com/technomancy/leiningen/master/zsh_completion.zsh
     - unless: test -f /usr/share/zsh/site-functions/_lein
 
+# This breaks if the folder contains broken symlinks: https://github.com/saltstack/salt/issues/49204
+# remove symlinks with: find . -xtype l -exec rm -f {} \;
 fix-ownership:
   file.directory:
     - name: /home/{{ pillar['user'] }}
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
-    - mode: 700
+    - dir_mode: 700
     - recurse:
       - user
       - group
 
-systemd-resolved:
-  service.running:
-    - name: systemd-resolved
-    - enable: True
-  file.symlink:
-    - name: /etc/resolv.conf
-    - target: /run/systemd/resolve/stub-resolv.conf
-    - force: True
+# need to figure out how to fix the problems resolved cause with VPNs
+#systemd-resolved:
+#  service.running:
+#    - name: systemd-resolved
+#    - enable: True
+#  file.symlink:
+#    - name: /etc/resolv.conf
+#    - target: /run/systemd/resolve/stub-resolv.conf
+#    - force: True
