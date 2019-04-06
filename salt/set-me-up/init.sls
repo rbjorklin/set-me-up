@@ -186,8 +186,8 @@ gnome-terminal-with-tmux-for-startup:
 
 someone-who-cares-hosts:
   cmd.run:
-    - name: curl -s -o /etc/hosts http://someonewhocares.org/hosts/zero/hosts
-    - unless: test "$(curl -s http://someonewhocares.org/hosts/zero/hosts | sha512sum)" = "$(cat /etc/hosts | sha512sum)"
+    - name: curl -sLo /etc/hosts http://someonewhocares.org/hosts/zero/hosts
+    - unless: test "$(curl -sL http://someonewhocares.org/hosts/zero/hosts | sha512sum)" = "$(cat /etc/hosts | sha512sum)"
 
 {% if pillar['user'].lower() != 'n/a' %}
 gitconfig:

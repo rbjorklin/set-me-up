@@ -1,7 +1,3 @@
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible " be iMproved
-filetype off " required for Vundle!
 call plug#begin('~/.local/share/nvim/plugged')
 
 " Solarized color scheme
@@ -19,7 +15,9 @@ Plug 'majutsushi/tagbar'
 " Make it easy to format text
 Plug 'godlygeek/tabular'
 " Auto completion
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --gocode-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --gocode-completer' }
+" LSP support
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 " Go plugin
 Plug 'fatih/vim-go', { 'for': 'go' }
 " Rust plugin
@@ -46,10 +44,7 @@ Plug 'gu-fan/InstantRst'
 Plug 'tpope/vim-surround'
 
 " All of your Plugins must be added before the following line
-call plug#end()            " required
-
-filetype plugin indent on     " required!
-" End of Vundle part
+call plug#end() " End of vim-plug
 
 "NeoVim handles ESC keys as alt+key set this for faster sequences
 set timeout
@@ -59,6 +54,25 @@ if has('nvim')
    set ttimeout
    set ttimeoutlen=0
 endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -125,6 +139,9 @@ let mapleader = " "
 " https://github.com/nathanaelkane/vim-indent-guides
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
+
+" rustfmt on buffer save
+let g:rustfmt_autosave = 1
 
 map <Leader>o o<ESC>
 map <Leader>O O<ESC>
