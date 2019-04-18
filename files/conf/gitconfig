@@ -1,9 +1,13 @@
 [user]
-	email = robin.bjorklin@gmail.com
-	name = Robin Björklin
+    email = robin.bjorklin@gmail.com
+    name = Robin Björklin
 [push]
-	default = simple
+    default = simple
 [github]
-        user = rbjorklin
+    user = rbjorklin
 [pull]
-	rebase = true
+    rebase = true
+[alias]
+    lg = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an %C(auto)%G?>%Creset' --abbrev-commit --date=relative
+[core]
+    autocrlf = input

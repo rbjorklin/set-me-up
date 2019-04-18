@@ -1,4 +1,4 @@
-source ~/.antigen.zsh
+source ~/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -10,6 +10,8 @@ antigen bundle junegunn/fzf
 
 # Adapt autosuggest color to Solarized
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=11
+
+export CASE_SENSITIVE="true"
 
 # makes ctrl + u behave the same as bash (emacs)
 bindkey "^u" backward-kill-line 

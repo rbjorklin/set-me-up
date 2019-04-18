@@ -148,6 +148,7 @@ desktop-applications-installed:
       - freetype-freeworld # Fedora subpixel font rendering
       - docker-ce
       - kernel-modules-extra # xpad etc.
+      - chrome-gnome-shell # install gnome-shell extensions such as shelltile through Firefox
 
 docker-ce-dropin:
   file.managed:
