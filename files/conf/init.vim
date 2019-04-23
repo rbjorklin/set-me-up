@@ -21,7 +21,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 " Go plugin
 Plug 'fatih/vim-go', { 'for': 'go' }
 " Rust plugin
-Plug 'rust-lang/rust.vim', { 'for': 'rs' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Clojure syntax highlighting
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 " Clojure REPL support
@@ -68,11 +68,30 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" rustfmt on buffer save
+let g:rustfmt_autosave = 1
+
+" coc.nvim airline integration
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -139,9 +158,6 @@ let mapleader = " "
 " https://github.com/nathanaelkane/vim-indent-guides
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
-
-" rustfmt on buffer save
-let g:rustfmt_autosave = 1
 
 map <Leader>o o<ESC>
 map <Leader>O O<ESC>
