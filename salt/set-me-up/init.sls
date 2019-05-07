@@ -175,7 +175,7 @@ gnome-terminal-with-tmux-for-startup:
         Keywords=shell;prompt;command;commandline;cmd;
         TryExec=gnome-terminal
         Exec=gnome-terminal -- tmux
-        Icon=utilities-terminal
+        Icon=org.gnome.Terminal
         Type=Application
         X-GNOME-DocPath=gnome-terminal/index.html
         X-GNOME-Bugzilla-Bugzilla=GNOME
