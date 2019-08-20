@@ -190,6 +190,38 @@ someone-who-cares-hosts:
     - name: curl -sLo /etc/hosts http://someonewhocares.org/hosts/zero/hosts
     - unless: test "$(curl -sL http://someonewhocares.org/hosts/zero/hosts | sha512sum)" = "$(cat /etc/hosts | sha512sum)"
 
+{% set latestInterFontZip = salt['cmd.shell']('curl -s https://api.github.com/repos/rsms/inter/releases/latest | jq -r ".assets[].browser_download_url"') %}
+inter-font-download:
+  file.managed:
+    - name: /tmp/inter-fonts.zip
+    - source: {{ latestInterFontZip }}
+    - skip_verify: True
+
+inter-font-unpack:
+  cmd.run:
+    - name: unzip -uj /tmp/inter-fonts.zip */*.otf
+    - cwd: /home/{{ pillar['user'] }}/.local/share/fonts
+
+inter-font-symlink:
+  file.symlink:
+    - name: /home/{{ pillar['user'] }}/.fonts
+    - target: /home/{{ pillar['user'] }}/.local/share/fonts
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
+
+inter-font-dir:
+  file.directory:
+    - name: /home/{{ pillar['user'] }}/.fonts
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
+    - recurse:
+      - user
+      - group
+
+inter-font-update-cache:
+  cmd.run:
+    - name: fc-cache -f -v
+
 {% if pillar['user'].lower() != 'n/a' %}
 gitconfig:
   file.symlink:
