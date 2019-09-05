@@ -374,3 +374,10 @@ fix-ownership:
 #    - name: /etc/resolv.conf
 #    - target: /run/systemd/resolve/stub-resolv.conf
 #    - force: True
+
+systemd-packagekit:
+  service.dead:
+    - name: packagekit
+    - enable: False
+  file.absent:
+    - name: /var/cache/PackageKit
