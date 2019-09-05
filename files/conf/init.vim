@@ -55,6 +55,8 @@ if has('nvim')
    set ttimeoutlen=0
 endif
 
+let mapleader = " " " the leader key bust be defined before usage
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -68,6 +70,13 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
@@ -78,8 +87,26 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
@@ -88,6 +115,8 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 
 " rustfmt on buffer save
 let g:rustfmt_autosave = 1
+
+set shortmess+=c " don't give |ins-completion-menu| messages
 
 " coc.nvim airline integration
 let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
@@ -118,7 +147,7 @@ if has("autocmd")
 endif " has("autocmd")
 
 set background=dark
-silent! colors solarized
+silent! colorscheme solarized
 if exists('+colorcolumn')
   set colorcolumn=80    " use visual indicator at 80 char mark
 endif
@@ -141,6 +170,7 @@ set autoindent          " copy indent from current line to new line
 set visualbell          " make screen flash instead of audible beep
 set noerrorbells        " ignore errorbells
 set nobackup
+set nowritebackup
 set noswapfile
 set laststatus=2        " always show the statusline
 set encoding=utf-8      " necessary to show Unicode glyphs
@@ -153,7 +183,6 @@ set hidden              " make it possible to keep buffer undo history when chan
 let g:riv_disable_folding=1
 
 let g:ctrlp_extensions = ['line'] " enable fuzzy search for lines extension
-let mapleader = " "
 
 " https://github.com/nathanaelkane/vim-indent-guides
 let g:indent_guides_start_level=2
