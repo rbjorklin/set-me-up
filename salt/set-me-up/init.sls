@@ -34,6 +34,16 @@ dnf-plugins-core:
     - name: dnf -y install dnf-plugins-core
     - unless: rpm -q dnf-plugins-core
 
+dnf-copr-fira-code:
+  cmd.run:
+    - name: dnf -y copr enable evana/fira-code-fonts
+    - unless: rpm -q fira-code-fonts
+
+dnf-copr-alacritty:
+  cmd.run:
+    - name: dnf -y copr enable pschyska/alacritty
+    - unless: rpm -q alacritty
+
 base-applications-installed:
   pkg.latest:
     - pkgs:
@@ -49,6 +59,8 @@ base-applications-installed:
       - task
       - zsh
       - code
+      - fira-code-fonts
+      - alacritty
       # BEGIN YouCompleteMe build dependencies
       - automake
       - gcc
@@ -72,6 +84,24 @@ base-applications-installed:
     - name: curl -s {{ applicationDownload }} -o /tmp/{{ application }}_x86_64.rpm && dnf install -y /tmp/{{ application }}_x86_64.rpm && rm -f /tmp/{{ application }}_x86_64.rpm
     - unless: rpm -q {{ application }}-{{ applicationVersion }}
 {% endfor %}
+
+install-rust:
+  cmd.run:
+    - name: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    - unless: which rustc cargo
+    - runas: {{ pillar['user'] }}
+
+setup-starship:
+  cmd.run:
+    - name: cargo install starship
+    - unless: which starship
+    - runas: {{ pillar['user'] }}
+
+zsh-autosuggesions:
+  git.cloned:
+    - name: https://github.com/zsh-users/zsh-autosuggestions
+    - target: /home/{{ pillar['user'] }}/.zsh/zsh-autosuggestions
+    - runas: {{ pillar['user'] }}
 
 gnome-app-switcher-only-current-workspace:
   cmd.run:
@@ -185,6 +215,35 @@ gnome-terminal-with-tmux-for-startup:
         StartupNotify=true
         X-GNOME-SingleWindow=false
 
+alacritty-with-tmux-for-startup:
+  file.managed:
+    - name: /home/{{ pillar['user'] }}/.local/share/applications/alacritty-tmux.desktop
+    - makedirs: True
+    - contents: |
+        [Desktop Entry]
+        Type=Application
+        TryExec=alacritty
+        Exec=alacritty -e tmux
+        Icon=Alacritty
+        Terminal=false
+        Categories=System;TerminalEmulator;
+
+        Name=Alacritty Tmux
+        GenericName=Terminal
+        Comment=A cross-platform, GPU enhanced terminal emulator
+        StartupWMClass=Alacritty
+        Actions=New;
+
+        [Desktop Action New]
+        Name=New Terminal
+        Exec=alacritty
+
+solarized-dircolors:
+  file.managed:
+    - name: /home/{{ pillar['user'] }}/.dircolors
+    - source: https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
+    - skip_verify: True
+
 someone-who-cares-hosts:
   cmd.run:
     - name: curl -sLo /etc/hosts http://someonewhocares.org/hosts/zero/hosts
@@ -235,12 +294,6 @@ create-user-{{ pillar['user'] }}:
     - name: {{ pillar['user'] }}
     - shell: /usr/bin/zsh
     - remove_groups: False
-
-antigen-download:
-  file.managed:
-    - name: /home/{{ pillar['user'] }}/.antigen.zsh
-    - source: https://git.io/antigen
-    - skip_verify: True
 
 zshrc-symlink:
   file.symlink:
@@ -299,16 +352,6 @@ vconsole-colemak:
         KEYMAP="us-colemak"
         FONT="eurlatgr"
 {% endif %}
-
-lein-installed:
-  cmd.run:
-    - name: curl -s -L -o /usr/local/bin/lein https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-    - unless: test -f /usr/local/bin/lein
-
-lein-completion-installed:
-  cmd.run:
-    - name: curl -s -L -o /usr/share/zsh/site-functions/_lein https://raw.githubusercontent.com/technomancy/leiningen/master/zsh_completion.zsh
-    - unless: test -f /usr/share/zsh/site-functions/_lein
 
 # This breaks if the folder contains broken symlinks: https://github.com/saltstack/salt/issues/49204
 # remove symlinks with: find . -xtype l -exec rm -f {} \;

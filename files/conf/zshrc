@@ -1,26 +1,12 @@
-source ~/antigen.zsh
-
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle junegunn/fzf
+eval "$(starship init zsh)"
 
 # Adapt autosuggest color to Solarized
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=11
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=11"
 
 export CASE_SENSITIVE="true"
 
 # makes ctrl + u behave the same as bash (emacs)
 bindkey "^u" backward-kill-line 
-
-# Load the theme.
-antigen theme rbjorklin/rbjorklin-zsh-theme
-
-# Tell Antigen that you're done.
-antigen apply
 
 #ZSH customizations
 setopt HIST_IGNORE_SPACE
@@ -45,10 +31,9 @@ function kubectl() {
     command kubectl "$@"
 }
 
-# opam configuration
-test -r ~/.opam/opam-init/init.zsh && . ~/.opam/opam-init/init.zsh &> /dev/null || true
-
 # Put machine specific stuff here
 if [[ -f ~/.zshrc.custom ]] ; then
     source ~/.zshrc.custom
 fi
+
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
