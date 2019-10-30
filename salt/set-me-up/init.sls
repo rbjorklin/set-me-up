@@ -44,6 +44,11 @@ dnf-copr-alacritty:
     - name: dnf -y copr enable pschyska/alacritty
     - unless: rpm -q alacritty
 
+spotify-repo:
+  cmd.run:
+    - name: dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.repo
+    - unless: dnf repolist | grep -m 1 spotify
+
 base-applications-installed:
   pkg.latest:
     - pkgs:
@@ -54,6 +59,7 @@ base-applications-installed:
       - unzip
       - ripgrep
       - neovim
+      - python3-neovim
       - ctags
       - irssi
       - task
@@ -61,21 +67,27 @@ base-applications-installed:
       - code
       - fira-code-fonts
       - alacritty
-      # BEGIN YouCompleteMe build dependencies
-      - automake
-      - gcc
-      - gcc-c++
-      - kernel-devel
-      - cmake
-      - python3-devel
-      - python3-msgpack
-      - python3-greenlet
-      - python3-neovim
-      - golang
-      - gotags
-      # END YouCompleteMe
+      - jq
+      - firefox
+      - vlc
+      - thunderbird
+      - levien-inconsolata-fonts
+      - mozilla-fira-mono-fonts
+      - mozilla-fira-sans-fonts
+      - spotify-client
+      - java-latest-openjdk-headless
+      - gpaste
+      - gpaste-ui
+      - gnome-shell-extension-gpaste
+      - VirtualBox
+      - akmod-VirtualBox
+      - gnome-tweaks
+      - kernel-modules-extra # xpad etc.
+      - yamllint
+      - dconf-editor
+      - nodejs # coc-nvim
 
-{% for application, url in [('vagrant', 'https://www.vagrantup.com/downloads.html'), ('slack', 'https://slack.com/downloads/instructions/fedora')] %}
+{% for application, url in [('vagrant', 'https://www.vagrantup.com/downloads.html')] %}
 {% set applicationDownload = salt['cmd.shell']('curl -s ' + url + ' | grep -m 1 -o "https://.*x86_64\.rpm" | head -n 1') %}
 {% set applicationVersion = salt['cmd.shell']('echo ' + applicationDownload + ' | egrep -m 1 -o "[0-9]\.[0-9]+\.[0-9]+" | head -n 1') %}
 
@@ -115,105 +127,11 @@ gnome-calendar-show-week:
     - unless: gsettings get org.gnome.desktop.calendar show-weekdate | grep true
     - runas: {{ pillar['user'] }}
 
-gnome-font-hinting-slight:
+gnome-experimental-fractional-scaling:
   cmd.run:
-    - name: gsettings set org.gnome.settings-daemon.plugins.xsettings hinting slight
-    - unless: gsettings get org.gnome.settings-daemon.plugins.xsettings hinting | grep slight
+    - name: gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+    - unless: gsettings get org.gnome.mutter experimental-features | grep scale-monitor-framebuffer
     - runas: {{ pillar['user'] }}
-
-gnome-font-hinting-subpixel:
-  cmd.run:
-    - name: gsettings set org.gnome.settings-daemon.plugins.xsettings antialiasing rgba
-    - unless: gsettings get org.gnome.settings-daemon.plugins.xsettings antialiasing | grep rgba
-    - runas: {{ pillar['user'] }}
-
-gnome-font-hinting-lcdfilter:
-  file.symlink:
-    - name: /etc/fonts/conf.d/11-lcdfilter-default.conf
-    - target: /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf
-    - user: {{ pillar['user'] }}
-    - group: {{ pillar['user'] }}
-
-gnome-set-document-font-fira-sans:
-  cmd.run:
-    - name: gsettings set org.gnome.desktop.interface document-font-name "Fira Sans 11"
-    - unless: gsettings get org.gnome.desktop.interface document-font-name | grep "Fira Sans 11"
-    - runas: {{ pillar['user'] }}
-
-gnome-set-monospace-font-fira-mono:
-  cmd.run:
-    - name: gsettings set org.gnome.desktop.interface monospace-font-name "Fira Mono 11"
-    - unless: gsettings get org.gnome.desktop.interface monospace-font-name | grep "Fira Mono 11"
-    - runas: {{ pillar['user'] }}
-
-spotify-repo:
-  cmd.run:
-    - name: dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.repo
-    - unless: dnf repolist | grep -m 1 spotify
-
-docker-ce-repo:
-  cmd.run:
-    - name: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-    - unless: test -f /etc/yum.repos.d/docker-ce.repo
-
-desktop-applications-installed:
-  pkg.latest:
-    - refresh: True
-    - pkgs:
-      - jq
-      - firefox
-      - vlc
-      - thunderbird
-      - levien-inconsolata-fonts
-      - mozilla-fira-mono-fonts
-      - mozilla-fira-sans-fonts
-      - spotify-client
-      - java-1.8.0-openjdk-devel
-      - gpaste
-      - gpaste-ui
-      - gnome-shell-extension-gpaste
-      - VirtualBox
-      - akmod-VirtualBox
-      - gnome-tweaks
-      - freetype-freeworld # Fedora subpixel font rendering
-      - docker-ce
-      - kernel-modules-extra # xpad etc.
-      - chrome-gnome-shell # install gnome-shell extensions such as shelltile through Firefox
-
-docker-ce-dropin:
-  file.managed:
-    - name: /etc/systemd/system/docker.service.d/localhost-tcp.conf
-    - makedirs: True
-    - contents: |
-        [Service]
-        ExecStart=
-        ExecStart=/usr/bin/dockerd -H unix:// -H tcp://127.0.0.1:2375
-
-docker-ce-running:
-  service.running:
-    - name: docker
-    - enable: True
-
-gnome-terminal-with-tmux-for-startup:
-  file.managed:
-    - name: /home/{{ pillar['user'] }}/.local/share/applications/org.gnome.Terminal.tmux.desktop
-    - makedirs: True
-    - contents: |
-        [Desktop Entry]
-        Name=Terminal with tmux
-        Comment=Use the command line
-        Keywords=shell;prompt;command;commandline;cmd;
-        TryExec=gnome-terminal
-        Exec=gnome-terminal -- tmux
-        Icon=org.gnome.Terminal
-        Type=Application
-        X-GNOME-DocPath=gnome-terminal/index.html
-        X-GNOME-Bugzilla-Bugzilla=GNOME
-        X-GNOME-Bugzilla-Product=gnome-terminal
-        X-GNOME-Bugzilla-Component=BugBuddyBugs
-        Categories=GNOME;GTK;System;TerminalEmulator;
-        StartupNotify=true
-        X-GNOME-SingleWindow=false
 
 alacritty-with-tmux-for-startup:
   file.managed:
@@ -255,11 +173,19 @@ inter-font-download:
     - name: /tmp/inter-fonts.zip
     - source: {{ latestInterFontZip }}
     - skip_verify: True
+    - unless: test -f /home/{{ pillar['user'] }}/.local/share/fonts/Inter.otf
+
+local-fonts-dir:
+  file.directory:
+    - name: /home/{{ pillar['user'] }}/.local/share/fonts
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
 
 inter-font-unpack:
   cmd.run:
     - name: unzip -uj /tmp/inter-fonts.zip */*.otf
     - cwd: /home/{{ pillar['user'] }}/.local/share/fonts
+    - unless: test -f /home/{{ pillar['user'] }}/.local/share/fonts/Inter.otf
 
 inter-font-symlink:
   file.symlink:
@@ -281,7 +207,6 @@ inter-font-update-cache:
   cmd.run:
     - name: fc-cache -f -v
 
-{% if pillar['user'].lower() != 'n/a' %}
 gitconfig:
   file.symlink:
     - name: /home/{{ pillar['user'] }}/.gitconfig
@@ -289,7 +214,7 @@ gitconfig:
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
-create-user-{{ pillar['user'] }}:
+change-user-shell:
   user.present:
     - name: {{ pillar['user'] }}
     - shell: /usr/bin/zsh
@@ -322,21 +247,12 @@ nvim-vim-plug-install-plugins:
     - unless: test -d ~/.local/share/nvim/plugged
     - runas: {{ pillar['user'] }}
 
-{% include 'set-me-up/upgrade-intellij.sls' %}
-    - unless: test -d ~/.local/share/intellij
-
 tmux-conf:
   file.symlink:
     - name: /home/{{ pillar['user'] }}/.tmux.conf
     - target: /srv/files/conf/tmux.conf
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
-
-sdkman-installed:
-  cmd.run:
-    - name: curl -s "https://get.sdkman.io" | zsh
-    - runas: {{ pillar['user'] }}
-    - unless: test -d ~/.sdkman
 
 task-conf:
   file.symlink:
@@ -351,7 +267,6 @@ vconsole-colemak:
     - contents: |
         KEYMAP="us-colemak"
         FONT="eurlatgr"
-{% endif %}
 
 # This breaks if the folder contains broken symlinks: https://github.com/saltstack/salt/issues/49204
 # remove symlinks with: find . -xtype l -exec rm -f {} \;
@@ -381,3 +296,19 @@ systemd-packagekit:
     - enable: False
   file.absent:
     - name: /var/cache/PackageKit
+  pkg.purged:
+    - pkgs:
+      - PackageKit
+      - PackageKit-gstreamer-plugin
+      - PackageKit-command-not-found
+      - PackageKit-gtk3-module
+      - PackageKit-glib
+
+# Dleyna leaks memory so we don't want it
+remove-dleyna:
+  pkg.purged:
+    - pkgs:
+      - dleyna-core
+      - dleyna-server
+      - dleyna-renderer
+      - dleyna-connector-dbus

@@ -1,3 +1,4 @@
+export PATH="${PATH}:${HOME}/.local/bin:${HOME}/.cargo/bin"
 eval "$(starship init zsh)"
 
 # Adapt autosuggest color to Solarized
@@ -20,7 +21,6 @@ alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.q
 export VISUAL="vim"
 export EDITOR="vim"
 export DOCKER_HOST=tcp://localhost:2375
-export PATH="${PATH}:${HOME}/.local/bin"
 
 # LazyLoad the kubectl completion code for zsh into the current shell
 function kubectl() {

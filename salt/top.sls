@@ -1,3 +1,0 @@
-base:
-  '*':
-    - set-me-up
