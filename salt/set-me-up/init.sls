@@ -261,6 +261,14 @@ task-conf:
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
+alacritty-symlink:
+  file.symlink:
+    - name: /home/{{ pillar['user'] }}/.config/alacritty/alacritty.yml
+    - target: /srv/files/conf/alacritty.yml
+    - makedirs: True
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
+
 vconsole-colemak:
   file.managed:
     - name: /etc/vconsole.conf
