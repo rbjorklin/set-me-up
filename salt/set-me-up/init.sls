@@ -88,6 +88,7 @@ base-applications-installed:
       - nodejs # coc-nvim
       - pv
       - evolution
+      - podman
 
 {% for application, url in [('vagrant', 'https://www.vagrantup.com/downloads.html')] %}
 {% set applicationDownload = salt['cmd.shell']('curl -s ' + url + ' | grep -m 1 -o "https://.*x86_64\.rpm" | head -n 1') %}
