@@ -111,15 +111,6 @@ docker-ce-dropin:
           "userns-remap": "{{ uid }}:{{ gid }}"
         }
 
-docker-ce-userns-remap:
-  file.managed:
-    - name: /etc/systemd/system/docker.service.d/localhost-tcp.conf
-    - makedirs: True
-    - contents: |
-        [Service]
-        ExecStart=
-        ExecStart=/usr/bin/dockerd -H unix:// -H tcp://127.0.0.1:2375
-
 docker-ce-running:
   service.running:
     - name: docker
@@ -263,6 +254,8 @@ change-user-shell:
     - name: {{ pillar['user'] }}
     - shell: /usr/bin/zsh
     - remove_groups: False
+    - groups:
+      - docker
 
 zshrc-symlink:
   file.symlink:

@@ -21,7 +21,6 @@ alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.q
 # Variables
 export VISUAL="vim"
 export EDITOR="vim"
-export DOCKER_HOST=tcp://localhost:2375
 
 # LazyLoad the kubectl completion code for zsh into the current shell
 function kubectl() {
