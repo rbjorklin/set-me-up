@@ -138,6 +138,34 @@ setup-starship:
     - unless: which starship
     - runas: {{ pillar['user'] }}
 
+{% set vaultVersion = salt['cmd.shell']('curl -s https://releases.hashicorp.com/vault/ | grep -v "beta\|ent" | egrep -om 1 "vault_[0-9]+\.[0-9]+\.[0-9]+" | cut -d _ -f 2-') %}
+install-vault:
+  file.managed:
+    - name: /tmp/vault.zip
+    - source: https://releases.hashicorp.com/vault/{{ vaultVersion }}/vault_{{ vaultVersion }}_linux_amd64.zip
+    - skip_verify: True
+    - unless: test -x /usr/local/bin/vault
+
+  archive.extracted:
+    - name: /usr/local/bin
+    - source: /tmp/vault.zip
+    - if_missing: /usr/local/bin/vault
+    - enforce_toplevel: false
+
+{% set terraformVersion = salt['cmd.shell']('curl -s https://releases.hashicorp.com/terraform/ | grep -v "beta\|ent" | egrep -om 1 "terraform_[0-9]+\.[0-9]+\.[0-9]+" | cut -d _ -f 2-') %}
+install-terraform:
+  file.managed:
+    - name: /tmp/terraform.zip
+    - source: https://releases.hashicorp.com/terraform/{{ terraformVersion }}/terraform_{{ terraformVersion }}_linux_amd64.zip
+    - skip_verify: True
+    - unless: test -x /usr/local/bin/terraform
+
+  archive.extracted:
+    - name: /usr/local/bin
+    - source: /tmp/terraform.zip
+    - if_missing: /usr/local/bin/terraform
+    - enforce_toplevel: false
+
 zsh-autosuggesions:
   git.cloned:
     - name: https://github.com/zsh-users/zsh-autosuggestions
