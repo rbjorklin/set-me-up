@@ -5,6 +5,7 @@ eval "$(starship init zsh)"
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=11"
 
 export CASE_SENSITIVE="true"
+export WORDCHARS='*?_[]~=&;!#$%^(){}'
 
 # makes ctrl + u behave the same as bash (emacs)
 bindkey "^u" backward-kill-line 

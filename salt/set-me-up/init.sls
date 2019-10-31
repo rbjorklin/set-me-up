@@ -86,6 +86,8 @@ base-applications-installed:
       - yamllint
       - dconf-editor
       - nodejs # coc-nvim
+      - pv
+      - evolution
 
 {% for application, url in [('vagrant', 'https://www.vagrantup.com/downloads.html')] %}
 {% set applicationDownload = salt['cmd.shell']('curl -s ' + url + ' | grep -m 1 -o "https://.*x86_64\.rpm" | head -n 1') %}
@@ -265,6 +267,14 @@ alacritty-symlink:
   file.symlink:
     - name: /home/{{ pillar['user'] }}/.config/alacritty/alacritty.yml
     - target: /srv/files/conf/alacritty.yml
+    - makedirs: True
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
+
+starship-symlink:
+  file.symlink:
+    - name: /home/{{ pillar['user'] }}/.config/starship.toml
+    - target: /srv/files/conf/starship.toml
     - makedirs: True
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
