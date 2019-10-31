@@ -1,4 +1,8 @@
 # vim: set shiftwidth=2 tabstop=2 softtabstop=2 expandtab autoindent syntax=yaml:
+
+{% set uid = salt['cmd.run']('id -u ' + pillar['user']) %}
+{% set gid = salt['cmd.run']('id -g ' + pillar['user']) %}
+
 curl-installed:
   pkg.latest:
     - name: curl
@@ -49,6 +53,11 @@ spotify-repo:
     - name: dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.repo
     - unless: dnf repolist | grep -m 1 spotify
 
+docker-ce-repo:
+  cmd.run:
+    - name: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+    - unless: test -f /etc/yum.repos.d/docker-ce.repo
+
 base-applications-installed:
   pkg.latest:
     - pkgs:
@@ -89,6 +98,32 @@ base-applications-installed:
       - pv
       - evolution
       - podman
+      - docker-ce
+      - docker-compose
+
+docker-ce-dropin:
+  file.managed:
+    - name: /etc/docker/daemon.json
+    - makedirs: True
+    - contents: |
+        {
+          "ipv6": false,
+          "userns-remap": "{{ uid }}:{{ gid }}"
+        }
+
+docker-ce-userns-remap:
+  file.managed:
+    - name: /etc/systemd/system/docker.service.d/localhost-tcp.conf
+    - makedirs: True
+    - contents: |
+        [Service]
+        ExecStart=
+        ExecStart=/usr/bin/dockerd -H unix:// -H tcp://127.0.0.1:2375
+
+docker-ce-running:
+  service.running:
+    - name: docker
+    - enable: True
 
 {% for application, url in [('vagrant', 'https://www.vagrantup.com/downloads.html')] %}
 {% set applicationDownload = salt['cmd.shell']('curl -s ' + url + ' | grep -m 1 -o "https://.*x86_64\.rpm" | head -n 1') %}
@@ -209,6 +244,12 @@ inter-font-dir:
 inter-font-update-cache:
   cmd.run:
     - name: fc-cache -f -v
+    - onchanges:
+      - file: inter-font-download
+      - file: local-fonts-dir
+      - file: inter-font-symlink
+      - file: inter-font-dir
+      - cmd: inter-font-unpack
 
 gitconfig:
   file.symlink:
