@@ -42,6 +42,8 @@ Plug 'gu-fan/riv.vim'
 Plug 'gu-fan/InstantRst'
 " Surrond word with parentheses, quotes etc.
 Plug 'tpope/vim-surround'
+" Syntax highlighting for Hashicorp .hcl files
+Plug 'jvirtanen/vim-hcl'
 
 " All of your Plugins must be added before the following line
 call plug#end() " End of vim-plug
@@ -215,6 +217,8 @@ noremap <Leader>T :TagbarToggle<CR>
 noremap <Leader>f :CtrlPLine<CR>
 " strip all trailing spaces
 noremap <Leader><Leader> :%s/\s\+$//g<CR>
+" delete all empty lines or that only contain whitespace
+noremap <Leader>l :g/^\s*$/d<CR>
 
 " OCaml auto-completion with merlin
 " See Vim section http://dev.realworldocaml.org/install.html
