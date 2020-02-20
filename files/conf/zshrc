@@ -14,7 +14,7 @@ bindkey "^u" backward-kill-line
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 export HISTFILE=~/.zsh_history
-export SAVEHIST=5000
+export SAVEHIST=50000
 export WORDCHARS=''
 
 # Make vim open files in tabs by default
@@ -39,5 +39,9 @@ function kubectl() {
 if [[ -f ~/.zshrc.custom ]] ; then
     source ~/.zshrc.custom
 fi
+
+# See 'man zshbuiltins' and https://stackoverflow.com/a/30840986
+# adds completion for git etc.
+autoload -Uz compinit && compinit
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh

@@ -9,5 +9,20 @@
     rebase = true
 [alias]
     lg = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an %C(auto)%G?>%Creset' --abbrev-commit --date=relative
+    checkoutsm = checkout --force --recurse-submodule
+    pullsm = pull --recurse-submodule # try `git clean -fdx` and `git reset --hard`
 [core]
     autocrlf = input
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
+[merge]
+    tool = meld
+[mergetool "meld"]
+    # Choose one of these 2 lines (not both!) explained below.
+    #cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+    # Edit the middle file.
+    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"

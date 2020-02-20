@@ -34,8 +34,8 @@ def main():
             # lock or logged out events
             days[date]['day_end'] = event
     for date, data in days.items():
-        print("{date}: hours at work: {h}, time with screen unlocked: {g}".format(
-            date=date, h=data['day_end'] - data['day_start'],
+        print("{day_start} until: {day_end}, hours at work: {h}, time with screen unlocked: {g}".format(
+            date=date, day_start=data['day_start'], day_end=data['day_end'], h=data['day_end'] - data['day_start'],
             g=str(timedelta(seconds=data['duration']))))
     #pp.pprint(days)
 
