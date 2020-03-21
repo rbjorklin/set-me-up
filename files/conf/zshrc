@@ -1,3 +1,7 @@
+# See 'man zshbuiltins' and https://stackoverflow.com/a/30840986
+# adds completion for git etc.
+autoload -Uz compinit && compinit
+
 export PATH="${PATH}:${HOME}/.local/bin:${HOME}/.cargo/bin"
 eval "$(starship init zsh)"
 
@@ -39,9 +43,5 @@ function kubectl() {
 if [[ -f ~/.zshrc.custom ]] ; then
     source ~/.zshrc.custom
 fi
-
-# See 'man zshbuiltins' and https://stackoverflow.com/a/30840986
-# adds completion for git etc.
-autoload -Uz compinit && compinit
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh

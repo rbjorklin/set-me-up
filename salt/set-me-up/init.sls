@@ -1,3 +1,4 @@
+---
 # vim: set shiftwidth=2 tabstop=2 softtabstop=2 expandtab autoindent syntax=yaml:
 
 {% set uid = salt['cmd.run']('id -u ' + pillar['user']) %}
@@ -6,7 +7,7 @@
 curl-installed:
   pkg.latest:
     - name: curl
-    - refresh: True
+    - refresh: true
 
 rpmfusion-pkgrepo:
   cmd.run:
@@ -104,7 +105,7 @@ base-applications-installed:
 docker-ce-dropin:
   file.managed:
     - name: /etc/docker/daemon.json
-    - makedirs: True
+    - makedirs: true
     - contents: |
         {
           "ipv6": false,
@@ -114,7 +115,7 @@ docker-ce-dropin:
 docker-ce-running:
   service.running:
     - name: docker
-    - enable: True
+    - enable: true
 
 {% for application, url in [('vagrant', 'https://www.vagrantup.com/downloads.html')] %}
 {% set applicationDownload = salt['cmd.shell']('curl -s ' + url + ' | grep -m 1 -o "https://.*x86_64\.rpm" | head -n 1') %}
@@ -132,6 +133,11 @@ install-rust:
     - unless: which rustc cargo
     - runas: {{ pillar['user'] }}
 
+upgrade-rust:
+  cmd.run:
+    - name: rustup update
+    - runas: {{ pillar['user'] }}
+
 setup-starship:
   cmd.run:
     - name: cargo install starship
@@ -143,7 +149,7 @@ install-vault:
   file.managed:
     - name: /tmp/vault.zip
     - source: https://releases.hashicorp.com/vault/{{ vaultVersion }}/vault_{{ vaultVersion }}_linux_amd64.zip
-    - skip_verify: True
+    - skip_verify: true
     - unless: test -x /usr/local/bin/vault
 
   archive.extracted:
@@ -157,7 +163,7 @@ install-terraform:
   file.managed:
     - name: /tmp/terraform.zip
     - source: https://releases.hashicorp.com/terraform/{{ terraformVersion }}/terraform_{{ terraformVersion }}_linux_amd64.zip
-    - skip_verify: True
+    - skip_verify: true
     - unless: test -x /usr/local/bin/terraform
 
   archive.extracted:
@@ -193,7 +199,7 @@ gnome-experimental-fractional-scaling:
 alacritty-with-tmux-for-startup:
   file.managed:
     - name: /home/{{ pillar['user'] }}/.local/share/applications/alacritty-tmux.desktop
-    - makedirs: True
+    - makedirs: true
     - contents: |
         [Desktop Entry]
         Type=Application
@@ -217,19 +223,19 @@ solarized-dircolors:
   file.managed:
     - name: /home/{{ pillar['user'] }}/.dircolors
     - source: https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
-    - skip_verify: True
+    - skip_verify: true
 
 someone-who-cares-hosts:
   cmd.run:
     - name: curl -sLo /etc/hosts http://someonewhocares.org/hosts/zero/hosts
     - unless: test "$(curl -sL http://someonewhocares.org/hosts/zero/hosts | sha512sum)" = "$(cat /etc/hosts | sha512sum)"
 
-{% set latestInterFontZip = salt['cmd.shell']('curl -s https://api.github.com/repos/rsms/inter/releases/latest | jq -r ".assets[].browser_download_url"') %}
+{% set latestInterFontZip = salt['cmd.shell']("curl -s https://api.github.com/repos/rsms/inter/releases/latest | jq -r '.assets[] | select(.content_type == \"application/zip\").browser_download_url'") %}
 inter-font-download:
   file.managed:
     - name: /tmp/inter-fonts.zip
     - source: {{ latestInterFontZip }}
-    - skip_verify: True
+    - skip_verify: true
     - unless: test -f /home/{{ pillar['user'] }}/.local/share/fonts/Inter.otf
 
 local-fonts-dir:
@@ -240,7 +246,7 @@ local-fonts-dir:
 
 inter-font-unpack:
   cmd.run:
-    - name: unzip -uj /tmp/inter-fonts.zip */*.otf
+    - name: unzip -ufoj /tmp/inter-fonts.zip */*.otf
     - cwd: /home/{{ pillar['user'] }}/.local/share/fonts
     - unless: test -f /home/{{ pillar['user'] }}/.local/share/fonts/Inter.otf
 
@@ -281,7 +287,7 @@ change-user-shell:
   user.present:
     - name: {{ pillar['user'] }}
     - shell: /usr/bin/zsh
-    - remove_groups: False
+    - remove_groups: false
     - groups:
       - docker
 
@@ -296,7 +302,7 @@ nvim-init-vim:
   file.symlink:
     - name: /home/{{ pillar['user'] }}/.config/nvim/init.vim
     - target: /srv/files/conf/init.vim
-    - makedirs: True
+    - makedirs: true
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
@@ -330,7 +336,7 @@ alacritty-symlink:
   file.symlink:
     - name: /home/{{ pillar['user'] }}/.config/alacritty/alacritty.yml
     - target: /srv/files/conf/alacritty.yml
-    - makedirs: True
+    - makedirs: true
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
@@ -338,7 +344,7 @@ starship-symlink:
   file.symlink:
     - name: /home/{{ pillar['user'] }}/.config/starship.toml
     - target: /srv/files/conf/starship.toml
-    - makedirs: True
+    - makedirs: true
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
@@ -348,6 +354,12 @@ vconsole-colemak:
     - contents: |
         KEYMAP="us-colemak"
         FONT="eurlatgr"
+
+prep-for-fix-ownership:
+  cmd.run:
+    - name: find . -xtype l -print -exec rm -f {} \;
+    - cwd: /home/{{ pillar['user'] }}/
+    - runas: {{ pillar['user'] }}
 
 # This breaks if the folder contains broken symlinks: https://github.com/saltstack/salt/issues/49204
 # remove symlinks with: find . -xtype l -exec rm -f {} \;
@@ -365,16 +377,16 @@ fix-ownership:
 #systemd-resolved:
 #  service.running:
 #    - name: systemd-resolved
-#    - enable: True
+#    - enable: true
 #  file.symlink:
 #    - name: /etc/resolv.conf
 #    - target: /run/systemd/resolve/stub-resolv.conf
-#    - force: True
+#    - force: true
 
 systemd-packagekit:
   service.dead:
     - name: packagekit
-    - enable: False
+    - enable: false
   file.absent:
     - name: /var/cache/PackageKit
   pkg.purged:
