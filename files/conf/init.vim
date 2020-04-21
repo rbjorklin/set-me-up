@@ -240,6 +240,13 @@ noremap <Leader>l :g/^\s*$/d<CR>
 " See Vim section http://dev.realworldocaml.org/install.html
 if executable('ocamlmerlin') && executable('ocamlformat') && has('python')
     let s:opamshare = substitute(system('opam config var share'), '\n$', '', '''') . "/merlin"
+    let g:neoformat_ocaml_ocamlformat = {
+            \ 'exe': 'ocamlformat',
+            \ 'no_append': 1,
+            \ 'stdin': 1,
+            \ 'args': ['--disable-outside-detected-project', '--name', '"%:p"', '-']
+            \ }
+    let g:neoformat_enabled_ocaml = ['ocamlformat']
     let s:ocp_indent = substitute(system('opam config var ocp-indent:share'), '\n$', '', '''') . "/vim"
     execute "set rtp+=".s:opamshare."/vim"
     execute "set rtp+=".s:opamshare."/vimbufsync"

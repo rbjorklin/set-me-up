@@ -14,11 +14,13 @@
 [core]
     autocrlf = input
 [diff]
-    tool = meld
+    tool = neovim
 [difftool]
     prompt = false
 [difftool "meld"]
     cmd = meld "$LOCAL" "$REMOTE"
+[difftool "neovim"]
+    cmd = nvim -d "${LOCAL}" "${REMOTE}"
 [merge]
     tool = meld
 [mergetool "meld"]

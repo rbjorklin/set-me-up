@@ -45,3 +45,6 @@ if [[ -f ~/.zshrc.custom ]] ; then
 fi
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# opam configuration
+test -r /home/rbjorklin/.opam/opam-init/init.zsh && . /home/rbjorklin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
