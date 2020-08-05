@@ -14,10 +14,7 @@ Plug 'bling/vim-airline'
 Plug 'majutsushi/tagbar'
 " Make it easy to format text
 Plug 'godlygeek/tabular'
-" Auto completion
-"Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --gocode-completer' }
 " LSP support
-"Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Go plugin
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -31,8 +28,8 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 " Rainbow colored parentheses, prime for Clojure
 Plug 'junegunn/rainbow_parentheses.vim', { 'for': 'clojure' }
-" OCaml auto indent
-Plug 'OCamlPro/ocp-indent', { 'for': 'ocaml' }
+" OCaml support
+Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
 " OCaml auto format
 Plug 'sbdchd/neoformat', { 'for': 'ocaml' }
 " Vim indent guide
@@ -244,19 +241,16 @@ if executable('ocamlmerlin') && executable('ocamlformat') && has('python')
             \ 'exe': 'ocamlformat',
             \ 'no_append': 1,
             \ 'stdin': 1,
-            \ 'args': ['--disable-outside-detected-project', '--name', '"%:p"', '-']
+            \ 'args': ['--enable-outside-detected-project', '--name', '"%:p"', '-']
             \ }
     let g:neoformat_enabled_ocaml = ['ocamlformat']
-    let s:ocp_indent = substitute(system('opam config var ocp-indent:share'), '\n$', '', '''') . "/vim"
     execute "set rtp+=".s:opamshare."/vim"
     execute "set rtp+=".s:opamshare."/vimbufsync"
-    execute "set rtp+=".s:ocp_indent.""
-    "autocmd FileType ocaml source s:opamshare."/typerex/ocp-indent/ocp-indent.vim"
     let g:syntastic_ocaml_checkers = ['merlin']
     autocmd FileType ocaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
     augroup fmt
         autocmd!
-        autocmd BufWritePre *.ml,*.mli undojoin | Neoformat
+        autocmd BufWritePre *.ml,*.mli try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
     augroup end
 
     " List all occurrences of identifier under cursor in current buffer.
