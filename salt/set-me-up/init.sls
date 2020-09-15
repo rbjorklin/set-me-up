@@ -306,6 +306,14 @@ nvim-init-vim:
     - user: {{ pillar['user'] }}
     - group: {{ pillar['user'] }}
 
+nvim-coc-settings:
+  file.symlink:
+    - name: /home/{{ pillar['user'] }}/.config/nvim/coc-settings.json
+    - target: /srv/files/conf/coc-settings.json
+    - makedirs: true
+    - user: {{ pillar['user'] }}
+    - group: {{ pillar['user'] }}
+
 nvim-vim-plug:
   cmd.run:
     - name: curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
