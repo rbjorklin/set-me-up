@@ -405,6 +405,11 @@ systemd-packagekit:
       - PackageKit-gtk3-module
       - PackageKit-glib
 
+sysctl-tune-dirty-bytes:
+  file.managed:
+    - name: /etc/sysctl.d/01-dirty-bytes.conf
+    - source: salt://conf/01-dirty-bytes.conf
+
 # Dleyna leaks memory so we don't want it
 remove-dleyna:
   pkg.purged:
