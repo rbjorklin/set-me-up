@@ -2,7 +2,7 @@
 # adds completion for git etc.
 autoload -Uz compinit && compinit
 
-export PATH="${PATH}:${HOME}/.local/bin:${HOME}/.cargo/bin"
+export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${PATH}"
 eval "$(starship init zsh)"
 
 # Adapt autosuggest color to Solarized
