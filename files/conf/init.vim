@@ -241,7 +241,7 @@ if executable('ocamlmerlin') && executable('ocamlformat') && has('python')
             \ 'exe': 'ocamlformat',
             \ 'no_append': 1,
             \ 'stdin': 1,
-            \ 'args': ['--enable-outside-detected-project', '--break-infix=fit-or-vertical', '--break-cases=fit-or-vertical', '--name', '"%:p"', '-']
+            \ 'args': ['--enable-outside-detected-project', '--break-infix=fit-or-vertical', '--break-cases=fit-or-vertical', '--break-fun-decl=fit-or-vertical', '--type-decl=sparse', '--name', '"%:p"', '-']
             \ }
     let g:neoformat_enabled_ocaml = ['ocamlformat']
     execute "set rtp+=".s:opamshare."/vim"
