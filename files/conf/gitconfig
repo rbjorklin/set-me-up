@@ -7,6 +7,8 @@
     user = rbjorklin
 [pull]
     rebase = true
+[rebase]
+    autosquash = true
 [alias]
     lg = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an %C(auto)%G?>%Creset' --abbrev-commit --date=relative
     checkoutsm = checkout --force --recurse-submodule
@@ -28,3 +30,5 @@
     #cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
     # Edit the middle file.
     cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+[init]
+	defaultBranch = main

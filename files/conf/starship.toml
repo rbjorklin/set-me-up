@@ -1,2 +1,8 @@
 [battery]
 disabled = true
+
+[kubernetes]
+disabled = false
+
+[aws]
+disabled = true

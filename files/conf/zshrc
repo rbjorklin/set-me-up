@@ -25,6 +25,9 @@ export WORDCHARS=''
 alias vim="vim -p"
 alias urldecode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.unquote_plus(sys.argv[1]))"'
 alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.quote_plus(sys.argv[1]))"'
+alias k="kubectl"
+alias kns="kubens"
+alias kctx="kubectx"
 
 # Variables
 export VISUAL="vim"
