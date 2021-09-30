@@ -410,6 +410,11 @@ sysctl-tune-dirty-bytes:
     - name: /etc/sysctl.d/01-dirty-bytes.conf
     - source: salt://conf/01-dirty-bytes.conf
 
+sysctl-tune-swappiness:
+  file.managed:
+    - name: /etc/sysctl.d/02-swappiness.conf
+    - source: salt://conf/02-swappiness.conf
+
 # Dleyna leaks memory so we don't want it
 remove-dleyna:
   pkg.purged:
