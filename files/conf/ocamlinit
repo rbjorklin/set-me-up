@@ -1,0 +1,18 @@
+(* ## added by OPAM user-setup for ocamltop / base ## 3ec62baf6f9c219ae06d9814069da862 ## you can edit, but keep this line *)
+#use "topfind";;
+(* ## end of OPAM user-setup addition for ocamltop / base ## keep this line *)
+
+(* https://stackoverflow.com/questions/42631912/whats-the-difference-between-include-require-and-open-in-ocaml *)
+(* https://dev.realworldocaml.org/install.html *)
+#thread;;
+#require "lwt";;
+#require "lwt.unix";;
+#require "cohttp-lwt-unix";;
+#require "logs.lwt";;
+#require "caqti-lwt";;
+#require "caqti-driver-postgresql";;
+#require "owl";;
+#require "owl-base";;
+#require "owl-plplot";;
+#require "core";;
+open Lwt.Infix;;

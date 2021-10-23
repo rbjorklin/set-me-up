@@ -4,12 +4,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-sudo mkdir -p /etc/salt/minion.d
-sudo cp /srv/local.conf /etc/salt/minion.d/
-sudo dnf install -y salt-minion
-echo "Starting salt state, this might take a few minutes."
-sudo salt-call -l quiet state.apply set-me-up pillar="{'user':'$USER'}"
-
+sudo dnf install -y ansible
+sudo ansible-playbook -e user=$USER --diff playbook.yaml
 
 # Disable websites taking over browser shortscuts/hotkeys
 # https://support.mozilla.org/en-US/questions/1241294

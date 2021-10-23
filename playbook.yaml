@@ -1,0 +1,294 @@
+# vim: set softtabstop=2 tabstop=2 shiftwidth=2 expandtab autoindent smartindent syntax=yaml:
+
+- hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Ensure curl installed
+      ansible.builtin.package:
+        name: curl
+        state: present
+
+    - name: Check if rpmfusion configured
+      ansible.builtin.command:
+        cmd: rpm -q rpmfusion-free-release rpmfusion-nonfree-release
+      register: rpmfusion
+      ignore_errors: true
+
+    - name: Ensure rpmfusion configured
+      ansible.builtin.shell:
+        cmd: |
+          curl -L -s -o RPM-GPG-KEY-rpmfusion-nonfree-fedora-$(rpm -E %fedora) "http://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-$(rpm -E %fedora)"
+          curl -L -s -o RPM-GPG-KEY-rpmfusion-free-fedora-$(rpm -E %fedora) "http://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-$(rpm -E %fedora)"
+          rpm --import RPM-GPG-KEY-rpmfusion-free-fedora-$(rpm -E %fedora)
+          rpm --import RPM-GPG-KEY-rpmfusion-nonfree-fedora-$(rpm -E %fedora)
+          rm RPM-GPG-KEY-rpmfusion-*free-fedora-$(rpm -E %fedora)
+          dnf install -y http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+      when: rpmfusion is failed
+
+    - name: Ensure VSCode gpg key accepted
+      ansible.builtin.command:
+        cmd: rpm --import https://packages.microsoft.com/keys/microsoft.asc
+
+    - name: Ensure VSCode repository configured
+      ansible.builtin.yum_repository:
+        name: VSCode
+        description: Visual Studio Code
+        baseurl: https://packages.microsoft.com/yumrepos/vscode
+        gpgcheck: true
+        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+
+    - name: Ensure dnf-plugins-core installed
+      ansible.builtin.command:
+        cmd: dnf -y install dnf-plugins-core
+
+    - name: Ensure fira-code font repo enabled
+      ansible.builtin.command:
+        cmd: dnf -y copr enable evana/fira-code-fonts
+
+    - name: Ensure Spotify repo configured
+      ansible.builtin.command:
+        cmd: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
+
+    - name: Ensure base applications installed
+      ansible.builtin.package:
+        state: present
+        name:
+          - git
+          - tmux
+          - htop
+          - zip
+          - unzip
+          - ripgrep
+          - neovim
+          - python3-neovim
+          - ctags
+          - zsh
+          - code
+          - alacritty
+          - jq
+          - firefox
+          - vlc
+          - fira-code-fonts
+          - rsms-inter-fonts
+          - levien-inconsolata-fonts
+          - mozilla-fira-mono-fonts
+          - mozilla-fira-sans-fonts
+          - spotify-client
+          - gpaste
+          - gpaste-ui
+          - gnome-shell-extension-gpaste
+          - VirtualBox
+          - akmod-VirtualBox
+          - gnome-tweaks
+          - kernel-modules-extra # xpad etc.
+          - yamllint
+          - dconf-editor
+          - nodejs # coc-nvim
+          - pv
+          - evolution
+          - podman
+          - podman-docker
+          - docker-compose
+          - postgresql
+
+    - name: Ensure dirty_bytes tuned
+      ansible.builtin.copy:
+        src: "files/conf/01-dirty-bytes.conf"
+        dest: /etc/sysctl.d/01-dirty-bytes.conf
+
+    - name: Ensure swappiness tuned
+      ansible.builtin.copy:
+        src: "files/conf/02-swappiness.conf"
+        dest: /etc/sysctl.d/02-swappiness.conf
+
+    - name: Ensure PackageKit stopped
+      ansible.builtin.systemd:
+        name: packagekit
+        state: stopped
+      ignore_errors: true
+
+    - name: Ensure PackageKit removed
+      ansible.builtin.package:
+        state: absent
+        name:
+          - PackageKit
+          - PackageKit-gstreamer-plugin
+          - PackageKit-command-not-found
+          - PackageKit-gtk3-module
+          - PackageKit-glib
+
+    # Dleyna leaks memory so we don't want it
+    - name: Ensure Dleyna removed
+      ansible.builtin.package:
+        state: absent
+        name:
+          - dleyna-core
+          - dleyna-server
+          - dleyna-renderer
+          - dleyna-connector-dbus
+
+    - name: Ensure colemak keymap configured
+      ansible.builtin.copy:
+        dest: /etc/vconsole.conf
+        content: |
+          KEYMAP="us-colemak"
+          FONT="eurlatgr"
+
+    - name: Ensure Someone Who Cares hosts file installed
+      ansible.builtin.get_url:
+        url: https://someonewhocares.org/hosts/zero/hosts
+        dest: /etc/hosts
+
+    - name: Ensure opam installed
+      ansible.builtin.get_url:
+        url: https://github.com/ocaml/opam/releases/download/2.1.0/opam-2.1.0-x86_64-linux
+        dest: /usr/local/bin/opam
+        mode: '0755'
+
+    - name: Ensure zsh shell configured
+      ansible.builtin.user:
+        name: "{{ user }}"
+        shell: /usr/bin/zsh
+
+    - name: Ensure podman uses btrfs storage driver
+      ansible.builtin.copy:
+        src: "{{ ansible_facts['env']['PWD'] }}/files/conf/storage.conf"
+        dest: "/etc/containers/storage.conf"
+
+    - name: Ensure podman-socket started
+      ansible.builtin.systemd:
+        name: podman-socket
+        state: started
+        enabled: true
+
+    - name: "Run tasks as {{ user }}"
+      become_user: "{{ user }}"
+      block:
+        - name: Ensure rust installed
+          ansible.builtin.shell:
+            cmd: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+        - name: Ensure starship installed
+          ansible.builtin.shell:
+            cmd: ~/.cargo/bin/cargo install starship
+
+        - name: Ensure zsh-autosuggestions is checked out
+          ansible.builtin.git:
+            repo: https://github.com/zsh-users/zsh-autosuggestions
+            dest: "/home/{{ user }}/.zsh/zsh-autosuggestions"
+
+        - name: Ensure Gnome app-switcher only applies to current workspace
+          ansible.builtin.command:
+            cmd: gsettings set org.gnome.shell.app-switcher current-workspace-only true
+
+        - name: Ensure Gnome Calendar shows week
+          ansible.builtin.command:
+            cmd: gsettings set org.gnome.desktop.calendar show-weekdate true
+
+        - name: Ensure Gnome screen-blank timeout is 15 min
+          ansible.builtin.command:
+            cmd: gsettings set org.gnome.desktop.session idle-delay 900
+
+        #- name: Ensure Gnome fractional scaling enabled
+        #  ansible.builtin.command:
+        #    cmd: gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+
+        - name: Copy using inline content
+          ansible.builtin.copy:
+            dest: "/home/{{ user }}/.local/share/applications/alacritty-tmux.desktop"
+            content: |
+              [Desktop Entry]
+              Type=Application
+              TryExec=alacritty
+              Exec=alacritty -e tmux
+              Icon=Alacritty
+              Terminal=false
+              Categories=System;TerminalEmulator;
+
+              Name=Alacritty Tmux
+              GenericName=Terminal
+              Comment=A cross-platform, GPU enhanced terminal emulator
+              StartupWMClass=Alacritty
+              Actions=New;
+
+              [Desktop Action New]
+              Name=New Terminal
+              Exec=alacritty
+
+        - name: Ensure folders exist
+          ansible.builtin.file:
+            path: "{{ item }}"
+            state: directory
+          loop:
+            - "/home/{{ user }}/.config/nvim"
+            - "/home/{{ user }}/.config/alacritty"
+            - "/home/{{ user }}/.config/containers"
+
+        - name: Ensure Solarized colors configured
+          ansible.builtin.get_url:
+            url: https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
+            dest: "/home/{{ user }}/.dircolors"
+            mode: '0640'
+
+        - name: Ensure utoprc-dark configured
+          ansible.builtin.get_url:
+            url: https://raw.githubusercontent.com/ocaml-community/utop/master/utoprc-dark
+            dest: "/home/{{ user }}/.utoprc"
+            mode: '0640'
+
+        - name: Ensure ocamlinit symlinked
+          ansible.builtin.file:
+            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/ocamlinit"
+            path: "/home/{{ user }}/.ocamlinit"
+            state: link
+
+        - name: Ensure gitconfig symlinked
+          ansible.builtin.file:
+            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/gitconfig"
+            path: "/home/{{ user }}/.gitconfig"
+            state: link
+
+        - name: Ensure zshrc symlinked
+          ansible.builtin.file:
+            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/zshrc"
+            dest: "/home/{{ user }}/.zshrc"
+            state: link
+
+        - name: Ensure nvim config symlinked
+          ansible.builtin.file:
+            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/init.vim"
+            dest: "/home/{{ user }}/.config/nvim/init.vim"
+            state: link
+
+        - name: Ensure coc.nvim config symlinked
+          ansible.builtin.file:
+            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/coc-settings.json"
+            dest: "/home/{{ user }}/.config/nvim/coc-settings.json"
+            state: link
+
+        - name: Ensure tmux config symlinked
+          ansible.builtin.file:
+            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/tmux.conf"
+            dest: "/home/{{ user }}/.tmux.conf"
+            state: link
+
+        - name: Ensure alacritty config symlinked
+          ansible.builtin.file:
+            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/alacritty.yml"
+            dest: "/home/{{ user }}/.config/alacritty/alacritty.yml"
+            state: link
+
+        - name: Ensure starship config symlinked
+          ansible.builtin.file:
+            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/starship.toml"
+            dest: "/home/{{ user }}/.config/starship.toml"
+            state: link
+
+        - name: Ensure nvim vim-plug installed
+          ansible.builtin.command:
+            cmd: curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+        - name: Ensure nvim plugins installed
+          ansible.builtin.command:
+            cmd: nvim --headless -c PlugInstall -c quitall
