@@ -236,7 +236,7 @@ noremap <Leader>l :g/^\s*$/d<CR>
 " OCaml auto-completion with merlin
 " See Vim section http://dev.realworldocaml.org/install.html
 if executable('ocamlmerlin') && executable('ocamlformat') && has('python')
-    let s:opamshare = substitute(system('opam config var share'), '\n$', '', '''') . "/merlin"
+    let s:opamshare = substitute(system('opam var share'), '\n$', '', '''') . "/merlin"
     let g:neoformat_ocaml_ocamlformat = {
             \ 'exe': 'ocamlformat',
             \ 'no_append': 1,
