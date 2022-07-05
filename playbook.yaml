@@ -88,6 +88,7 @@
           - podman-docker
           - docker-compose
           - postgresql
+          - sqlite # zsh-histdb
 
     - name: Ensure dirty_bytes tuned
       ansible.builtin.copy:
@@ -174,6 +175,11 @@
           ansible.builtin.git:
             repo: https://github.com/zsh-users/zsh-autosuggestions
             dest: "/home/{{ user }}/.zsh/zsh-autosuggestions"
+
+        - name: Ensure zsh-histdb is checked out
+          ansible.builtin.git:
+            repo: https://github.com/larkery/zsh-histdb
+            dest: "/home/{{ user }}/.zsh/zsh-histdb"
 
         - name: Ensure Gnome app-switcher only applies to current workspace
           ansible.builtin.command:
