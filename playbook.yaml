@@ -42,10 +42,6 @@
       ansible.builtin.command:
         cmd: dnf -y install dnf-plugins-core
 
-    - name: Ensure fira-code font repo enabled
-      ansible.builtin.command:
-        cmd: dnf -y copr enable evana/fira-code-fonts
-
     - name: Ensure Spotify repo configured
       ansible.builtin.command:
         cmd: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
@@ -69,6 +65,7 @@
           - jq
           - firefox
           - vlc
+          - krita
           - fira-code-fonts
           - rsms-inter-fonts
           - levien-inconsolata-fonts
@@ -158,7 +155,7 @@
 
     - name: Ensure podman-socket started
       ansible.builtin.systemd:
-        name: podman-socket
+        name: podman.socket
         state: started
         enabled: true
 
@@ -259,6 +256,12 @@
           ansible.builtin.file:
             src: "{{ ansible_facts['env']['PWD'] }}/files/conf/init.vim"
             dest: "/home/{{ user }}/.config/nvim/init.vim"
+            state: link
+
+        - name: Ensure nvim binary symlinked
+          ansible.builtin.file:
+            src: "/usr/bin/nvim"
+            dest: "/usr/bin/vim"
             state: link
 
         - name: Ensure coc.nvim config symlinked
