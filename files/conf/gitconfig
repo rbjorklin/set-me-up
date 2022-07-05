@@ -15,6 +15,7 @@
     pullsm = pull --recurse-submodule # try `git clean -fdx` and `git reset --hard`
     pusho = !git push -u origin $(git branch --show-current)
     merged = !git branch --merged | egrep -v 'master|main' | grep -v $(git branch --show-current) | xargs --no-run-if-empty git branch -d # delete merged branches locally
+    diffc = diff --cached
 [core]
     autocrlf = input
 [diff]
