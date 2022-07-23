@@ -9,6 +9,7 @@
     rebase = true
 [rebase]
     autosquash = true
+    autoStash = true
 [alias]
     lg = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an %C(auto)%G?>%Creset' --abbrev-commit --date=relative
     checkoutsm = checkout --force --recurse-submodule
@@ -16,6 +17,8 @@
     pusho = !git push -u origin $(git branch --show-current)
     merged = !git branch --merged | egrep -v 'master|main' | grep -v $(git branch --show-current) | xargs --no-run-if-empty git branch -d # delete merged branches locally
     diffc = diff --cached
+    pick = cherry-pick -x
+    addp = add --patch
 [core]
     autocrlf = input
 [diff]
@@ -34,4 +37,4 @@
     # Edit the middle file.
     cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
 [init]
-	defaultBranch = main
+    defaultBranch = main

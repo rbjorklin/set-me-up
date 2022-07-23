@@ -40,6 +40,8 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'gu-fan/InstantRst'
 " Surrond word with parentheses, quotes etc.
 Plug 'tpope/vim-surround'
+" Git plugin for vim
+Plug 'tpope/vim-fugitive'
 " Syntax highlighting for Hashicorp .hcl files
 Plug 'jvirtanen/vim-hcl'
 
