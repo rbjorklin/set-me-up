@@ -64,6 +64,7 @@
           - alacritty
           - jq
           - firefox
+          - fzf
           - vlc
           - krita
           - fira-code-fonts
@@ -89,6 +90,7 @@
           - docker-compose
           - postgresql
           - sqlite # zsh-histdb
+          - g++ # nvim-treesitter
 
     - name: Ensure dirty_bytes tuned
       ansible.builtin.copy:
@@ -301,3 +303,11 @@
         - name: Ensure nvim plugins installed
           ansible.builtin.command:
             cmd: nvim --headless -c PlugInstall -c quitall
+
+        - name: Ensure nvim treesitter ocaml parser installed
+          ansible.builtin.command:
+            cmd: nvim --headless -c "TSInstallSync ocaml" -c quitall
+
+        - name: Ensure nvim treesitter ocaml_interface parser installed
+          ansible.builtin.command:
+            cmd: nvim --headless -c "TSInstallSync ocaml_interface" -c quitall

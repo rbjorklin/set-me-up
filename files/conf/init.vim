@@ -1,5 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+" Treesitter highlighting for multiple languages
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Solarized color scheme
 Plug 'altercation/vim-colors-solarized'
 " File explorer, on-demand loading
@@ -29,7 +31,7 @@ Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 " Rainbow colored parentheses, prime for Clojure
 Plug 'junegunn/rainbow_parentheses.vim', { 'for': 'clojure' }
 " OCaml support
-Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
+Plug 'ocaml/vim-ocaml', { 'for': ['ocaml', 'dune'] }
 " OCaml auto format
 Plug 'sbdchd/neoformat', { 'for': 'ocaml' }
 " Vim indent guide
@@ -47,6 +49,30 @@ Plug 'jvirtanen/vim-hcl'
 
 " All of your Plugins must be added before the following line
 call plug#end() " End of vim-plug
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "go", "ocaml", "ocaml_interface", "rust" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  auto_install = true,
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
 
 "NeoVim handles ESC keys as alt+key set this for faster sequences
 set timeout
