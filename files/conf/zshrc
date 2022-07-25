@@ -5,7 +5,6 @@ export FPATH=/usr/share/zsh/5.8.1/functions/:${FPATH}
 autoload -Uz compinit && compinit
 
 export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${PATH}"
-eval "$(starship init zsh)"
 
 # Adapt autosuggest color to Solarized
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=11"
@@ -80,3 +79,4 @@ ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here
 
 # opam configuration
 test -r /home/rbjorklin/.opam/opam-init/init.zsh && . /home/rbjorklin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+eval "$(starship init zsh)"
