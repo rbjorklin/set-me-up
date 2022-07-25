@@ -61,7 +61,10 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-histdb/sqlite-history.zsh
 autoload -Uz add-zsh-hook
 source ~/.zsh/zsh-histdb/histdb-interactive.zsh
-bindkey '^r' _histdb-isearch
+
+# zsh-histdb-skim
+source ~/.zsh/zsh-histdb-skim/zsh-histdb-skim.zsh
+bindkey '^r' histdb-skim-widget
 
 _zsh_autosuggest_strategy_histdb_top_here() {
     local query="select commands.argv from

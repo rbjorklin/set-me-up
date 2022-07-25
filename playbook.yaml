@@ -173,15 +173,20 @@
           ansible.builtin.shell:
             cmd: ~/.cargo/bin/cargo install starship
 
-        - name: Ensure zsh-autosuggestions is checked out
+        - name: Ensure zsh-autosuggestions cloned
           ansible.builtin.git:
             repo: https://github.com/zsh-users/zsh-autosuggestions
             dest: "/home/{{ user }}/.zsh/zsh-autosuggestions"
 
-        - name: Ensure zsh-histdb is checked out
+        - name: Ensure zsh-histdb cloned
           ansible.builtin.git:
             repo: https://github.com/larkery/zsh-histdb
             dest: "/home/{{ user }}/.zsh/zsh-histdb"
+
+        - name: Ensure zsh-histdb-skim cloned
+          ansible.builtin.git:
+            repo: https://github.com/m42e/zsh-histdb-skim
+            dest: "/home/{{ user }}/.zsh/zsh-histdb-skim"
 
         - name: Ensure Gnome app-switcher only applies to current workspace
           ansible.builtin.command:
