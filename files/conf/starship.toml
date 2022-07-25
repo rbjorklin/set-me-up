@@ -10,3 +10,9 @@ disabled = true
 [time]
 disabled = false
 format = '[$time]($style) '
+
+[pulumi]
+disabled = true
+
+[localip]
+disabled = true
