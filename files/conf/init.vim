@@ -83,7 +83,7 @@ if has('nvim')
    set ttimeoutlen=0
 endif
 
-let mapleader = " " " the leader key bust be defined before usage
+let mapleader = " " " the leader key must be defined before usage
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -96,35 +96,27 @@ set shortmess+=c
 " diagnostics appear/become resolved.
 set signcolumn=yes
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-if has('patch8.1.1068')
-  " Use `complete_info` if your (Neo)Vim version supports it.
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -132,19 +124,22 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
+" https://github.com/neoclide/coc.nvim/wiki/F.A.Q#how-to-show-documentation-of-symbol-under-cursor-also-known-as-cursor-hover
+" autocmd CursorHold * silent call CocActionAsync('doHover')
+nnoremap <silent> <leader>h :call CocActionAsync('doHover')<cr>
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -195,6 +190,10 @@ if exists('+colorcolumn')
   set colorcolumn=80    " use visual indicator at 80 char mark
 endif
 
+" This has to be configured after the colorscheme is set
+highlight CocSearch ctermfg=4
+highlight CocMenuSel ctermbg=0
+
 set scrolloff=1
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set history=100         " keep 50 lines of command line history
@@ -212,8 +211,8 @@ set smarttab
 set autoindent          " copy indent from current line to new line
 set visualbell          " make screen flash instead of audible beep
 set noerrorbells        " ignore errorbells
-set nobackup
-set nowritebackup
+set nobackup            " https://github.com/neoclide/coc.nvim/issues/649#issuecomment-480086894
+set nowritebackup       " https://github.com/neoclide/coc.nvim/issues/649#issuecomment-480086894
 set noswapfile
 set laststatus=2        " always show the statusline
 set encoding=utf-8      " necessary to show Unicode glyphs
@@ -263,32 +262,21 @@ noremap <Leader>l :g/^\s*$/d<CR>
 
 " OCaml auto-completion with merlin
 " See Vim section http://dev.realworldocaml.org/install.html
-if executable('ocamlmerlin') && executable('ocamlformat') && has('python')
-    let s:opamshare = substitute(system('opam var share'), '\n$', '', '''') . "/merlin"
-    let g:neoformat_ocaml_ocamlformat = {
-            \ 'exe': 'ocamlformat',
+let g:opambin = substitute(system('opam var bin'),'\n$','','''')
+let g:neoformat_ocaml_ocamlformat = {
+            \ 'exe': g:opambin . '/ocamlformat',
             \ 'no_append': 1,
             \ 'stdin': 1,
             \ 'args': ['--enable-outside-detected-project', '--break-infix=fit-or-vertical', '--break-cases=fit-or-vertical', '--break-fun-decl=fit-or-vertical', '--type-decl=sparse', '--name', '"%:p"', '-']
             \ }
-    let g:neoformat_enabled_ocaml = ['ocamlformat']
-    execute "set rtp+=".s:opamshare."/vim"
-    execute "set rtp+=".s:opamshare."/vimbufsync"
-    let g:syntastic_ocaml_checkers = ['merlin']
-    autocmd FileType ocaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    augroup fmt
-        autocmd!
-        autocmd BufWritePre *.ml,*.mli try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
-    augroup end
 
-    " List all occurrences of identifier under cursor in current buffer.
-    nmap <Leader>*  <Plug>(MerlinSearchOccurrencesForward)
-    nmap <Leader>#  <Plug>(MerlinSearchOccurrencesBackward)
-
-    " Rename all occurrences of identifier under cursor to <ident>.
-    nmap <Leader>r  <Plug>(MerlinRename)
-    nmap <Leader>R  <Plug>(MerlinRenameAppend)
-endif
+let g:neoformat_enabled_ocaml = ['ocamlformat']
+autocmd FileType ocaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup fmt
+    autocmd!
+    autocmd BufWritePre *.ml,*.mli try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
+    "autocmd BufWritePre *.ml,*.mli undojoin | silent Neoformat
+augroup end
 
 " Shift Insert does something magic?
 map <S-Insert> "*gP

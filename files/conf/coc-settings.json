@@ -1,4 +1,6 @@
 {
+    "coc.preferences.formatOnSaveFiletypes": ["ocaml"],
+    "suggest.noselect": true,
     "languageserver": {
         "ocaml-lsp": {
             "command": "opam",
