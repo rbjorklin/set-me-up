@@ -91,6 +91,7 @@
           - postgresql
           - sqlite # zsh-histdb
           - g++ # nvim-treesitter
+          - inotify-tools # dune build --watch
 
     - name: Ensure dirty_bytes tuned
       ansible.builtin.copy:
