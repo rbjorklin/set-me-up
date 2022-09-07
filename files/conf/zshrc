@@ -65,17 +65,42 @@ source ~/.zsh/zsh-histdb/histdb-interactive.zsh
 source ~/.zsh/zsh-histdb-skim/zsh-histdb-skim.zsh
 bindkey '^r' histdb-skim-widget
 
-_zsh_autosuggest_strategy_histdb_top_here() {
-    local query="select commands.argv from
-history left join commands on history.command_id = commands.rowid
-left join places on history.place_id = places.rowid
-where places.dir LIKE '$(sql_escape $PWD)%'
-and commands.argv LIKE '$(sql_escape $1)%'
-group by commands.argv order by count(*) desc limit 1"
+_zsh_autosuggest_strategy_histdb_top_here_and_now() {
+    local query="
+SELECT
+  commands.argv
+FROM
+  history
+LEFT JOIN
+  commands
+ON
+  history.command_id = commands.id
+LEFT JOIN
+  places
+ON
+  history.place_id = places.id
+WHERE
+  places.dir
+LIKE
+  '$(sql_escape $PWD)%'
+AND
+  commands.argv
+LIKE
+  '$(sql_escape $1)%'
+AND
+  history.exit_status = 0
+GROUP BY
+  commands.argv,
+  history.session,
+  history.start_time
+ORDER BY
+  history.session = '$(sql_escape $HISTDB_SESSION)' DESC,
+  history.start_time DESC
+LIMIT 1"
     suggestion=$(_histdb_query "$query")
 }
 
-ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here
+ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here_and_now
 
 # opam configuration
 test -r /home/rbjorklin/.opam/opam-init/init.zsh && . /home/rbjorklin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
