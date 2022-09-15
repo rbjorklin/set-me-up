@@ -75,24 +75,12 @@ LEFT JOIN
   commands
 ON
   history.command_id = commands.id
-LEFT JOIN
-  places
-ON
-  history.place_id = places.id
 WHERE
-  places.dir
-LIKE
-  '$(sql_escape $PWD)%'
-AND
   commands.argv
 LIKE
   '$(sql_escape $1)%'
-AND
-  history.exit_status = 0
 GROUP BY
-  commands.argv,
-  history.session,
-  history.start_time
+  commands.argv
 ORDER BY
   history.session = '$(sql_escape $HISTDB_SESSION)' DESC,
   history.start_time DESC
