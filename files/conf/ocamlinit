@@ -11,8 +11,5 @@
 #require "logs.lwt";;
 #require "caqti-lwt";;
 #require "caqti-driver-postgresql";;
-#require "owl";;
-#require "owl-base";;
-#require "owl-plplot";;
 #require "core";;
 open Lwt.Infix;;
