@@ -1,0 +1,5 @@
+pane	0	0	1	:*	0	node-1w7jr9qsrnd18m5yyd66he5v7.ipv6.telus.net	:/home/rbjorklin/git/trader-ocaml	1	zsh
+pane	0	0	1	:*	1	node-1w7jr9qsrnd18m5yyd66he5v7.ipv6.telus.net	:/home/rbjorklin/git/trader-ocaml	0	dune	 dune build @install --watch
+pane	0	0	1	:*	2	node-1w7jr9qsrnd18m5yyd66he5v7.ipv6.telus.net	:/home/rbjorklin/git/trader-ocaml	0	_build/default/.utop/utop.exe	 dune utop
+window	0	0	:trader-ocaml	1	:*	35cb,232x63,0,0{116x63,0,0,1,115x63,117,0[115x31,117,0,2,115x31,117,32,3]}	off
+state	0
