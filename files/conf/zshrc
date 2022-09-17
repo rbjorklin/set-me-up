@@ -67,23 +67,33 @@ bindkey '^r' histdb-skim-widget
 
 _zsh_autosuggest_strategy_histdb_top_here_and_now() {
     local query="
-SELECT
-  commands.argv
+WITH
+  interim_table (command) AS
+(
+  SELECT
+    commands.argv
+  FROM
+    history
+  LEFT JOIN
+    commands
+  ON
+    history.command_id = commands.id
+  WHERE
+    commands.argv
+  LIKE
+    '$(sql_escape $1)%'
+  GROUP BY
+    commands.argv,
+    history.session,
+    history.start_time
+  ORDER BY
+    history.session = '$(sql_escape $HISTDB_SESSION)' DESC,
+    history.start_time DESC
+)
+SELECT DISTINCT
+  command
 FROM
-  history
-LEFT JOIN
-  commands
-ON
-  history.command_id = commands.id
-WHERE
-  commands.argv
-LIKE
-  '$(sql_escape $1)%'
-GROUP BY
-  commands.argv
-ORDER BY
-  history.session = '$(sql_escape $HISTDB_SESSION)' DESC,
-  history.start_time DESC
+  interim_table
 LIMIT 1"
     suggestion=$(_histdb_query "$query")
 }
