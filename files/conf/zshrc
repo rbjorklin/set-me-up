@@ -35,6 +35,7 @@ alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.q
 alias k="kubectl"
 alias kns="kubens"
 alias kctx="kubectx"
+alias reset-gpaste="systemctl --user restart org.gnome.GPaste.service"
 
 # Variables
 export VISUAL="vim"
