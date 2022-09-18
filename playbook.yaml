@@ -50,48 +50,49 @@
       ansible.builtin.package:
         state: present
         name:
-          - git
-          - tmux
-          - htop
-          - zip
-          - unzip
-          - ripgrep
-          - neovim
-          - python3-neovim
-          - ctags
-          - zsh
-          - code
+          - VirtualBox
+          - akmod-VirtualBox
           - alacritty
-          - jq
+          - code
+          - ctags
+          - dconf-editor
+          - docker-compose
+          - evolution
+          - fira-code-fonts
           - firefox
           - fzf
-          - vlc
+          - g++ # nvim-treesitter
+          - git
+          - gnome-shell-extension-gpaste
+          - gnome-tweaks
+          - gpaste
+          - gpaste-ui
+          - htop
+          - inotify-tools # dune build --watch
+          - jq
+          - kernel-modules-extra # xpad etc.
           - krita
-          - fira-code-fonts
-          - rsms-inter-fonts
           - levien-inconsolata-fonts
           - mozilla-fira-mono-fonts
           - mozilla-fira-sans-fonts
-          - spotify-client
-          - gpaste
-          - gpaste-ui
-          - gnome-shell-extension-gpaste
-          - VirtualBox
-          - akmod-VirtualBox
-          - gnome-tweaks
-          - kernel-modules-extra # xpad etc.
-          - yamllint
-          - dconf-editor
+          - neovim
           - nodejs # coc-nvim
-          - pv
-          - evolution
           - podman
           - podman-docker
-          - docker-compose
           - postgresql
+          - pv
+          - python3-neovim
+          - ripgrep
+          - rsms-inter-fonts
+          - spotify-client
           - sqlite # zsh-histdb
-          - g++ # nvim-treesitter
-          - inotify-tools # dune build --watch
+          - strace
+          - tmux
+          - unzip
+          - vlc
+          - yamllint
+          - zip
+          - zsh
 
     - name: Ensure dirty_bytes tuned
       ansible.builtin.copy:
