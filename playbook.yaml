@@ -165,6 +165,12 @@
         state: started
         enabled: true
 
+    - name: Ensure nvim binary symlinked
+      ansible.builtin.file:
+        src: "/usr/bin/nvim"
+        dest: "/usr/bin/vim"
+        state: link
+
     - name: "Run tasks as {{ user }}"
       become_user: "{{ user }}"
       block:
@@ -287,12 +293,6 @@
           ansible.builtin.file:
             src: "{{ ansible_facts['env']['PWD'] }}/files/conf/init.vim"
             dest: "/home/{{ user }}/.config/nvim/init.vim"
-            state: link
-
-        - name: Ensure nvim binary symlinked
-          ansible.builtin.file:
-            src: "/usr/bin/nvim"
-            dest: "/usr/bin/vim"
             state: link
 
         - name: Ensure coc.nvim config symlinked
