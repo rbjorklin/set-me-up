@@ -11,6 +11,7 @@
     autosquash = true
     autoStash = true
 [alias]
+    co = checkout
     lg = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an %C(auto)%G?>%Creset' --abbrev-commit --date=relative
     checkoutsm = checkout --force --recurse-submodule
     pullsm = pull --recurse-submodule # try `git clean -fdx` and `git reset --hard`
