@@ -53,6 +53,7 @@
           - VirtualBox
           - akmod-VirtualBox
           - alacritty
+          - cmake
           - code
           - ctags
           - dconf-editor
