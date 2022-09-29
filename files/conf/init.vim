@@ -194,8 +194,9 @@ if exists('+colorcolumn')
 endif
 
 " This has to be configured after the colorscheme is set
+highlight CocFloating ctermbg=0
 highlight CocSearch ctermfg=4
-highlight CocMenuSel ctermbg=0
+highlight CocMenuSel ctermbg=10
 
 set scrolloff=1
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
