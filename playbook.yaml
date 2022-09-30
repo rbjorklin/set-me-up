@@ -131,6 +131,7 @@
           - dleyna-renderer
           - dleyna-connector-dbus
 
+    # https://www.freedesktop.org/software/systemd/man/vconsole.conf.html
     - name: Ensure colemak keymap configured
       ansible.builtin.copy:
         dest: /etc/vconsole.conf
@@ -342,3 +343,7 @@
         - name: Ensure nvim treesitter ocaml_interface parser installed
           ansible.builtin.command:
             cmd: nvim --headless -c "TSInstallSync ocaml_interface" -c quitall
+
+        - name: Ensure colemak layout is used in GDM
+          ansible.builtin.command:
+            cmd: localectl set-x11-keymap us pc105 colemak
