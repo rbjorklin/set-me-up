@@ -91,6 +91,7 @@
           - spotify-client
           - sqlite # zsh-histdb
           - strace
+          - telnet
           - tmux
           - unzip
           - vlc
