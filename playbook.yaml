@@ -66,6 +66,9 @@
           - git
           - gnome-shell-extension-gpaste
           - gnome-tweaks
+          - golang
+          - golang-x-tools-gopls
+          - gotags
           - gpaste
           - gpaste-ui
           - htop
