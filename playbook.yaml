@@ -150,7 +150,7 @@
 
     - name: Ensure opam installed
       ansible.builtin.get_url:
-        url: https://github.com/ocaml/opam/releases/download/2.1.0/opam-2.1.0-x86_64-linux
+        url: https://github.com/ocaml/opam/releases/download/2.1.3/opam-2.1.3-x86_64-linux
         dest: /usr/local/bin/opam
         mode: '0755'
 
