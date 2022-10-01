@@ -154,6 +154,12 @@
         dest: /usr/local/bin/opam
         mode: '0755'
 
+    - name: Ensure yq installed
+      ansible.builtin.get_url:
+        url: https://github.com/mikefarah/yq/releases/download/v4.27.5/yq_linux_amd64
+        dest: /usr/local/bin/yq
+        mode: '0755'
+
     - name: Ensure zsh shell configured
       ansible.builtin.user:
         name: "{{ user }}"
