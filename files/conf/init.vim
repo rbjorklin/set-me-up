@@ -194,7 +194,7 @@ if exists('+colorcolumn')
 endif
 
 " This has to be configured after the colorscheme is set
-highlight CocFloating ctermbg=0
+highlight CocFloating ctermbg=8
 highlight CocSearch ctermfg=4
 highlight CocMenuSel ctermbg=10
 

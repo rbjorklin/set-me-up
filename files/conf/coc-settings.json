@@ -3,6 +3,7 @@
     "ocaml"
   ],
   "suggest.noselect": true,
+  "suggest.floatConfig.border": true,
   "languageserver": {
     "ocaml-lsp": {
       "command": "opam",
