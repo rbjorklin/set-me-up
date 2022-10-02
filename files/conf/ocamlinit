@@ -13,3 +13,4 @@
 #require "caqti-driver-postgresql";;
 #require "core";;
 open Lwt.Infix;;
+open Base;;
