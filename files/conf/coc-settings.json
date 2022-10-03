@@ -4,6 +4,9 @@
   ],
   "suggest.noselect": true,
   "suggest.floatConfig.border": true,
+  "signature.floatConfig.border": true,
+  "hover.floatConfig.border": true,
+  "diagnostic.floatConfig.border": true,
   "languageserver": {
     "ocaml-lsp": {
       "command": "opam",
