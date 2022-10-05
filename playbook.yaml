@@ -87,6 +87,7 @@
           - postgresql
           - pv
           - python3-neovim
+          - reptyr
           - ripgrep
           - rsms-inter-fonts
           - spotify-client
