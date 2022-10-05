@@ -80,6 +80,7 @@
           - mozilla-fira-mono-fonts
           - mozilla-fira-sans-fonts
           - neovim
+          - nmap
           - nodejs # coc-nvim
           - podman
           - podman-docker
