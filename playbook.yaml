@@ -82,8 +82,7 @@
           - neovim
           - nmap
           - nodejs # coc-nvim
-          - podman
-          - podman-docker
+          - moby-engine
           - postgresql
           - pv
           - python3-neovim
@@ -162,19 +161,23 @@
         dest: /usr/local/bin/yq
         mode: '0755'
 
-    - name: Ensure zsh shell configured
+    - name: Ensure user configured
       ansible.builtin.user:
         name: "{{ user }}"
         shell: /usr/bin/zsh
+        append: true
+        groups:
+          - docker
 
-    - name: Ensure podman uses btrfs storage driver
-      ansible.builtin.copy:
-        src: "{{ ansible_facts['env']['PWD'] }}/files/conf/storage.conf"
-        dest: "/etc/containers/storage.conf"
+    - name: Ensure docker uses btrfs storage driver
+      ansible.builtin.file:
+        src: "{{ ansible_facts['env']['PWD'] }}/files/conf/daemon.json"
+        dest: "/etc/docker/daemon.json"
+        state: link
 
-    - name: Ensure podman-socket started
+    - name: Ensure docker started
       ansible.builtin.systemd:
-        name: podman.socket
+        name: docker
         state: started
         enabled: true
 
