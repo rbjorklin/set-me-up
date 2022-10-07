@@ -1,0 +1,6 @@
+require("disable")
+require("options")
+require("keymap")
+require("autocommands")
+require("colorscheme")
+require("plugins")
