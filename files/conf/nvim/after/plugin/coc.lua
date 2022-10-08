@@ -32,24 +32,23 @@ keymap("n", "<leader>h", ":call CocActionAsync('doHover')<CR>", { silent = true 
 
 function _G.check_back_space()
     local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s')
+    return col ~= 0 or vim.fn.getline('.'):sub(col, col):match('%s')
 end
 
-local opts = {silent = true, noremap = true, expr = true}
--- Check other plugins before putting this into your config
-keymap("i", "<TAB>", [[ coc#pum#visible() ? coc#pum#next(1) :
-                        v:lua.check_back_space() ? "<TAB>" :
-                        coc#refresh()
-                     ]], opts)
+-- function! CheckBackspace() abort
+--   let col = col('.') - 1
+--   return !col || getline('.')[col - 1]  =~# '\s'
+-- endfunction
 
-keymap("i", "<S-TAB>", [[ coc#pum#visible() ?
-                          coc#pum#prev(1) :
-                          "\<C-h>" ]], opts)
+-- https://github.com/neoclide/coc.nvim/issues/4251#issuecomment-1264594274
+local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
+
+-- Check other plugins before putting this into your config
+keymap("i", "<TAB>", [[coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<Tab>" : coc#refresh()]], opts)
+keymap("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
 
 -- Make <CR> accept selected completion item or notify coc.nvim to format
-keymap("i", "<CR>", [[ coc#pum#visible() ?
-                       coc#pum#confirm() :
-                       "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>" ]], opts)
+keymap("i", "<CR>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
 
 -- Use <c-space> to trigger completion.
 keymap("i", "<c-space>", "coc#refresh()", opts)
@@ -72,7 +71,7 @@ keymap("n", "K", "<CMD>lua _G.show_docs()<CR>", { silent = true })
 keymap("n", "<leader>rn", "<Plug>(coc-rename)")
 
 -- Formatting selected code.
-keymap({"n", "x"}, "<leader>f", "<Plug>(coc-format-selected)")
+--keymap({"n", "x"}, "<leader>f", "<Plug>(coc-format-selected)")
 
 -- Remap for do codeAction of current line
 keymap("n", "<leader>ac", "<Plug>(coc-codeaction)")
