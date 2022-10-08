@@ -1,6 +1,10 @@
 local status, symbols = pcall(require, "symbols-outline")
 if (not status) then return end
 
+local keymap = vim.keymap.set
+local opts = { noremap = true, silent = true }
+keymap("n", "<Leader>so", "<Cmd>SymbolsOutline<CR>", opts)
+
 symbols.setup({
     highlight_hovered_item = true,
     show_guides = true,
@@ -50,8 +54,6 @@ symbols.setup({
         Struct = {icon = "𝓢", hl = "TSType"},
         Event = {icon = "🗲", hl = "TSType"},
         Operator = {icon = "+", hl = "TSOperator"},
-        TypeParameter = {icon = "𝙏", hl = "TSParameter"}}
-    })
-
-    local opts = { noremap = true, silent = true }
-    vim.keymap.set("n", "<leader>so", "<Cmd>SymbolsOutline<CR>", opts)
+        TypeParameter = {icon = "𝙏", hl = "TSParameter"}
+    }
+})

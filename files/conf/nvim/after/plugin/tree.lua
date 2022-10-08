@@ -13,7 +13,7 @@ end
 
 tree.setup({
     sort_by = "case_sensitive",
-    open_on_setup = true,
+    open_on_setup = false,
     view = {
         adaptive_size = false,
         mappings = {
@@ -50,6 +50,7 @@ tree.setup({
     },
 })
 
+local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<space>te", "<Cmd>NvimTreeToggle<CR>", opts)
-vim.keymap.set("n", "<space>tf", "<Cmd>NvimTreeFocus<CR>", opts)
+keymap("n", "<Leader>te", "<Cmd>NvimTreeToggle<CR>", opts)
+keymap("n", "<Leader>tf", "<Cmd>NvimTreeFocus<CR>", opts)
