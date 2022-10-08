@@ -10,7 +10,7 @@ vim.g.loaded_man = 1
 
 -- Stop loading built in plugins
 -- https://vimhelp.org/#standard-plugin-list
-vim.g.loaded_matchit = 1 -- TODO: reenable this?
+vim.g.loaded_matchit = 1 -- superseded by vim-matchup
 vim.g.loaded_remote_plugins = 1
 vim.g.loaded_netrw = 1 -- Reading and writing files over a network
 vim.g.loaded_netrwPlugin = 1
@@ -29,5 +29,5 @@ vim.g.loaded_vimballPlugin = 1
 vim.g.loaded_2html_plugin = 1
 vim.g.loaded_logipat = 1 -- Logical operators on patterns
 vim.g.loaded_rrhelper = 1
---vim.g.loaded_matchparen = 1 -- Highlight matching parens
+vim.g.loaded_matchparen = 1 -- Highlight matching parens / superseded by vim-matchup
 vim.g.loaded_spec = 1 -- Filetype plugin to work with rpm spec files

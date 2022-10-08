@@ -59,6 +59,7 @@
           - dconf-editor
           - docker-compose
           - evolution
+          - fd-find
           - fira-code-fonts
           - firefox
           - fzf

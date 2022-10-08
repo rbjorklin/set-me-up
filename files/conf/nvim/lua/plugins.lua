@@ -58,24 +58,21 @@ packer.startup(function(use)
     -- symbol
     use "simrat39/symbols-outline.nvim"
 
+    -- bufferline
+    use {
+        "akinsho/bufferline.nvim",
+        tag = "v2.12.0"
+    }
+
     -- statusbar
     use {
         "nvim-lualine/lualine.nvim",
     }
 
     -- fuzzy search
-    use "ctrlpvim/ctrlp.vim"
-
-    -- Go support
     use {
-        "fatih/vim-go",
-        ft = { "go" }
-    }
-
-    -- Ocaml support
-    use {
-        "ocaml/vim-ocaml",
-        ft = { "ocaml", "dune" }
+      'nvim-telescope/telescope.nvim', tag = '0.1.0',
+      requires = { {'nvim-lua/plenary.nvim'} }
     }
 
     -- Auto formating
@@ -94,6 +91,11 @@ packer.startup(function(use)
     use {
         "nvim-treesitter/nvim-treesitter",
         run = function() require("nvim-treesitter.install").update({ with_sync = true }) end,
+    }
+
+    -- better matching
+    use {
+        "andymass/vim-matchup"
     }
 
     -- indentation guides
