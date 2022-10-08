@@ -48,12 +48,13 @@ keymap("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>")
 
 -- toggle line numbering
 keymap("n", "<F1>", ":set invnumber<CR>", { noremap = true })
+
 -- toggle paste mode
 keymap("n", "<leader>p", ":set invpaste<CR>", { noremap = true })
--- CtrlP fuzzy line search
-keymap("n", "<leader>f", ":CtrlPLine<CR>", { noremap = true })
+
 -- strip all trailing spaces
 keymap("n", "<Leader><Leader>", [[ :%s/\s\+$//g<CR> ]], { noremap = true })
+
 -- delete all empty lines or that only contain whitespace
 keymap("n", "<Leader>l", [[ :g/^\s*$/d<CR> ]], { noremap = true })
 
