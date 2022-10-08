@@ -32,13 +32,8 @@ keymap("n", "<leader>h", ":call CocActionAsync('doHover')<CR>", { silent = true 
 
 function _G.check_back_space()
     local col = vim.fn.col('.') - 1
-    return col ~= 0 or vim.fn.getline('.'):sub(col, col):match('%s')
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
 end
-
--- function! CheckBackspace() abort
---   let col = col('.') - 1
---   return !col || getline('.')[col - 1]  =~# '\s'
--- endfunction
 
 -- https://github.com/neoclide/coc.nvim/issues/4251#issuecomment-1264594274
 local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
