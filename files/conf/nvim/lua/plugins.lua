@@ -98,6 +98,12 @@ packer.startup(function(use)
         "andymass/vim-matchup"
     }
 
+    -- Debug using DAP
+    use 'mfussenegger/nvim-dap'
+
+    -- Debug neovim
+    use 'jbyuki/one-small-step-for-vimkind'
+
     -- indentation guides
     use "lukas-reineke/indent-blankline.nvim"
 
