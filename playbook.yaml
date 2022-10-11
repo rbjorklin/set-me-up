@@ -170,11 +170,17 @@
         groups:
           - docker
 
+    - name: Check for pre-existing docker/daemon.json
+      ansible.builtin.stat:
+        path: "{{ ansible_facts['env']['PWD'] }}/files/conf/daemon.json"
+      register: docker_daemon_config
+
     - name: Ensure docker uses btrfs storage driver
       ansible.builtin.file:
         src: "{{ ansible_facts['env']['PWD'] }}/files/conf/daemon.json"
         dest: "/etc/docker/daemon.json"
         state: link
+      when: not docker_daemon_config.stat.exists
 
     - name: Ensure docker started
       ansible.builtin.systemd:
@@ -196,7 +202,6 @@
             path: "{{ item }}"
             state: directory
           loop:
-            - "/home/{{ user }}/.config/nvim"
             - "/home/{{ user }}/.config/alacritty"
             - "/home/{{ user }}/.config/containers"
             - "/home/{{ user }}/.tmux/resurrect"
