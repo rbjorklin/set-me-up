@@ -56,7 +56,10 @@ packer.startup(function(use)
     use { "ishan9299/nvim-solarized-lua", as = "solarized" }
 
     -- symbol
-    use "simrat39/symbols-outline.nvim"
+    use {
+        "rbjorklin/symbols-outline.nvim",
+        branch = "fix-outline-detection"
+    }
 
     -- bufferline
     use {
