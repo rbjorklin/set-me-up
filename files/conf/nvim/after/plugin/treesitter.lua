@@ -17,11 +17,17 @@ ts.setup {
         disable = {},
     },
     ensure_installed = {
+        "bash",
+        "dockerfile",
         "go", 
+        "json",
         "lua",
         "ocaml",
         "ocaml_interface",
+        "python",
+        "rst",
         "rust",
+        "yaml",
     },
     sync_install = false,
     autotag = {

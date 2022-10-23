@@ -1,11 +1,3 @@
--- Disable vimscript filetype plugin
-vim.g.did_load_ftplugin = 1
-
--- Use filetype.lua
--- https://neovim.io/doc/user/filetype.html
-vim.g.did_load_filetypes = 0
-vim.g.do_filetype_lua = 1
-
 vim.g.loaded_man = 1
 
 -- Stop loading built in plugins
