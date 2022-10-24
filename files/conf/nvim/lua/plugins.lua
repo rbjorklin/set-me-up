@@ -53,12 +53,16 @@ packer.startup(function(use)
     use { "neoclide/coc.nvim", branch = "release" }
 
     -- colorscheme
-    use { "ishan9299/nvim-solarized-lua", as = "solarized" }
+    use {
+        "rbjorklin/nvim-solarized-lua",
+        as = "solarized",
+        branch = "fix-highlight"
+    }
 
     -- symbol
     use {
-        "rbjorklin/symbols-outline.nvim",
-        branch = "fix-outline-detection"
+        "geekifan/symbols-outline.nvim",
+        branch = "master"
     }
 
     -- bufferline
