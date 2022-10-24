@@ -100,6 +100,11 @@ packer.startup(function(use)
         run = function() require("nvim-treesitter.install").update({ with_sync = true }) end,
     }
 
+    use {
+        -- :TSHighlightCapturesUnderCursor
+        "nvim-treesitter/playground"
+    }
+
     -- better matching
     use {
         "andymass/vim-matchup"
