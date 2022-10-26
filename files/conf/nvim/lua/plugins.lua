@@ -102,7 +102,9 @@ packer.startup(function(use)
 
     use {
         -- :TSHighlightCapturesUnderCursor
-        "nvim-treesitter/playground"
+        "nvim-treesitter/playground",
+        opt = true,
+        cmd = {'TSHighlightCapturesUnderCursor'},
     }
 
     -- better matching
@@ -110,8 +112,20 @@ packer.startup(function(use)
         "andymass/vim-matchup"
     }
 
+    -- more intuitive navigation
+    use "ggandor/leap.nvim"
+
     -- Debug using DAP
-    use 'mfussenegger/nvim-dap'
+    use {
+        'mfussenegger/nvim-dap',
+        opt = true,
+        cmd = { 'DapToggleBreakpoint',
+                'DapContinue',
+                'DapStepOver',
+                'DapStepInto',
+                'DapToggleRepl',
+        },
+    }
 
     -- Debug neovim
     use 'jbyuki/one-small-step-for-vimkind'
