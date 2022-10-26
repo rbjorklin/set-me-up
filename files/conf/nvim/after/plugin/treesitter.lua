@@ -18,6 +18,7 @@ ts.setup {
     },
     ensure_installed = {
         "bash",
+        "comment",
         "dockerfile",
         "go", 
         "json",
