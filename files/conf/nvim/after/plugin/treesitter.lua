@@ -28,6 +28,7 @@ ts.setup {
         "python",
         "rst",
         "rust",
+        "sql",
         "yaml",
     },
     sync_install = false,
