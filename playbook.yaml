@@ -72,6 +72,7 @@
           - gotags
           - gpaste
           - gpaste-ui
+          - hdparm
           - htop
           - inotify-tools # dune build --watch
           - jq
@@ -93,6 +94,7 @@
           - spotify-client
           - sqlite # zsh-histdb
           - strace
+          - sysstat # provides iostat
           - telnet
           - tmux
           - unzip
