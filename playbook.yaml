@@ -63,6 +63,7 @@
           - code
           - ctags
           - dconf-editor
+          - dnf-command(versionlock)
           - docker-compose
           - evolution
           - fd-find
@@ -107,6 +108,10 @@
           - yamllint
           - zip
           - zsh
+
+    - name: Ensure tmux pinned
+      ansible.builtin.shell:
+        cmd: dnf versionlock add tmux-3.1c-2.fc34.x86_64
 
     - name: Ensure dirty_bytes tuned
       ansible.builtin.copy:
