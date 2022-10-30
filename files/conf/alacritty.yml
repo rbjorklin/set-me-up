@@ -464,6 +464,7 @@ debug:
 #   - ~AppKeypad
 #   - AppKeypad
 key_bindings:
+  - { key: I, mods: Control, chars: "\x1b[105;5u" }
   # (Windows/Linux only)
   #- { key: V,        mods: Control|Shift, action: Paste            }
   #- { key: C,        mods: Control|Shift, action: Copy             }

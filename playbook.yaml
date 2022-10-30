@@ -46,6 +46,12 @@
       ansible.builtin.command:
         cmd: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
 
+    # https://github.com/tmux/tmux/issues/2705
+    - name: Ensure pinned tmux installed
+      ansible.builtin.package:
+        name: https://kojipkgs.fedoraproject.org/packages/tmux/3.1c/2.fc34/x86_64/tmux-3.1c-2.fc34.x86_64.rpm
+        state: present
+
     - name: Ensure base applications installed
       ansible.builtin.package:
         state: present
@@ -96,7 +102,6 @@
           - strace
           - sysstat # provides iostat
           - telnet
-          - tmux
           - unzip
           - vlc
           - yamllint
