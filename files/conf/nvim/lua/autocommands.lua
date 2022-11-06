@@ -18,13 +18,6 @@ vim.api.nvim_create_autocmd("FileType", {
     command = "setlocal shiftwidth=2 tabstop=2 softtabstop=2"
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = { "*.ml,*.mli" },
-    group = augroup,
-    desc = "ocamlformat on save",
-    command = [[try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry]]
-})
-
 -- When editing a file, always jump to the last known cursor position.
 -- Don't do it when the position is invalid or when inside an event handler
 -- (happens when dropping a file on gvim).

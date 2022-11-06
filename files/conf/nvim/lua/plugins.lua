@@ -56,7 +56,7 @@ packer.startup(function(use)
     use {
         "rbjorklin/nvim-solarized-lua",
         as = "solarized",
-        branch = "fix-highlight"
+        branch = "use-all-colors"
     }
 
     -- symbol
@@ -84,8 +84,7 @@ packer.startup(function(use)
 
     -- Auto formating
     use {
-        "sbdchd/neoformat",
-        ft = { "ocaml" }
+        "mhartington/formatter.nvim"
     }
 
     -- Surrond word with parentheses, quotes etc.
