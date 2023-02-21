@@ -46,11 +46,14 @@ packer.startup(function(use)
     -- nvim-tree file explorer
     use {
         "nvim-tree/nvim-tree.lua",
-        --requires = { "kyazdani42/nvim-web-devicons" }
     }
 
     -- lsp config
-    use { "neoclide/coc.nvim", branch = "release" }
+    use {
+        "neoclide/coc.nvim",
+        -- tag = "v0.082"
+        branch = "release"
+    }
 
     -- colorscheme
     use {
@@ -68,7 +71,7 @@ packer.startup(function(use)
     -- bufferline
     use {
         "akinsho/bufferline.nvim",
-        tag = "v2.12.0"
+        tag = "v3.3.0"
     }
 
     -- statusbar

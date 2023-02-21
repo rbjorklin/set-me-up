@@ -5,6 +5,7 @@
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "codeLens.enable": true,
+  "semanticTokens.enable": true,
   "inlayHint.enable": true,
   "suggest.floatConfig.border": true,
   "signature.floatConfig.border": true,
@@ -14,7 +15,6 @@
     "ocaml-lsp": {
       "command": "opam",
       "args": [
-        "config",
         "exec",
         "--",
         "ocamllsp"
