@@ -4,7 +4,7 @@ export FPATH=/usr/share/zsh/5.8.1/functions/:${FPATH}
 # adds completion for git etc.
 autoload -Uz compinit && compinit
 
-export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${KREW_ROOT:-$HOME/.krew}/bin:${PATH}"
 
 # Adapt autosuggest color to Solarized
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=11"
@@ -27,14 +27,41 @@ export HISTFILE=~/.zsh_history
 export SAVEHIST=100000 # Number of commands that are stored in the zsh history file
 export HISTSIZE=100000 # Number of commands that are loaded into memory from the history file
 export WORDCHARS=''
+# Load last used in a new terminal
+export KUBECONFIG=$(for f in $(ls -t ~/.kube/configs) ; do ls ~/.kube/configs/${f} ; break ; done)
+export KUBECONFIGS=$(for f in $(ls -t ~/.kube/configs) ; do ls ~/.kube/configs/${f} ; done | tr "\n" :)
+
+# If this works well over time report back to: https://github.com/ahmetb/kubectx/issues/12
+function kctx() {
+    previous=$(kubectl ctx --current)
+    kubeconfig_bak="${KUBECONFIG}"
+    export KUBECONFIG="${KUBECONFIGS}"
+    kubectl ctx "$@"
+    if [[ $? -eq 0 ]] ; then
+        # Capture the newly set context
+        ctx=$(kubectl ctx --current)
+        # kubectl ctx updates 'current-context' in the first file, reset it
+        first_kubeconfig=$(echo ${KUBECONFIGS} | cut -d : -f 1)
+        yq -i '.current-context = .contexts[0].name' ${first_kubeconfig}
+        # My context files do not have the user name in them so split it out
+        ctx_split=$(echo ${ctx} | cut -d @ -f 2)
+        # Find the new file and set it
+        ctx_file=$(find ~/.kube/configs -mindepth 1 -iname "*${ctx_split}*yaml")
+        yq -i '.current-context = .contexts[0].name' ${ctx_file}
+        export KUBECONFIG="${ctx_file}"
+        # kubectl ctx loses track of which the previous namespace was when juggling files
+        echo "${previous}" > ~/.kube/kubectx
+    else
+        export KUBECONFIG="${kubeconfig_bak}"
+    fi
+}
 
 # Make vim open files in tabs by default
 alias vim="vim -p"
 alias urldecode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.unquote_plus(sys.argv[1]))"'
 alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.quote_plus(sys.argv[1]))"'
 alias k="kubectl"
-alias kns="kubens"
-alias kctx="kubectx"
+alias kns="kubectl ns"
 alias reset-gpaste="systemctl --user restart org.gnome.GPaste.service"
 
 # Variables

@@ -170,9 +170,45 @@
 
     - name: Ensure yq installed
       ansible.builtin.get_url:
-        url: https://github.com/mikefarah/yq/releases/download/v4.27.5/yq_linux_amd64
+        url: https://github.com/mikefarah/yq/releases/download/v4.30.8/yq_linux_amd64
         dest: /usr/local/bin/yq
         mode: '0755'
+
+    - name: Ensure kubectl installed
+      ansible.builtin.get_url:
+        url: https://dl.k8s.io/release/v1.26.1/bin/linux/amd64/kubectl
+        dest: /usr/local/bin/kubectl
+        mode: '0755'
+
+    - name: Ensure clusterctl installed
+      ansible.builtin.get_url:
+        url: https://github.com/kubernetes-sigs/cluster-api/releases/download/v1.3.3/clusterctl-linux-amd64
+        dest: /usr/local/bin/clusterctl
+        mode: '0755'
+
+    - name: Ensure kind installed
+      ansible.builtin.get_url:
+        url: https://github.com/kubernetes-sigs/kind/releases/download/v0.17.0/kind-linux-amd64
+        dest: /usr/local/bin/kind
+        mode: '0755'
+
+    - name: Ensure argocd installed
+      ansible.builtin.get_url:
+        url: https://github.com/argoproj/argo-cd/releases/download/v2.6.2/argocd-linux-amd64
+        dest: /usr/local/bin/argocd
+        mode: '0755'
+
+    - name: Ensure helm installed
+      ansible.builtin.unarchive:
+        src: https://get.helm.sh/helm-v3.11.1-linux-amd64.tar.gz
+        dest: /usr/local/bin
+        creates: /usr/local/bin/helm
+        remote_src: true
+        extra_opts:
+        - --strip-components=1
+        exclude:
+        - LICENSE
+        - README.md
 
     - name: Ensure user configured
       ansible.builtin.user:
@@ -209,6 +245,27 @@
     - name: "Run tasks as {{ user }}"
       become_user: "{{ user }}"
       block:
+        - name: Download krew
+          ansible.builtin.get_url:
+            url: https://github.com/kubernetes-sigs/krew/releases/latest/download/krew-linux_amd64.tar.gz
+            dest: /tmp/krew-linux_amd64.tar.gz
+
+        - name: Decompress krew
+          ansible.builtin.command:
+            chdir: /tmp
+            cmd: tar -xzf /tmp/krew-linux_amd64.tar.gz
+
+        - name: Install krew
+          ansible.builtin.command:
+            chdir: /tmp
+            cmd: ./krew-linux_amd64 install krew
+
+        - name: Install krew plugins
+          environment:
+            PATH: "{{ ansible_facts['env']['PATH'] }}:/home/{{ user }}/.krew/bin"
+          ansible.builtin.shell:
+            cmd: kubectl krew install ctx ns slice edit-status
+
         - name: Ensure folders exist
           ansible.builtin.file:
             path: "{{ item }}"
