@@ -45,7 +45,7 @@ packer.startup(function(use)
 
     -- nvim-tree file explorer
     use {
-        "kyazdani42/nvim-tree.lua",
+        "nvim-tree/nvim-tree.lua",
         --requires = { "kyazdani42/nvim-web-devicons" }
     }
 
@@ -78,7 +78,7 @@ packer.startup(function(use)
 
     -- fuzzy search
     use {
-      'nvim-telescope/telescope.nvim', tag = '0.1.0',
+      'nvim-telescope/telescope.nvim', tag = '0.1.1',
       requires = { {'nvim-lua/plenary.nvim'} }
     }
 

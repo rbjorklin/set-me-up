@@ -97,6 +97,7 @@
           - python3-neovim
           - reptyr
           - ripgrep
+          - rr
           - rsms-inter-fonts
           - spotify-client
           - sqlite # zsh-histdb
@@ -283,7 +284,8 @@
 
         - name: Ensure starship installed
           ansible.builtin.shell:
-            cmd: ~/.cargo/bin/cargo install starship
+            # Newer versions fail during compilation
+            cmd: ~/.cargo/bin/cargo install --version 1.10.3 starship
 
         - name: Ensure zsh-autosuggestions cloned
           ansible.builtin.git:
