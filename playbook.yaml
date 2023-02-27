@@ -26,6 +26,19 @@
           dnf install -y http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
       when: rpmfusion is failed
 
+    - name: Ensure 1Password gpg key accepted
+      ansible.builtin.command:
+        cmd: rpm --import https://downloads.1password.com/linux/keys/1password.asc
+
+    - name: Ensure 1Password repository configured
+      ansible.builtin.yum_repository:
+        name: 1password
+        description: 1Password Stable Channel
+        baseurl: https://downloads.1password.com/linux/rpm/stable/$basearch
+        gpgcheck: true
+        repo_gpgcheck: true
+        gpgkey: https://downloads.1password.com/linux/keys/1password.asc
+
     - name: Ensure VSCode gpg key accepted
       ansible.builtin.command:
         cmd: rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -56,6 +69,7 @@
       ansible.builtin.package:
         state: present
         name:
+          - 1password
           - VirtualBox
           - akmod-VirtualBox
           - alacritty
