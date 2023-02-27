@@ -27,12 +27,12 @@ export HISTSIZE=100000 # Number of commands that are loaded into memory from the
 export WORDCHARS=''
 # Load last used in a new terminal
 export KUBECONFIG=$(for f in $(ls -t ~/.kube/configs) ; do ls ~/.kube/configs/${f} ; break ; done)
-export KUBECONFIGS=$(for f in $(ls -t ~/.kube/configs) ; do ls ~/.kube/configs/${f} ; done | tr "\n" :)
+export KUBECONFIGS=$(for f in $(ls -t ~/.kube/configs) ; do ls ~/.kube/configs/${f} ; done | tr "\n" : | sed 's/:$//g')
 
 # If this works well over time report back to: https://github.com/ahmetb/kubectx/issues/12
 function kctx() {
     previous=$(kubectl ctx --current)
-    kubeconfig_bak="${KUBECONFIG}"
+    kubeconfig_bak="$(echo ${KUBECONFIG} | cut -d : -f 1)"
     export KUBECONFIG="${KUBECONFIGS}"
     kubectl ctx "$@"
     if [[ $? -eq 0 ]] ; then
@@ -44,7 +44,7 @@ function kctx() {
         # My context files do not have the user name in them so split it out
         ctx_split=$(echo ${ctx} | cut -d @ -f 2)
         # Find the new file and set it
-        ctx_file=$(find ~/.kube/configs -mindepth 1 -iname "*${ctx_split}*yaml")
+        ctx_file=$(find ~/.kube/configs -mindepth 1 -iname "${ctx_split}.yaml")
         yq -i '.current-context = .contexts[0].name' ${ctx_file}
         export KUBECONFIG="${ctx_file}"
         # kubectl ctx loses track of which the previous namespace was when juggling files
