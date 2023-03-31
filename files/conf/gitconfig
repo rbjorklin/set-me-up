@@ -21,6 +21,7 @@
     pick = cherry-pick -x
     addp = add --patch
     fixr = "!gitfixr() { git commit --fixup=$1 && git rebase -i --autosquash $1^; }; gitfixr"
+    tagl = log --no-walk --tags --simplify-by-decoration --pretty='format:%cs %D'
 [core]
     autocrlf = input
 [diff]

@@ -54,6 +54,11 @@ function kctx() {
     fi
 }
 
+function kubeconfig() {
+    local context=$(echo $1 | base64 -d | yq '.contexts[0].name')
+    echo $1 | base64 -d > ~/.kube/configs/${context}.yaml
+}
+
 # Make vim open files in tabs by default
 alias vim="vim -p"
 alias urldecode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.unquote_plus(sys.argv[1]))"'
