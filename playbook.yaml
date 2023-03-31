@@ -107,6 +107,7 @@
           - nodejs # coc-nvim
           - moby-engine
           - postgresql
+          - packer
           - pv
           - python3-neovim
           - reptyr
@@ -221,6 +222,17 @@
         remote_src: true
         extra_opts:
         - --strip-components=1
+        exclude:
+        - LICENSE
+        - README.md
+
+    - name: Ensure hcloud installed
+      ansible.builtin.unarchive:
+        src: https://github.com/hetznercloud/cli/releases/download/v1.31.1/hcloud-linux-amd64.tar.gz
+        dest: /usr/local/bin
+        creates: /usr/local/bin/hcloud
+        remote_src: true
+        extra_opts:
         exclude:
         - LICENSE
         - README.md
