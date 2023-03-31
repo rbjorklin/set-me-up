@@ -28,7 +28,7 @@ set.incsearch = true -- show match for partly typed search command
 set.ignorecase = true -- ignore case when using a search pattern
 set.smartcase = true -- override 'ignorecase' when pattern has upper case characters
 
-set.wrap = false -- long lines wrap
+set.wrap = true -- long lines wrap
 set.cmdheight = 1 -- number of lines used for the command line
 set.number = true -- show the line number for each line
 set.scrolloff = 1 -- number of screen lines to show around the cursor
