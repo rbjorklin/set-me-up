@@ -51,8 +51,10 @@ packer.startup(function(use)
     -- lsp config
     use {
         "neoclide/coc.nvim",
-        -- tag = "v0.082"
-        branch = "release"
+        tag = "v0.0.82"
+        --branch = "release"
+        -- any newer commit on the 'release' branch breaks CodeLens
+        --commit = "7330319e1f68cb9f5ea1ab31a984680be493ea85" -- OK
     }
 
     -- colorscheme

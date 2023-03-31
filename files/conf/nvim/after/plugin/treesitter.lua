@@ -16,12 +16,14 @@ ts.setup {
         enable = true,
         disable = {},
     },
+    -- https://github.com/nvim-treesitter/nvim-treesitter#language-parsers
     ensure_installed = {
         "bash",
         "comment",
         "diff",
         "dockerfile",
         "go", 
+        "hcl",
         "json",
         "lua",
         "make",
@@ -32,6 +34,7 @@ ts.setup {
         "rust",
         "sql",
         "toml",
+        "terraform",
         "yaml",
     },
     sync_install = false,
