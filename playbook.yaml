@@ -73,6 +73,7 @@
           - VirtualBox
           - akmod-VirtualBox
           - alacritty
+          - bcc-tools # https://github.com/iovisor/bcc
           - cmake
           - code
           - ctags
@@ -121,6 +122,7 @@
           - telnet
           - unzip
           - vlc
+          - vmtouch
           - yamllint
           - zip
           - zsh
