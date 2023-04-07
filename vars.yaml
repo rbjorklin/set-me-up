@@ -1,0 +1,11 @@
+---
+version:
+  opam: "2.1.4" # https://github.com/ocaml/opam/releases
+  yq: "4.33.2" # https://github.com/mikefarah/yq/releases
+  kubectl: "1.26.3" # https://github.com/kubernetes/kubernetes/releases
+  clusterctl: "1.4.1" # https://github.com/kubernetes-sigs/cluster-api/releases
+  kind: "0.18.0" # https://github.com/kubernetes-sigs/kind/releases
+  argo: "2.6.7" # https://github.com/argoproj/argo-cd/releases
+  helm: "3.11.2" # https://github.com/helm/helm/releases
+  kustomize: "5.0.1" # https://github.com/kubernetes-sigs/kustomize/releases/
+  hcloud: "1.32.0" # https://github.com/hetznercloud/cli/releases/

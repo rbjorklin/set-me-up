@@ -3,6 +3,8 @@
 - hosts: localhost
   connection: local
   become: true
+  vars_files:
+  - vars.yaml
   tasks:
     - name: Ensure curl installed
       ansible.builtin.package:
@@ -58,12 +60,6 @@
     - name: Ensure Spotify repo configured
       ansible.builtin.command:
         cmd: dnf config-manager --add-repo=https://negativo17.org/repos/fedora-spotify.repo
-
-    # https://github.com/tmux/tmux/issues/2705
-    - name: Ensure pinned tmux installed
-      ansible.builtin.package:
-        name: https://kojipkgs.fedoraproject.org/packages/tmux/3.1c/2.fc34/x86_64/tmux-3.1c-2.fc34.x86_64.rpm
-        state: present
 
     - name: Ensure base applications installed
       ansible.builtin.package:
@@ -127,6 +123,12 @@
           - zip
           - zsh
 
+    # https://github.com/tmux/tmux/issues/2705
+    - name: Ensure pinned tmux installed
+      ansible.builtin.package:
+        name: https://kojipkgs.fedoraproject.org/packages/tmux/3.1c/2.fc34/x86_64/tmux-3.1c-2.fc34.x86_64.rpm
+        state: present
+
     - name: Ensure tmux pinned
       ansible.builtin.shell:
         cmd: dnf versionlock add tmux-3.1c-2.fc34.x86_64
@@ -182,43 +184,43 @@
 
     - name: Ensure opam installed
       ansible.builtin.get_url:
-        url: https://github.com/ocaml/opam/releases/download/2.1.3/opam-2.1.3-x86_64-linux
+        url: https://github.com/ocaml/opam/releases/download/{{ version['opam'] }}/opam-{{ version['opam'] }}-x86_64-linux
         dest: /usr/local/bin/opam
         mode: '0755'
 
     - name: Ensure yq installed
       ansible.builtin.get_url:
-        url: https://github.com/mikefarah/yq/releases/download/v4.30.8/yq_linux_amd64
+        url: https://github.com/mikefarah/yq/releases/download/v{{ version['yq'] }}/yq_linux_amd64
         dest: /usr/local/bin/yq
         mode: '0755'
 
     - name: Ensure kubectl installed
       ansible.builtin.get_url:
-        url: https://dl.k8s.io/release/v1.26.1/bin/linux/amd64/kubectl
+        url: https://dl.k8s.io/release/v{{ version['kubectl'] }}/bin/linux/amd64/kubectl
         dest: /usr/local/bin/kubectl
         mode: '0755'
 
     - name: Ensure clusterctl installed
       ansible.builtin.get_url:
-        url: https://github.com/kubernetes-sigs/cluster-api/releases/download/v1.3.3/clusterctl-linux-amd64
+        url: https://github.com/kubernetes-sigs/cluster-api/releases/download/v{{ version['clusterctl'] }}/clusterctl-linux-amd64
         dest: /usr/local/bin/clusterctl
         mode: '0755'
 
     - name: Ensure kind installed
       ansible.builtin.get_url:
-        url: https://github.com/kubernetes-sigs/kind/releases/download/v0.17.0/kind-linux-amd64
+        url: https://github.com/kubernetes-sigs/kind/releases/download/v{{ version['kind'] }}/kind-linux-amd64
         dest: /usr/local/bin/kind
         mode: '0755'
 
     - name: Ensure argocd installed
       ansible.builtin.get_url:
-        url: https://github.com/argoproj/argo-cd/releases/download/v2.6.2/argocd-linux-amd64
+        url: https://github.com/argoproj/argo-cd/releases/download/v{{ version['argo'] }}/argocd-linux-amd64
         dest: /usr/local/bin/argocd
         mode: '0755'
 
     - name: Ensure helm installed
       ansible.builtin.unarchive:
-        src: https://get.helm.sh/helm-v3.11.1-linux-amd64.tar.gz
+        src: https://get.helm.sh/helm-v{{ version['helm'] }}-linux-amd64.tar.gz
         dest: /usr/local/bin
         creates: /usr/local/bin/helm
         remote_src: true
@@ -228,9 +230,16 @@
         - LICENSE
         - README.md
 
+    - name: Ensure kustomize installed
+      ansible.builtin.unarchive:
+        src: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v{{ version['kustomize'] }}/kustomize_v{{ version['kustomize'] }}_linux_amd64.tar.gz
+        dest: /usr/local/bin
+        creates: /usr/local/bin/kustomize
+        remote_src: true
+
     - name: Ensure hcloud installed
       ansible.builtin.unarchive:
-        src: https://github.com/hetznercloud/cli/releases/download/v1.31.1/hcloud-linux-amd64.tar.gz
+        src: https://github.com/hetznercloud/cli/releases/download/v{{ version['hcloud'] }}/hcloud-linux-amd64.tar.gz
         dest: /usr/local/bin
         creates: /usr/local/bin/hcloud
         remote_src: true
