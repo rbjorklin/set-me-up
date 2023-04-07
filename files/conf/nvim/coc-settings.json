@@ -2,11 +2,9 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "ocaml"
   ],
-  "semanticTokens.filetypes": ["ocaml"],
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "codeLens.enable": true,
-  "semanticTokens.enable": true,
   "inlayHint.enable": true,
   "suggest.floatConfig.border": true,
   "signature.floatConfig.border": true,
