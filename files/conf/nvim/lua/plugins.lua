@@ -55,6 +55,7 @@ packer.startup(function(use)
         --branch = "release"
         -- any newer commit on the 'release' branch breaks CodeLens
         --commit = "7330319e1f68cb9f5ea1ab31a984680be493ea85" -- OK
+        --commit = "668e854c49b71fc1a0498e018832f4d237812c3b" -- NOK
     }
 
     -- colorscheme
@@ -103,6 +104,7 @@ packer.startup(function(use)
         "nvim-treesitter/nvim-treesitter",
         run = function() require("nvim-treesitter.install").update({ with_sync = true }) end,
     }
+    use { "nvim-treesitter/nvim-treesitter-context" }
 
     use {
         -- :TSHighlightCapturesUnderCursor
