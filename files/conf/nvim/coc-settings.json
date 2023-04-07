@@ -2,6 +2,7 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "ocaml"
   ],
+  "semanticTokens.filetypes": ["ocaml"],
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "codeLens.enable": true,
