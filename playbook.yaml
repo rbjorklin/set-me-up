@@ -169,6 +169,14 @@
           - dleyna-renderer
           - dleyna-connector-dbus
 
+    # Having OpenSC installed continuously triggers a prompt in Firefox when using YubiKey
+    # https://bugzilla.redhat.com/show_bug.cgi?id=1892137
+    - name: Ensure OpenSC removed
+      ansible.builtin.package:
+        state: absent
+        name:
+          - opensc
+
     # https://www.freedesktop.org/software/systemd/man/vconsole.conf.html
     - name: Ensure colemak keymap configured
       ansible.builtin.copy:
