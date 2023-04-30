@@ -74,7 +74,7 @@ packer.startup(function(use)
     -- bufferline
     use {
         "akinsho/bufferline.nvim",
-        tag = "v3.3.0"
+        tag = "v3.7.0"
     }
 
     -- statusbar
@@ -84,8 +84,9 @@ packer.startup(function(use)
 
     -- fuzzy search
     use {
-      'nvim-telescope/telescope.nvim', tag = '0.1.1',
-      requires = { {'nvim-lua/plenary.nvim'} }
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.1',
+        requires = { {'nvim-lua/plenary.nvim'} }
     }
 
     -- Auto formating

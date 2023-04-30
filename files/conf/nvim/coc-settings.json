@@ -5,13 +5,15 @@
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
   "codeLens.enable": true,
-  "inlayHint.enable": true,
   "suggest.floatConfig.border": true,
   "signature.floatConfig.border": true,
   "hover.floatConfig.border": true,
   "diagnostic.floatConfig.border": true,
   "languageserver": {
     "ocaml-lsp": {
+      "inlayHint.enable": false,
+      "semanticTokens.enable": false,
+      "trace.server": "off",
       "command": "opam",
       "args": [
         "exec",
@@ -24,6 +26,7 @@
       ]
     },
     "golang": {
+      "trace.server": "off",
       "command": "gopls",
       "rootPatterns": [
         "go.mod"
