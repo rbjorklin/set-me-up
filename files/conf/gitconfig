@@ -16,7 +16,7 @@
     checkoutsm = checkout --force --recurse-submodule
     pullsm = pull --recurse-submodule # try `git clean -fdx` and `git reset --hard`
     pusho = !git push -u origin $(git branch --show-current)
-    merged = !git branch --merged | egrep -v 'master|main' | grep -v $(git branch --show-current) | xargs --no-run-if-empty git branch -d # delete merged branches locally
+    merged = !git branch --merged | grep -Ev -e 'master|main' -e $(git branch --show-current) | xargs --no-run-if-empty git branch -d # delete merged branches locally
     diffc = diff --cached
     diffw = diff --ignore-blank-lines --ignore-all-space
     diffwc = diff --ignore-blank-lines --ignore-all-space --cached

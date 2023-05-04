@@ -57,6 +57,7 @@ function kctx() {
 function kubeconfig() {
     local context=$(echo $1 | base64 -d | yq '.contexts[0].name')
     echo $1 | base64 -d > ~/.kube/configs/${context}.yaml
+    echo $context
 }
 
 # Make vim open files in tabs by default

@@ -67,7 +67,7 @@ packer.startup(function(use)
 
     -- symbol
     use {
-        "geekifan/symbols-outline.nvim",
+        "simrat39/symbols-outline.nvim",
         branch = "master"
     }
 
@@ -75,6 +75,14 @@ packer.startup(function(use)
     use {
         "akinsho/bufferline.nvim",
         tag = "v3.7.0"
+    }
+
+    -- git conflict resolution
+    use {'akinsho/git-conflict.nvim',
+        tag = "*",
+        config = function()
+            require('git-conflict').setup()
+        end
     }
 
     -- statusbar
@@ -103,6 +111,7 @@ packer.startup(function(use)
     -- treesitter
     use {
         "nvim-treesitter/nvim-treesitter",
+        tag = "v0.9.0",
         run = function() require("nvim-treesitter.install").update({ with_sync = true }) end,
     }
     use { "nvim-treesitter/nvim-treesitter-context" }
