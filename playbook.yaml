@@ -67,6 +67,7 @@
         name:
           - 1password
           - VirtualBox
+          - ShellCheck
           - akmod-VirtualBox
           - alacritty
           - bcc-tools # https://github.com/iovisor/bcc
@@ -107,6 +108,7 @@
           - packer
           - pv
           - python3-neovim
+          - python3-rstcheck
           - reptyr
           - ripgrep
           - rr
@@ -329,8 +331,13 @@
 
         - name: Ensure starship installed
           ansible.builtin.shell:
-            # Newer versions fail during compilation
-            cmd: ~/.cargo/bin/cargo install --version 1.10.3 starship
+            cmd: "~/.cargo/bin/cargo install --version {{ item.version}} {{ item.pkg }}"
+          loop:
+            - pkg: starship
+              # Newer versions fail during compilation
+              version: 1.10.3
+            - pkg: stylua
+              version: v0.17.1
 
         - name: Ensure zsh-autosuggestions cloned
           ansible.builtin.git:
