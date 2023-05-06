@@ -9,19 +9,26 @@ local keymap = vim.keymap.set
 -- https://github.com/hrsh7th/cmp-nvim-lsp
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
+-- Enable CodeLens
+local on_attach = function(client, bufnr)
+	local codelens = vim.api.nvim_create_augroup("LSPCodeLens", { clear = true })
+	vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "CursorHold" }, {
+		group = codelens,
+		callback = function()
+			vim.lsp.codelens.refresh()
+		end,
+		buffer = bufnr,
+	})
+end
+
 lspconfig.ocamllsp.setup({
 	capabilities = capabilities,
-	-- Enable CodeLens
-	on_attach = function(client, bufnr)
-		local codelens = vim.api.nvim_create_augroup("LSPCodeLens", { clear = true })
-		vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "CursorHold" }, {
-			group = codelens,
-			callback = function()
-				vim.lsp.codelens.refresh()
-			end,
-			buffer = bufnr,
-		})
-	end,
+	on_attach = on_attach,
+})
+
+lspconfig.gopls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- Use `[g` and `]g` to navigate diagnostics
@@ -40,7 +47,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		keymap("n", "gd", vim.lsp.buf.definition, opts)
 		keymap("n", "gD", vim.lsp.buf.declaration, opts)
 		keymap("n", "gi", vim.lsp.buf.implementation, opts)
-		keymap("n", "gr", vim.lsp.buf.references, opts)
+		--keymap("n", "gr", vim.lsp.buf.references, opts)
 		keymap("n", "<leader>td", vim.lsp.buf.type_definition, opts)
 		keymap("n", "K", vim.lsp.buf.hover, opts)
 		keymap("n", "<C-k>", vim.lsp.buf.signature_help, opts)
