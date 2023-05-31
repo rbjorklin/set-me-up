@@ -2,7 +2,8 @@
 # adds completion for git etc.
 autoload -Uz compinit && compinit
 
-export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${KREW_ROOT:-$HOME/.krew}/bin:${PATH}"
+export GOPATH=${HOME}/go
+export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${KREW_ROOT:-$HOME/.krew}/bin:${GOPATH}/bin:${PATH}"
 
 # Adapt autosuggest color to Solarized
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=11"

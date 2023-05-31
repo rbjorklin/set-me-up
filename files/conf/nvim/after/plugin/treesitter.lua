@@ -27,6 +27,7 @@ ts.setup {
         "json",
         "lua",
         "make",
+        "markdown",
         "ocaml",
         "ocaml_interface",
         "python",
