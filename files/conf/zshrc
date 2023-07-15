@@ -27,31 +27,26 @@ export SAVEHIST=100000 # Number of commands that are stored in the zsh history f
 export HISTSIZE=100000 # Number of commands that are loaded into memory from the history file
 export WORDCHARS=''
 # Load last used in a new terminal
-export KUBECONFIG=$(for f in $(ls -t ~/.kube/configs) ; do ls ~/.kube/configs/${f} ; break ; done)
-export KUBECONFIGS=$(for f in $(ls -t ~/.kube/configs) ; do ls ~/.kube/configs/${f} ; done | tr "\n" : | sed 's/:$//g')
+export KUBECONFIG=~/.kube/configs/$(ls -1t ~/.kube/configs | head -n 1)
 
-# If this works well over time report back to: https://github.com/ahmetb/kubectx/issues/12
-function kctx() {
-    previous=$(kubectl ctx --current)
-    kubeconfig_bak="$(echo ${KUBECONFIG} | cut -d : -f 1)"
-    export KUBECONFIG="${KUBECONFIGS}"
-    kubectl ctx "$@"
-    if [[ $? -eq 0 ]] ; then
-        # Capture the newly set context
-        ctx=$(kubectl ctx --current)
-        # kubectl ctx updates 'current-context' in the first file, reset it
-        first_kubeconfig=$(echo ${KUBECONFIGS} | cut -d : -f 1)
-        yq -i '.current-context = .contexts[0].name' ${first_kubeconfig}
-        # My context files do not have the user name in them so split it out
-        ctx_split=$(echo ${ctx} | cut -d @ -f 2)
-        # Find the new file and set it
-        ctx_file=$(find ~/.kube/configs -mindepth 1 -iname "${ctx_split}.yaml")
-        yq -i '.current-context = .contexts[0].name' ${ctx_file}
-        export KUBECONFIG="${ctx_file}"
-        # kubectl ctx loses track of which the previous namespace was when juggling files
-        echo "${previous}" > ~/.kube/kubectx
-    else
-        export KUBECONFIG="${kubeconfig_bak}"
+function kctx () {
+    local KUBECONFIGS=~/.kube/configs
+    local cfg=$1
+    if [ -z "$1" ] ; then
+        local cfg=$(ls -1t ${KUBECONFIGS} | sed 's/\.ya\?ml//' | fzf)
+    fi
+    # Use previous
+    if [ "$1" = "-" ] ; then
+        local cfg=$(ls -1t ${KUBECONFIGS} | head -n 2 | tail -n 1 | sed 's/.ya\?ml//')
+    fi
+    export KUBECONFIG=${KUBECONFIGS}/${cfg}.yaml
+    # Touching the file makes list by last modify timestamp useful
+    touch $KUBECONFIG
+    # Ensure short-form context name
+    local ctx=$(kubectl ctx --current)
+    local ctx_short=$(echo ${ctx} | sed 's/\.kube\..*\.net//')
+    if [[ "${ctx}" != "${ctx_short}" ]] ; then
+        kubectl ctx ${ctx_short}=${ctx} > /dev/null
     fi
 }
 
@@ -69,6 +64,9 @@ alias k="kubectl"
 alias kc="kubectl create --dry-run=client -o yaml"
 alias kns="kubectl ns"
 alias reset-gpaste="systemctl --user restart org.gnome.GPaste.service"
+
+# Helpers, mostly act as reminders
+alias openssl.cert="openssl x509 -noout -text -in-" # Decode certificate into something human readable
 
 # Variables
 export VISUAL="vim"
