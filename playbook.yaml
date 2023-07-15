@@ -258,6 +258,17 @@
         - LICENSE
         - README.md
 
+    - name: Ensure d2 installed
+      ansible.builtin.unarchive:
+        src: https://github.com/terrastruct/d2/releases/download/v{{ version['d2'] }}/d2-v{{ version['d2'] }}-linux-amd64.tar.gz
+        dest: /usr/local/bin
+        creates: /usr/local/bin/d2
+        remote_src: true
+        extra_opts:
+        - --strip-components=2
+        include:
+         - d2-v{{ version['d2'] }}/bin/d2
+
     - name: Ensure user configured
       ansible.builtin.user:
         name: "{{ user }}"
