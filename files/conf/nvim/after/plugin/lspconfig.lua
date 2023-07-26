@@ -24,6 +24,9 @@ end
 lspconfig.ocamllsp.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
+    settings = {
+        codelens = { enable = true },
+    },
 })
 
 lspconfig.gopls.setup({
