@@ -51,5 +51,9 @@ ts.setup {
     },
     autopairs = {
         enable = true,
-    }
+    },
+    matchup = {
+        enable = true,
+        -- enable_quotes = false, -- https://github.com/andymass/vim-matchup/issues/287
+    },
 }

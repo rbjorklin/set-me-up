@@ -146,6 +146,8 @@ packer.startup(function(use)
 	-- better matching
 	use({
 		"andymass/vim-matchup",
+        commit = "6c8909b682803d8c3a054259079f158a73a0e30f", -- good
+        -- commit = "b8eca3b588e41e0bb1b3ae200fae88183b91a76d", -- this commits breaks the plugin under lua
 	})
 
 	-- more intuitive navigation
