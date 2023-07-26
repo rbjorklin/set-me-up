@@ -164,6 +164,18 @@ packer.startup(function(use)
 		},
 	})
 
+    -- Go
+    -- Inspiration from: https://www.youtube.com/watch?v=i04sSQjd-qo
+	use({
+		"ray-x/go.nvim",
+	})
+
+    -- Does go.nvim make this superflous?
+    -- use ({
+    --     'leoluz/nvim-dap-go',
+    --     requires = { "mfussenegger/nvim-dap" },
+    -- })
+
 	-- Debug neovim
 	use("jbyuki/one-small-step-for-vimkind")
 
