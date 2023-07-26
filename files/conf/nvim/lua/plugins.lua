@@ -90,7 +90,7 @@ packer.startup(function(use)
 	-- git conflict resolution
 	use({
 		"akinsho/git-conflict.nvim",
-		tag = "*",
+		tag = "v1.1.2",
 		config = function()
 			require("git-conflict").setup()
 		end,
@@ -104,7 +104,7 @@ packer.startup(function(use)
 	-- fuzzy search
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.1",
+		tag = "0.1.2",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 
@@ -117,7 +117,7 @@ packer.startup(function(use)
 	-- Git information in gutter
 	use({
 		"lewis6991/gitsigns.nvim",
-		tag = "release",
+		tag = "v0.6",
 	})
 
 	-- Surrond word with parentheses, quotes etc.
