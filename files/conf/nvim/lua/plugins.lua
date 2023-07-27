@@ -69,11 +69,11 @@ packer.startup(function(use)
 	})
 
 	-- colorscheme
+    use({ "ellisonleao/gruvbox.nvim" })
 	use({
-		"rbjorklin/nvim-solarized-lua",
-		as = "solarized",
-		branch = "use-all-colors",
-	})
+		"maxmx03/solarized.nvim",
+		tag = "v1.0.4",
+    })
 
 	-- symbol
 	use({

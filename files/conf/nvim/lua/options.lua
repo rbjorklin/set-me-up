@@ -35,7 +35,6 @@ set.scrolloff = 1 -- number of screen lines to show around the cursor
 set.breakindent = true -- preserve indentation in wrapped text
 set.sidescroll = 1 -- minimal number of columns to scroll horizontally
 
-set.background = "dark" -- "dark" or "light"; the background color brightness
 set.hlsearch = true -- highlight all matches for the last used search pattern
 set.cursorline = false -- highlight the screen line of the cursor
 set.termguicolors = true -- use GUI colors for the terminal
