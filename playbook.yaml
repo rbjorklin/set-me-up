@@ -392,6 +392,10 @@
           ansible.builtin.command:
             cmd: gsettings set org.gnome.desktop.session idle-delay 900
 
+        - name: Ensure Gnome color-scheme is dark
+          ansible.builtin.command:
+            cmd: gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
         #- name: Ensure Gnome fractional scaling enabled
         #  ansible.builtin.command:
         #    cmd: gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
