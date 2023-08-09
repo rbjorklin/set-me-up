@@ -68,6 +68,7 @@
           - 1password
           - VirtualBox
           - ShellCheck
+          - autoconf
           - akmod-VirtualBox
           - alacritty
           - bcc-tools # https://github.com/iovisor/bcc
