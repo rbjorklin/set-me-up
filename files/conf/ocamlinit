@@ -7,7 +7,6 @@
 #thread;;
 #require "lwt";;
 #require "lwt.unix";;
-#require "cohttp-lwt-unix";;
 #require "logs.lwt";;
 #require "caqti-lwt";;
 #require "caqti-driver-postgresql";;
