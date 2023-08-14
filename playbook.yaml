@@ -99,6 +99,8 @@
           - kernel-modules-extra # xpad etc.
           - krita
           - levien-inconsolata-fonts
+          - libev-devel # ocaml pkg build dependency
+          - libpq-devel # ocaml pkg build dependency
           - mozilla-fira-mono-fonts
           - mozilla-fira-sans-fonts
           - neovim
