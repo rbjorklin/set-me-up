@@ -415,7 +415,8 @@
 
               Name=Alacritty Tmux
               GenericName=Terminal
-              Comment=A cross-platform, GPU enhanced terminal emulator
+              Comment=A fast, cross-platform, OpenGL terminal emulator
+              StartupNotify=true
               StartupWMClass=Alacritty
               Actions=New;
 
