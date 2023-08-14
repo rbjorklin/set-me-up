@@ -2,7 +2,7 @@ local status, builtin = pcall(require, "telescope.builtin")
 if (not status) then return end
 
 local keymap = vim.keymap.set
-keymap('n', '<LEADER>f', builtin.find_files, {})
+keymap('n', '<LEADER>fi', builtin.find_files, {})
 keymap('n', '<LEADER>g', builtin.live_grep, {})
 keymap('n', '<LEADER>t?', builtin.oldfiles, { desc = '[t?] Find recently opened files'})
 keymap('n', '<LEADER>t<SPACE>', builtin.buffers, { desc = '[t ] Find existing buffers'})
