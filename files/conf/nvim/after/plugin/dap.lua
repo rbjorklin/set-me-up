@@ -13,6 +13,26 @@ dap.adapters.nlua = function(callback, config)
   callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
 end
 
+dap.adapters.ocaml = {
+    type = 'executable',
+    command = 'ocamlearlybird',
+    args = {'debug'},
+}
+
+dap.configurations.ocaml = {
+  {
+    type = "ocaml",
+    request = "launch",
+    name = "Launch debug test",
+    console = "integratedTerminal",
+    program = "_build/default/${relativeFileDirname}/${fileBasenameNoExtension}.bc",
+    cwd = "${workspaceFolder}",
+    stopOnEntry = true,
+    yieldSteps = 4096,
+    onlyDebugGlob = "<${workspaceFolder}/**/*>",
+  }
+}
+
 local keymap = vim.keymap.set
 local opts = { noremap = true }
 
