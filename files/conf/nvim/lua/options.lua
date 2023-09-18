@@ -37,7 +37,7 @@ set.sidescroll = 1 -- minimal number of columns to scroll horizontally
 
 set.hlsearch = true -- highlight all matches for the last used search pattern
 set.cursorline = false -- highlight the screen line of the cursor
-set.termguicolors = true -- use GUI colors for the terminal
+set.termguicolors = true -- use GUI colors for the terminal, required by Bufferline
 
 set.splitright = true -- verticallly-split window is put right of the current one
 set.splitbelow = true -- horizontally-split window is put below of the current one
