@@ -127,6 +127,8 @@
           - yamllint
           - zip
           - zsh
+          - libzstd  # OCaml 5.1.0
+          - libzstd-devel  # OCaml 5.1.0
 
     # https://github.com/tmux/tmux/issues/2705
     - name: Ensure pinned tmux installed
