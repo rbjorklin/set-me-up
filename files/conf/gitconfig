@@ -27,19 +27,16 @@
 [core]
     autocrlf = input
 [diff]
-    tool = neovim
+    tool = nvimdiff
+    algorithm = histogram
 [difftool]
     prompt = false
-[difftool "meld"]
-    cmd = meld "$LOCAL" "$REMOTE"
-[difftool "neovim"]
-    cmd = nvim -d "${LOCAL}" "${REMOTE}"
 [merge]
-    tool = meld
-[mergetool "meld"]
-    # Choose one of these 2 lines (not both!) explained below.
-    #cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
-    # Edit the middle file.
-    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+    # https://www.git-scm.com/docs/git-mergetool#_backend_specific_hints
+    tool = nvimdiff
+    #conflictstyle = diff3 # https://git-scm.com/docs/git-merge#Documentation/git-merge.txt-mergeconflictStyle
 [init]
     defaultBranch = main
+[mergetool]
+    prompt = false
+    hideResolved = true
