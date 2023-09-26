@@ -43,10 +43,8 @@ require("lazy").setup({
 
 	-- git conflict resolution
 	{ "akinsho/git-conflict.nvim",
-		tag = "v1.1.2",
-		config = function()
-			require("git-conflict").setup()
-		end,
+		tag = "v1.2.2",
+		config = true,
 	},
 
 	-- statusbar
