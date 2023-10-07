@@ -85,6 +85,7 @@
           - fzf
           - g++ # nvim-treesitter
           - git
+          - gitk
           - gnome-shell-extension-gpaste
           - gnome-tweaks
           - golang
