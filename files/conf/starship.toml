@@ -4,6 +4,9 @@ disabled = true
 [kubernetes]
 disabled = false
 
+[kubernetes.context_aliases]
+'(?P<var_cluster>\w+)\.\w+\.\w+\.\w+' = '$var_cluster'
+
 [aws]
 disabled = true
 

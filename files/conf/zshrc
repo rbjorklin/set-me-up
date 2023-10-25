@@ -42,12 +42,6 @@ function kctx () {
     export KUBECONFIG=${KUBECONFIGS}/${cfg}.yaml
     # Touching the file makes list by last modify timestamp useful
     touch $KUBECONFIG
-    # Ensure short-form context name
-    local ctx=$(kubectl ctx --current)
-    local ctx_short=$(echo ${ctx} | sed 's/\.kube\..*\.net//')
-    if [[ "${ctx}" != "${ctx_short}" ]] ; then
-        kubectl ctx ${ctx_short}=${ctx} > /dev/null
-    fi
 }
 
 function kubeconfig() {
