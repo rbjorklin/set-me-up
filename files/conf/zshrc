@@ -27,7 +27,7 @@ export SAVEHIST=100000 # Number of commands that are stored in the zsh history f
 export HISTSIZE=100000 # Number of commands that are loaded into memory from the history file
 export WORDCHARS=''
 # Load last used in a new terminal
-export KUBECONFIG=~/.kube/configs/$(ls -1t ~/.kube/configs | head -n 1)
+export KUBECONFIG=~/.kube/configs/$(test -d ~/.kube/configs && ls -1t ~/.kube/configs | head -n 1)
 
 function kctx () {
     local KUBECONFIGS=~/.kube/configs
@@ -50,8 +50,8 @@ function kubeconfig() {
     echo $context
 }
 
-# Make vim open files in tabs by default
-alias vim="vim -p"
+# Make nvim open files in tabs by default
+alias vim="nvim -p"
 alias urldecode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.unquote_plus(sys.argv[1]))"'
 alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.quote_plus(sys.argv[1]))"'
 alias k="kubectl"
@@ -63,8 +63,8 @@ alias reset-gpaste="systemctl --user restart org.gnome.GPaste.service"
 alias openssl.cert="openssl x509 -noout -text -in-" # Decode certificate into something human readable
 
 # Variables
-export VISUAL="vim"
-export EDITOR="vim"
+export VISUAL="nvim"
+export EDITOR="nvim"
 
 # LazyLoad the kubectl completion code for zsh into the current shell
 function kubectl() {
