@@ -340,7 +340,6 @@
             - "/home/{{ user }}/.config/containers"
             - "/home/{{ user }}/.tmux/resurrect"
             - "/home/{{ user }}/.histdb"
-            - "/home/{{ user }}/.local/share/nvim/site/pack/packer/start"
 
         - name: Ensure rust installed
           ansible.builtin.shell:
@@ -488,15 +487,6 @@
             src: "{{ ansible_facts['env']['PWD'] }}/files/conf/tmux_resurrect.txt"
             dest: "/home/{{ user }}/.tmux/resurrect/last"
             state: link
-
-        - name: Ensure packer.nvim cloned
-          ansible.builtin.git:
-            repo: https://github.com/wbthomason/packer.nvim
-            dest: "/home/{{ user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
-
-        - name: Ensure nvim plugins installed
-          ansible.builtin.command:
-            cmd: nvim --headless -c PackerInstall -c quitall
 
         - name: Ensure nvim treesitter ocaml parser installed
           ansible.builtin.command:
