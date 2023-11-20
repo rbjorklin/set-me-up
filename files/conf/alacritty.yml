@@ -329,6 +329,7 @@ working_directory: None
 enable_experimental_conpty_backend: false
 
 debug:
+  # renderer: None # alacritty doesn't work under Virtualbox without this
   # Display the time it takes to redraw each frame.
   render_timer: false
 

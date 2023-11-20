@@ -30,6 +30,7 @@ ts.setup {
         "lua",
         "make",
         "markdown",
+        "nix",
         "ocaml",
         "ocaml_interface",
         "python",

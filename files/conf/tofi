@@ -1,0 +1,13 @@
+height = 33%
+width = 33%
+drun-launch = true
+matching-algorithm = fuzzy
+fuzzy-match = true
+corner-radius = 30
+outline-color = #00e8c0
+outline-width = 1
+border-color = #00e8c0
+border-width = 1
+selection-color = #00e8c0
+
+font-size = 18
