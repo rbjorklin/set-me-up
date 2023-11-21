@@ -11,6 +11,14 @@ You want to use this?
 * ``cd set-me-up``
 * ``sudo ./getStarted.sh <username>``
 
+NixOS
+=====
+
+.. code-block:: nix
+   :caption: Deploy config to node
+
+    nixos-rebuild switch --flake .#virtualbox
+
 Acknowledgements
 ================
 

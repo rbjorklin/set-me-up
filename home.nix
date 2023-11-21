@@ -56,7 +56,6 @@
     ".zsh/zsh-histdb-skim".source = builtins.fetchGit {
             url = "https://github.com/m42e/zsh-histdb-skim";
             rev = "3af19b6ec38b93c85bb82a80a69bec8b0e050cc5";
-            ref = "v0.8.6";
         };
     ".config/starship.toml".source = files/conf/starship.toml;
     ".dircolors".source = builtins.fetchurl {
