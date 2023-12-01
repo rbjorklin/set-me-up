@@ -64,6 +64,9 @@ require("lazy").setup({
 	-- Git information in gutter
 	{"lewis6991/gitsigns.nvim", tag = "v0.6"},
 
+    -- Git blame information in-line
+	{"f-person/git-blame.nvim"},
+
 	-- Surrond word with parentheses, quotes etc.
     {"tpope/vim-surround"},
 
