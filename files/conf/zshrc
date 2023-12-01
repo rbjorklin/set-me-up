@@ -52,11 +52,13 @@ function kubeconfig() {
 
 # Make nvim open files in tabs by default
 alias vim="nvim -p"
+alias wclip="wl-copy"
 alias urldecode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.unquote_plus(sys.argv[1]))"'
 alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.quote_plus(sys.argv[1]))"'
 alias k="kubectl"
 alias kc="kubectl create --dry-run=client -o yaml"
 alias kns="kubectl ns"
+alias kgetpodsonnode="k get pods -A --field-selector spec.nodeName="
 alias reset-gpaste="systemctl --user restart org.gnome.GPaste.service"
 
 # Helpers, mostly act as reminders
