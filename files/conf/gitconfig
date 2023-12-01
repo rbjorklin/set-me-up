@@ -1,6 +1,13 @@
 [user]
     email = robin.bjorklin@gmail.com
     name = Robin Björklin
+
+[includeIf "hasconfig:remote.*.url:https://*demonware.net/**"]
+	path = ~/.gitconfig-demonware
+
+[includeIf "hasconfig:remote.*.url:git@*.demonware.net:*/**"]
+	path = ~/.gitconfig-demonware
+
 [push]
     default = simple
 [github]
@@ -15,6 +22,7 @@
     lg = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an %C(auto)%G?>%Creset' --abbrev-commit --date=relative
     checkoutsm = checkout --force --recurse-submodule
     pullsm = pull --recurse-submodule # try `git clean -fdx` and `git reset --hard`
+    pp = pull --prune
     pusho = !git push -u origin $(git branch --show-current)
     merged = !git branch --merged | grep -Ev -e 'master|main' -e $(git branch --show-current) | xargs --no-run-if-empty git branch -d # delete merged branches locally
     diffc = diff --cached
@@ -22,6 +30,8 @@
     diffwc = diff --ignore-blank-lines --ignore-all-space --cached
     pick = cherry-pick -x
     addp = add --patch
+    addi = add --intent-to-add
+    addm = add --update # add/update already managed files only
     fixr = "!gitfixr() { git commit --fixup=$1 && git rebase -i --autosquash $1^; }; gitfixr"
     tagl = log --no-walk --tags --simplify-by-decoration --pretty='format:%cs %D'
 [core]
