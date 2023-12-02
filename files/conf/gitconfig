@@ -34,6 +34,7 @@
     addm = add --update # add/update already managed files only
     fixr = "!gitfixr() { git commit --fixup=$1 && git rebase -i --autosquash $1^; }; gitfixr"
     tagl = log --no-walk --tags --simplify-by-decoration --pretty='format:%cs %D'
+    gh = "!grep_history() { git grep \"$1\" $(git rev-list --all) ; }; grep_history"
 [core]
     autocrlf = input
 [diff]
