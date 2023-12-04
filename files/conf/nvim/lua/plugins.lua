@@ -17,8 +17,13 @@ require("lazy").setup({
 
 	-- lsp config
 	{"neovim/nvim-lspconfig"},
-	{"L3MON4D3/LuaSnip"},
+	{
+        "L3MON4D3/LuaSnip",
+        tag = "2.1.1",
+        build = "make install_jsregexp"
+    },
 	{"hrsh7th/nvim-cmp",
+        commit = "0b751f6beef40fd47375eaf53d3057e0bfa317e4",
 		dependencies = {
 			{ "saadparwaiz1/cmp_luasnip" },
 			{ "hrsh7th/cmp-buffer" },
@@ -29,15 +34,24 @@ require("lazy").setup({
 
 	-- colorscheme
     { "ellisonleao/gruvbox.nvim" },
-    {"maxmx03/solarized.nvim", tag = "v1.0.5"},
+    {"maxmx03/solarized.nvim", tag = "v1.1.0"},
 
-	-- symbol
-	{"simrat39/symbols-outline.nvim", branch = "master"},
+	-- symbol outline
+    {
+        'stevearc/aerial.nvim',
+        tag = "v1.3.0",
+        opts = {},
+        -- Optional dependencies
+        dependencies = {
+           "nvim-treesitter/nvim-treesitter",
+           "nvim-tree/nvim-web-devicons"
+        },
+    },
 
 	-- bufferline
 	{
         "akinsho/bufferline.nvim",
-        tag = "v4.3.0",
+        tag = "v4.4.0",
         dependencies = {'nvim-tree/nvim-web-devicons'},
     },
 
@@ -52,7 +66,7 @@ require("lazy").setup({
 
 	-- fuzzy search
 	{"nvim-telescope/telescope.nvim",
-		tag = "0.1.3",
+		tag = "0.1.5",
 		dependencies = { { "nvim-lua/plenary.nvim" } },
 	},
 
@@ -62,7 +76,7 @@ require("lazy").setup({
 	},
 
 	-- Git information in gutter
-	{"lewis6991/gitsigns.nvim", tag = "v0.6"},
+	{"lewis6991/gitsigns.nvim", tag = "v0.7"},
 
     -- Git blame information in-line
 	{"f-person/git-blame.nvim"},
@@ -97,7 +111,7 @@ require("lazy").setup({
     {"ggandor/leap.nvim"},
 
 	-- Debug using DAP
-    {"mfussenegger/nvim-dap", tag = "0.6.0",
+    {"mfussenegger/nvim-dap", tag = "0.7.0",
 		lazy = true,
 		cmd = {
 			"DapToggleBreakpoint",
