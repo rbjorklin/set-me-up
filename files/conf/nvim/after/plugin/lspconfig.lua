@@ -49,6 +49,7 @@ lspconfig.gopls.setup({
 -- Use `[g` and `]g` to navigate diagnostics
 keymap("n", "]g", vim.diagnostic.goto_next, { silent = true })
 keymap("n", "[g", vim.diagnostic.goto_prev, { silent = true })
+keymap("n", "<leader>do", vim.diagnostic.open_float, { noremap = true, silent = true })
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
