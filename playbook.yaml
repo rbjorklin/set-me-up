@@ -405,6 +405,26 @@
           ansible.builtin.command:
             cmd: gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
+        - name: Ensure Gnome window mode is smart to focus on new windows
+          ansible.builtin.command:
+            cmd: gsettings set org.gnome.desktop.wm.preferences focus-new-windows smart
+
+        - name: Ensure Gnome window focus-mode is click to focus on new windows
+          ansible.builtin.command:
+            cmd: gsettings set org.gnome.desktop.wm.preferences focus-mode click
+
+        - name: Ensure Gnome new windows spawn at the center of the screen to draw attention
+          ansible.builtin.command:
+            cmd: gsettings set org.gnome.mutter center-new-windows true
+
+        - name: Ensure Gnome keybinding to open snippets window powered by fzf
+          ansible.builtin.shell: |
+            gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Snippets'
+            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'alacritty --option window.decorations=None --command /bin/bash -c "cat ~/.snippets | fzf | xclip -in"'
+            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Control>space'
+
+
         #- name: Ensure Gnome fractional scaling enabled
         #  ansible.builtin.command:
         #    cmd: gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
