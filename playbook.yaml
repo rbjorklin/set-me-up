@@ -355,6 +355,9 @@
               version: 1.10.3
             - pkg: stylua
               version: v0.17.1
+            - pkg: wl-clipboard-rs-tools # Does not work under Gnome
+              # https://github.com/YaLTeR/wl-clipboard-rs/issues/39
+              version: 0.8.0
 
         - name: Ensure zsh-autosuggestions cloned
           ansible.builtin.git:

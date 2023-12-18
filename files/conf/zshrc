@@ -52,7 +52,7 @@ function kubeconfig() {
 
 # Make nvim open files in tabs by default
 alias vim="nvim -p"
-alias wclip="wl-copy"
+alias clip="xclip -in" # or 'wl-clip -in' if not using Gnome
 alias urldecode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.unquote_plus(sys.argv[1]))"'
 alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.quote_plus(sys.argv[1]))"'
 alias k="kubectl"
