@@ -421,7 +421,7 @@
           ansible.builtin.shell: |
             gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Snippets'
-            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'alacritty --option window.decorations=None --command /bin/sh --noprofile -c "cat ~/.snippets | fzf | gpaste-client"'
+            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'alacritty --option window.decorations=None --command /bin/sh --noprofile -c "cat ~/.snippets | fzf --read0 --print0 | gpaste-client --zero"'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Control>space'
 
         #- name: Ensure Gnome fractional scaling enabled
