@@ -15,6 +15,12 @@ require("lazy").setup({
 	-- nvim-tree file explorer
 	{"nvim-tree/nvim-tree.lua"},
 
+    { -- File explorer in a normal buffer
+        "stevearc/oil.nvim",
+        tag = "v2.4.1",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
+
 	-- lsp config
 	{
         "neovim/nvim-lspconfig",
