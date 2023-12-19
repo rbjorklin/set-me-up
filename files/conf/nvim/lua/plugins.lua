@@ -38,6 +38,8 @@ require("lazy").setup({
 	-- colorscheme
     {"maxmx03/solarized.nvim", tag = "v1.4.0"},
 
+    {"numToStr/Comment.nvim", tag = "v0.8.0"},
+
 	-- symbol outline
     {
         'stevearc/aerial.nvim',
