@@ -308,6 +308,40 @@
         dest: "/usr/bin/vim"
         state: link
 
+    - name: "Custom system fonts"
+      block:
+        - name: Ensure custom font folders exist
+          ansible.builtin.file:
+            path: "{{ item }}"
+            state: directory
+            loop:
+              - "/usr/local/share/fonts/Monaspace"
+              - "/usr/local/share/fonts/FiraCodeNerdFont"
+        - name: Ensure Monaspace font installed
+          ansible.builtin.unarchive:
+            src: https://github.com/githubnext/monaspace/releases/download/v1.000/monaspace-v1.000.zip
+            dest: /usr/local/share/fonts/Monaspace
+            creates: /usr/local/share/fonts/Monaspace/MonaspaceArgon-Regular.otf
+            remote_src: true
+            include:
+              - '*.ttf'
+              - '*.otf'
+            extra_opts:
+              - -j
+            # Ignore errors as path validation breaks due to '-j / junk paths'
+            ignore_errors: true
+        - name: Ensure Fira Code Nerd Font installed
+          ansible.builtin.unarchive:
+            src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip
+            dest: /usr/local/share/fonts/FiraCodeNerdFont
+            creates: /usr/local/share/fonts/FiraCodeNerdFont/FiraCodeNerdFontMono-Regular.ttf
+            remote_src: true
+            include:
+              - '*.ttf'
+        - name: Ensure font cache has been updated after installing new fonts
+          ansible.builtin.command:
+            cmd: fc-cache -v
+
     - name: "Run tasks as {{ user }}"
       become_user: "{{ user }}"
       block:
