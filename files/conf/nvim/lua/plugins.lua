@@ -16,10 +16,13 @@ require("lazy").setup({
 	{"nvim-tree/nvim-tree.lua"},
 
 	-- lsp config
-	{"neovim/nvim-lspconfig"},
+	{
+        "neovim/nvim-lspconfig",
+        tag = "v0.1.7",
+    },
 	{
         "L3MON4D3/LuaSnip",
-        tag = "2.1.1",
+        tag = "v2.1.1",
         build = "make install_jsregexp"
     },
 	{"hrsh7th/nvim-cmp",
@@ -33,8 +36,7 @@ require("lazy").setup({
 	},
 
 	-- colorscheme
-    { "ellisonleao/gruvbox.nvim" },
-    {"maxmx03/solarized.nvim", tag = "v1.1.0"},
+    {"maxmx03/solarized.nvim", tag = "v1.4.0"},
 
 	-- symbol outline
     {
@@ -51,7 +53,7 @@ require("lazy").setup({
 	-- bufferline
 	{
         "akinsho/bufferline.nvim",
-        tag = "v4.4.0",
+        tag = "v4.4.1",
         dependencies = {'nvim-tree/nvim-web-devicons'},
     },
 
@@ -71,7 +73,7 @@ require("lazy").setup({
 	},
 
 	-- Diagnostics, Code Actions, Auto formating & more
-	{"jose-elias-alvarez/null-ls.nvim",
+	{"nvimtools/none-ls.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
@@ -107,11 +109,10 @@ require("lazy").setup({
         -- commit = "b8eca3b588e41e0bb1b3ae200fae88183b91a76d", -- this commits breaks the plugin under lua
 	},
 
-	-- more intuitive navigation
-    {"ggandor/leap.nvim"},
-
 	-- Debug using DAP
-    {"mfussenegger/nvim-dap", tag = "0.7.0",
+    {
+        "mfussenegger/nvim-dap",
+        tag = "0.7.0",
 		lazy = true,
 		cmd = {
 			"DapToggleBreakpoint",
@@ -130,5 +131,8 @@ require("lazy").setup({
     {"jbyuki/one-small-step-for-vimkind"},
 
 	-- indentation guides
-    {"lukas-reineke/indent-blankline.nvim"},
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        tag = "v3.3.10",
+    },
 })
