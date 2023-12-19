@@ -12,8 +12,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	-- nvim-tree file explorer
-	{"nvim-tree/nvim-tree.lua"},
+
+	{ -- nvim-tree file explorer
+        "nvim-tree/nvim-tree.lua"
+    },
 
     { -- File explorer in a normal buffer
         "stevearc/oil.nvim",
@@ -21,17 +23,20 @@ require("lazy").setup({
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
 
-	-- lsp config
-	{
+
+	{ -- lsp config
         "neovim/nvim-lspconfig",
         tag = "v0.1.7",
     },
-	{
+
+	{ -- snippet manager
         "L3MON4D3/LuaSnip",
         tag = "v2.1.1",
         build = "make install_jsregexp"
     },
-	{"hrsh7th/nvim-cmp",
+
+	{ -- auto-complete
+        "hrsh7th/nvim-cmp",
         commit = "0b751f6beef40fd47375eaf53d3057e0bfa317e4",
 		dependencies = {
 			{ "saadparwaiz1/cmp_luasnip" },
@@ -46,8 +51,7 @@ require("lazy").setup({
 
     {"numToStr/Comment.nvim", tag = "v0.8.0"},
 
-	-- symbol outline
-    {
+    { -- symbol outline
         'stevearc/aerial.nvim',
         tag = "v1.3.0",
         opts = {},
@@ -58,15 +62,14 @@ require("lazy").setup({
         },
     },
 
-	-- bufferline
-	{
+	{ -- bufferline
         "akinsho/bufferline.nvim",
         tag = "v4.4.1",
         dependencies = {'nvim-tree/nvim-web-devicons'},
     },
 
-	-- git conflict resolution
-	{ "akinsho/git-conflict.nvim",
+	{ -- git conflict resolution
+        "akinsho/git-conflict.nvim",
 		tag = "v1.2.2",
 		config = true,
 	},
@@ -74,14 +77,14 @@ require("lazy").setup({
 	-- statusbar
 	{"nvim-lualine/lualine.nvim"},
 
-	-- fuzzy search
-	{"nvim-telescope/telescope.nvim",
+	{ -- fuzzy search
+        "nvim-telescope/telescope.nvim",
 		tag = "0.1.5",
-		dependencies = { { "nvim-lua/plenary.nvim" } },
+		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
-	-- Diagnostics, Code Actions, Auto formating & more
-	{"nvimtools/none-ls.nvim",
+	{ -- Diagnostics, Code Actions, Auto formating & more
+        "nvimtools/none-ls.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
@@ -97,28 +100,23 @@ require("lazy").setup({
 	-- Git plugin for vim
     {"tpope/vim-fugitive"},
 
-	-- treesitter
-	{"nvim-treesitter/nvim-treesitter", tag = "v0.9.1",
+	{ -- Treesitter
+        "nvim-treesitter/nvim-treesitter",
+        tag = "v0.9.1",
 		build = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
 	},
+
 	{ "nvim-treesitter/nvim-treesitter-context" },
 
-	{"nvim-treesitter/playground",
-		lazy = true,
-		cmd = { "TSHighlightCapturesUnderCursor" },
-	},
-
-	-- better matching
-	{
+	{ -- better matching
 		"andymass/vim-matchup",
         commit = "6c8909b682803d8c3a054259079f158a73a0e30f", -- good
         -- commit = "b8eca3b588e41e0bb1b3ae200fae88183b91a76d", -- this commits breaks the plugin under lua
 	},
 
-	-- Debug using DAP
-    {
+    { -- Debug using DAP
         "mfussenegger/nvim-dap",
         tag = "0.7.0",
 		lazy = true,
@@ -138,8 +136,7 @@ require("lazy").setup({
 	-- Debug neovim
     {"jbyuki/one-small-step-for-vimkind"},
 
-	-- indentation guides
-    {
+    { -- indentation guides
         "lukas-reineke/indent-blankline.nvim",
         tag = "v3.3.10",
     },
