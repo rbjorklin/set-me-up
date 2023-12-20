@@ -42,17 +42,6 @@ ts.setup {
         "yaml",
     },
     sync_install = false,
-    autotag = {
-        enable = true,
-    },
-    rainbow = {
-        enable = true,
-        extended_mode = true,
-        max_file_lines = nil,
-    },
-    autopairs = {
-        enable = true,
-    },
     matchup = {
         enable = true,
         -- enable_quotes = false, -- https://github.com/andymass/vim-matchup/issues/287
