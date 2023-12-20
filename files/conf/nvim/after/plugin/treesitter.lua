@@ -44,6 +44,7 @@ ts.setup {
     sync_install = false,
     matchup = {
         enable = true,
+        disable = { "bash" },
         -- enable_quotes = false, -- https://github.com/andymass/vim-matchup/issues/287
     },
 }
