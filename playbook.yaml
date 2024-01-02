@@ -108,7 +108,6 @@
           - neovim
           - nmap
           - nodejs # coc-nvim
-          - moby-engine
           - postgresql
           - packer
           - pv
@@ -314,9 +313,9 @@
           ansible.builtin.file:
             path: "{{ item }}"
             state: directory
-            loop:
-              - "/usr/local/share/fonts/Monaspace"
-              - "/usr/local/share/fonts/FiraCodeNerdFont"
+          loop:
+            - "/usr/local/share/fonts/Monaspace"
+            - "/usr/local/share/fonts/FiraCodeNerdFont"
         - name: Ensure Monaspace font installed
           ansible.builtin.unarchive:
             src: https://github.com/githubnext/monaspace/releases/download/v1.000/monaspace-v1.000.zip
@@ -328,8 +327,8 @@
               - '*.otf'
             extra_opts:
               - -j
-            # Ignore errors as path validation breaks due to '-j / junk paths'
-            ignore_errors: true
+          # Ignore errors as path validation breaks due to '-j / junk paths'
+          ignore_errors: true
         - name: Ensure Fira Code Nerd Font installed
           ansible.builtin.unarchive:
             src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip
@@ -385,10 +384,9 @@
             cmd: "~/.cargo/bin/cargo install --version {{ item.version}} {{ item.pkg }}"
           loop:
             - pkg: starship
-              # Newer versions fail during compilation
-              version: 1.10.3
+              version: 1.17.1
             - pkg: stylua
-              version: v0.17.1
+              version: 0.19.1
             - pkg: wl-clipboard-rs-tools # Does not work under Gnome
               # https://github.com/YaLTeR/wl-clipboard-rs/issues/39
               version: 0.8.0
