@@ -50,6 +50,10 @@ function kubeconfig() {
     echo $context
 }
 
+kgetpodsonnode () {
+    kubectl get pods -A --field-selector spec.nodeName=$1
+}
+
 # Make nvim open files in tabs by default
 alias vim="nvim -p"
 alias clip="xclip -in" # or 'wl-clip -in' if not using Gnome
@@ -58,7 +62,6 @@ alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.q
 alias k="kubectl"
 alias kc="kubectl create --dry-run=client -o yaml"
 alias kns="kubectl ns"
-alias kgetpodsonnode="k get pods -A --field-selector spec.nodeName="
 alias reset-gpaste="systemctl --user restart org.gnome.GPaste.service"
 
 # Helpers, mostly act as reminders
