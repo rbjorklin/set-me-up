@@ -456,6 +456,15 @@
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'alacritty --option window.decorations=None --command /bin/sh --noprofile -c "cat ~/.snippets | fzf --read0 --print0 | gpaste-client --zero"'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Control>space'
 
+        # To view use:
+        # gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name
+        - name: Ensure Gnome keybinding to open url-launcher window powered by fzf
+          ansible.builtin.shell: |
+            gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
+            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'URL Launcher'
+            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'alacritty --option window.decorations=None --command /bin/sh --noprofile -o errexit -o nounset -o pipefail -c "export SUBSTITUTE=\"$(gpaste-client get --use-index 0)\" ; export DESTINATION=$(cat ~/.url-launcher | fzf | sed \"s#SUBSTITUTE#${SUBSTITUTE}#g\") ; test \"${DESTINATION}\" != \"\" ; firefox \"${DESTINATION}\""'
+            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Control><Alt>u'
+
         #- name: Ensure Gnome fractional scaling enabled
         #  ansible.builtin.command:
         #    cmd: gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
