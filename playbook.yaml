@@ -363,7 +363,7 @@
           environment:
             PATH: "{{ ansible_facts['env']['PATH'] }}:/home/{{ user }}/.krew/bin"
           ansible.builtin.shell:
-            cmd: kubectl krew install ctx ns slice edit-status sort-manifests kyverno
+            cmd: kubectl krew install ctx ns slice edit-status sort-manifests kyverno stern
 
         - name: Ensure folders exist
           ansible.builtin.file:
