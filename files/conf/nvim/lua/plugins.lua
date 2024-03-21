@@ -112,7 +112,7 @@ require("lazy").setup({
 
 	{ -- better matching
 		"andymass/vim-matchup",
-        commit = "2550178c43464134ce65328da458905f70dbe041",
+        commit = "6c8909b682803d8c3a054259079f158a73a0e30f",
 	},
 
     { -- Debug using DAP
