@@ -25,6 +25,7 @@
     pp = pull --prune
     pusho = !git push -u origin $(git branch --show-current)
     merged = !git branch --merged | grep -Ev -e 'master|main' -e $(git branch --show-current) | xargs --no-run-if-empty git branch -d # delete merged branches locally
+    dft = difftool
     diffc = diff --cached
     diffw = diff --ignore-blank-lines --ignore-all-space
     diffwc = diff --ignore-blank-lines --ignore-all-space --cached
@@ -39,10 +40,14 @@
 [core]
     autocrlf = input
 [diff]
-    tool = nvimdiff
+    tool = difftastic
     algorithm = histogram
 [difftool]
     prompt = false
+[difftool "difftastic"]
+    cmd = difft --background=light "$LOCAL" "$REMOTE"
+[pager]
+    difftool = true
 [merge]
     # https://www.git-scm.com/docs/git-mergetool#_backend_specific_hints
     tool = nvimdiff
