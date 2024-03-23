@@ -203,77 +203,92 @@
         url: https://github.com/ocaml/opam/releases/download/{{ version['opam'] }}/opam-{{ version['opam'] }}-x86_64-linux
         dest: /usr/local/bin/opam
         mode: '0755'
+      tags:
+        - external-tool
 
     - name: Ensure yq installed
       ansible.builtin.get_url:
         url: https://github.com/mikefarah/yq/releases/download/v{{ version['yq'] }}/yq_linux_amd64
         dest: /usr/local/bin/yq
         mode: '0755'
+      tags:
+        - external-tool
 
     - name: Ensure kubectl installed
       ansible.builtin.get_url:
         url: https://dl.k8s.io/release/v{{ version['kubectl'] }}/bin/linux/amd64/kubectl
         dest: /usr/local/bin/kubectl
         mode: '0755'
+      tags:
+        - external-tool
 
     - name: Ensure clusterctl installed
       ansible.builtin.get_url:
         url: https://github.com/kubernetes-sigs/cluster-api/releases/download/v{{ version['clusterctl'] }}/clusterctl-linux-amd64
         dest: /usr/local/bin/clusterctl
         mode: '0755'
+      tags:
+        - external-tool
 
     - name: Ensure kind installed
       ansible.builtin.get_url:
         url: https://github.com/kubernetes-sigs/kind/releases/download/v{{ version['kind'] }}/kind-linux-amd64
         dest: /usr/local/bin/kind
         mode: '0755'
+      tags:
+        - external-tool
 
     - name: Ensure argocd installed
       ansible.builtin.get_url:
         url: https://github.com/argoproj/argo-cd/releases/download/v{{ version['argo'] }}/argocd-linux-amd64
         dest: /usr/local/bin/argocd
         mode: '0755'
+      tags:
+        - external-tool
 
     - name: Ensure helm installed
       ansible.builtin.unarchive:
         src: https://get.helm.sh/helm-v{{ version['helm'] }}-linux-amd64.tar.gz
         dest: /usr/local/bin
-        creates: /usr/local/bin/helm
         remote_src: true
         extra_opts:
         - --strip-components=1
         exclude:
         - LICENSE
         - README.md
+      tags:
+        - external-tool
 
     - name: Ensure kustomize installed
       ansible.builtin.unarchive:
         src: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v{{ version['kustomize'] }}/kustomize_v{{ version['kustomize'] }}_linux_amd64.tar.gz
         dest: /usr/local/bin
-        creates: /usr/local/bin/kustomize
         remote_src: true
+      tags:
+        - external-tool
 
     - name: Ensure hcloud installed
       ansible.builtin.unarchive:
         src: https://github.com/hetznercloud/cli/releases/download/v{{ version['hcloud'] }}/hcloud-linux-amd64.tar.gz
         dest: /usr/local/bin
-        creates: /usr/local/bin/hcloud
         remote_src: true
-        extra_opts:
         exclude:
         - LICENSE
         - README.md
+      tags:
+        - external-tool
 
     - name: Ensure d2 installed
       ansible.builtin.unarchive:
         src: https://github.com/terrastruct/d2/releases/download/v{{ version['d2'] }}/d2-v{{ version['d2'] }}-linux-amd64.tar.gz
         dest: /usr/local/bin
-        creates: /usr/local/bin/d2
         remote_src: true
         extra_opts:
         - --strip-components=2
         include:
          - d2-v{{ version['d2'] }}/bin/d2
+      tags:
+        - external-tool
 
     - name: Ensure user configured
       ansible.builtin.user:
