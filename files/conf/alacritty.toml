@@ -70,8 +70,14 @@ style = "Regular"
 x = 0
 y = 0
 
+# https://github.com/neovim/neovim/issues/20126#issuecomment-1296039900
+# https://github.com/tmux/tmux/issues/2705#issuecomment-1518520942
+# https://en.wikipedia.org/wiki/ANSI_escape_code#CSI_(Control_Sequence_Introducer)_sequences
+# https://gist.github.com/ConnerWill/d4b6c776b509add763e17f9f113fd25b#keyboard-strings
+# Make "C-i" send "F12 Tab". Then from tmux we send the `CSI u`-encoded
+# version of "C-i" ("\x1b[105;5u").
 [[keyboard.bindings]]
-chars = "\u001B[105;5u"
+chars = "\u001B[24~\t" # '\u001B' is Escape, '24' is F12, '\t' is Tab
 key = "I"
 mods = "Control"
 
