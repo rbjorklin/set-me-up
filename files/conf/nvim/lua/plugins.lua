@@ -46,6 +46,13 @@ require("lazy").setup({
 		},
 	},
 
+    {
+        "folke/trouble.nvim",
+        tag = "v2.10.0",
+        lazy = true,
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
+
     { -- colorscheme
         "rktjmp/lush.nvim",
         commit = "bc12f010b34cfeefac35720656eb777753b165d9"
