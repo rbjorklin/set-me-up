@@ -278,6 +278,17 @@
       tags:
         - external-tool
 
+    - name: Ensure kubeseal installed
+      ansible.builtin.unarchive:
+        src: https://github.com/bitnami-labs/sealed-secrets/releases/download/v{{ version['kubeseal'] }}/kubeseal-{{ version['kubeseal'] }}-linux-amd64.tar.gz
+        dest: /usr/local/bin
+        remote_src: true
+        exclude:
+        - LICENSE
+        - README.md
+      tags:
+        - external-tool
+
     - name: Ensure d2 installed
       ansible.builtin.unarchive:
         src: https://github.com/terrastruct/d2/releases/download/v{{ version['d2'] }}/d2-v{{ version['d2'] }}-linux-amd64.tar.gz
