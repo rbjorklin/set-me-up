@@ -46,8 +46,17 @@ require("lazy").setup({
 		},
 	},
 
-	-- colorscheme
-    {"maxmx03/solarized.nvim", tag = "v1.4.0"},
+    { -- colorscheme
+        "rktjmp/lush.nvim",
+        commit = "bc12f010b34cfeefac35720656eb777753b165d9"
+    },
+	{
+        "loganswartz/selenized.nvim",
+        commit = "6f31b954da7e15190c2af1d550ce2f22bf675d97",
+		dependencies = {
+			{ "rktjmp/lush.nvim" }
+        }
+    },
 
     {"numToStr/Comment.nvim", tag = "v0.8.0"},
 
@@ -74,8 +83,10 @@ require("lazy").setup({
 		config = true,
 	},
 
-	-- statusbar
-	{"nvim-lualine/lualine.nvim"},
+	{ -- statusbar
+        "nvim-lualine/lualine.nvim",
+        commit = "0a5a66803c7407767b799067986b4dc3036e1983",
+    },
 
 	{ -- fuzzy search
         "nvim-telescope/telescope.nvim",
