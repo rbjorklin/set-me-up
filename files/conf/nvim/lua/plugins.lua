@@ -24,7 +24,6 @@ require("lazy").setup({
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
 
-
 	{ -- lsp config
         "neovim/nvim-lspconfig",
         tag = "v0.1.7",
@@ -38,7 +37,7 @@ require("lazy").setup({
 
 	{ -- auto-complete
         "hrsh7th/nvim-cmp",
-        commit = "0b751f6beef40fd47375eaf53d3057e0bfa317e4",
+        commit = "8f3c541407e691af6163e2447f3af1bd6e17f9a3",
 		dependencies = {
 			{ "saadparwaiz1/cmp_luasnip" },
 			{ "hrsh7th/cmp-buffer" },
@@ -47,7 +46,7 @@ require("lazy").setup({
 		},
 	},
 
-    {
+    {  -- Better diagnostics
         "folke/trouble.nvim",
         tag = "v2.10.0",
         lazy = true,
@@ -66,7 +65,10 @@ require("lazy").setup({
         }
     },
 
-    {"numToStr/Comment.nvim", tag = "v0.8.0"},
+    {  -- Easier block commenting
+        "numToStr/Comment.nvim",
+        tag = "v0.8.0",
+    },
 
     { -- symbol outline
         'stevearc/aerial.nvim',
@@ -104,30 +106,40 @@ require("lazy").setup({
 
 	{ -- Diagnostics, Code Actions, Auto formating & more
         "nvimtools/none-ls.nvim",
+        commit = "88821b67e6007041f43b802f58e3d9fa9bfce684",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
-	-- Git information in gutter
-	{"lewis6991/gitsigns.nvim", tag = "v0.8.0"},
+	{ -- Git information in gutter
+        "lewis6991/gitsigns.nvim",
+        tag = "v0.8.0"
+    },
 
-    -- Git blame information in-line
-	{"f-person/git-blame.nvim"},
+	{ -- Git blame information in-line
+        "f-person/git-blame.nvim",
+        commit = "ad1d1365c9189d89797fe8d559677d5f55dc2830",
+    },
 
-	-- Surrond word with parentheses, quotes etc.
-    {"tpope/vim-surround"},
+    { -- Surrond word with parentheses, quotes etc.
+        "tpope/vim-surround",
+        commit = "3d188ed2113431cf8dac77be61b842acb64433d9",
+    },
 
-	-- Git plugin for vim
-    {"tpope/vim-fugitive"},
+    { -- Git plugin for vim
+        "tpope/vim-fugitive",
+        commit = "dac8e5c2d85926df92672bf2afb4fc48656d96c7",
+    },
 
 	{ -- Treesitter
         "nvim-treesitter/nvim-treesitter",
         tag = "v0.9.2",
-		build = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
-		end,
+		build = ":TSUpdate",
 	},
 
-	{ "nvim-treesitter/nvim-treesitter-context" },
+	{ -- provide context when scrolling
+        "nvim-treesitter/nvim-treesitter-context",
+        commit = "4fe0a54e86859744968e1a5c7867b49c86855774",
+    },
 
 	{ -- better matching
 		"andymass/vim-matchup",
@@ -147,12 +159,16 @@ require("lazy").setup({
 		},
     },
 
-    -- Go
     -- Inspiration from: https://www.youtube.com/watch?v=i04sSQjd-qo
-	{"ray-x/go.nvim"},
+	{ -- Go
+        "ray-x/go.nvim",
+        commit = "ae078b8da431f264ab488d6d4e14201761dbfdbc",
+    },
 
-	-- Debug neovim
-    {"jbyuki/one-small-step-for-vimkind"},
+    { -- Debug neovim
+        "jbyuki/one-small-step-for-vimkind",
+        commit = "93af151b02d2952977fd3db20b07d2a5d23b60f6",
+    },
 
     { -- indentation guides
         "lukas-reineke/indent-blankline.nvim",
