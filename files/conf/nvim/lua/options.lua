@@ -70,3 +70,16 @@ vim.cmd [[set iskeyword+=-]] -- ask vim to treat '-' like a regular word charact
 
 set.completeopt = { "menuone", "menu", "noselect", "preview" } -- mainly for cmp plugin
 set.pumblend = 0
+
+vim.g.clipboard = { -- Use gpaste to copy things in/out of clipboard with "*yy & "*p
+  name = 'GPaste',
+  copy = {
+     ['+'] = 'gpaste-client add',
+     ['*'] = 'gpaste-client add',
+  },
+  paste = {
+     ['+'] = 'gpaste-client get --use-index 0',
+     ['*'] = 'gpaste-client get --use-index 0',
+  },
+  cache_enabled = 0,
+}
