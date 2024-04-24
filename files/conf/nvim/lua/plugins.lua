@@ -14,12 +14,13 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 
 	{ -- nvim-tree file explorer
-        "nvim-tree/nvim-tree.lua"
+        "nvim-tree/nvim-tree.lua",
+        tag = "nvim-tree-v1.3.0",
     },
 
     { -- File explorer in a normal buffer
         "stevearc/oil.nvim",
-        tag = "v2.4.1",
+        tag = "v2.8.0",
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
 
@@ -31,7 +32,7 @@ require("lazy").setup({
 
 	{ -- snippet manager
         "L3MON4D3/LuaSnip",
-        tag = "v2.1.1",
+        tag = "v2.3.0",
         build = "make install_jsregexp"
     },
 
@@ -69,7 +70,7 @@ require("lazy").setup({
 
     { -- symbol outline
         'stevearc/aerial.nvim',
-        tag = "v1.3.0",
+        tag = "v1.6.0",
         opts = {},
         -- Optional dependencies
         dependencies = {
@@ -80,13 +81,13 @@ require("lazy").setup({
 
 	{ -- bufferline
         "akinsho/bufferline.nvim",
-        tag = "v4.4.1",
+        tag = "v4.5.3",
         dependencies = {'nvim-tree/nvim-web-devicons'},
     },
 
 	{ -- git conflict resolution
         "akinsho/git-conflict.nvim",
-		tag = "v1.2.2",
+		tag = "v1.3.0",
 		config = true,
 	},
 
@@ -97,7 +98,7 @@ require("lazy").setup({
 
 	{ -- fuzzy search
         "nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
+		tag = "0.1.6",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
@@ -107,7 +108,7 @@ require("lazy").setup({
 	},
 
 	-- Git information in gutter
-	{"lewis6991/gitsigns.nvim", tag = "v0.7"},
+	{"lewis6991/gitsigns.nvim", tag = "v0.8.0"},
 
     -- Git blame information in-line
 	{"f-person/git-blame.nvim"},
@@ -120,7 +121,7 @@ require("lazy").setup({
 
 	{ -- Treesitter
         "nvim-treesitter/nvim-treesitter",
-        tag = "v0.9.1",
+        tag = "v0.9.2",
 		build = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
@@ -155,6 +156,6 @@ require("lazy").setup({
 
     { -- indentation guides
         "lukas-reineke/indent-blankline.nvim",
-        tag = "v3.3.10",
+        tag = "v3.5.4",
     },
 })
