@@ -159,6 +159,16 @@ require("lazy").setup({
 		},
     },
 
+    { -- UI for nvim DAP
+        "rcarriga/nvim-dap-ui",
+        tag = "v4.0.0",
+        lazy = true,
+        dependencies = {
+            "mfussenegger/nvim-dap",
+            "nvim-neotest/nvim-nio"
+        }
+    },
+
     -- Inspiration from: https://www.youtube.com/watch?v=i04sSQjd-qo
 	{ -- Go
         "ray-x/go.nvim",
