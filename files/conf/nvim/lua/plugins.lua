@@ -104,6 +104,11 @@ require("lazy").setup({
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
+	{ -- Fancier UI select boxes.
+        "stevearc/dressing.nvim",
+        commit = "5162edb1442a729a885c45455a07e9a89058be2f",
+    },
+
 	{ -- Diagnostics, Code Actions, Auto formating & more
         "nvimtools/none-ls.nvim",
         commit = "88821b67e6007041f43b802f58e3d9fa9bfce684",

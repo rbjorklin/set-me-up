@@ -1,3 +1,6 @@
+local status, telescope = pcall(require, "telescope")
+if (not status) then return end
+
 local status, builtin = pcall(require, "telescope.builtin")
 if (not status) then return end
 
@@ -17,3 +20,13 @@ keymap('n', '<LEADER>tsh', builtin.help_tags, { desc = '[T]elescope [S]earch [H]
 keymap('n', '<LEADER>tk', builtin.keymaps, { desc = '[T]elescope [K]eymaps Help' })
 keymap('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 keymap('n', 'gr', builtin.lsp_references, { desc = '[G]oto [R]eferences' })
+
+telescope.setup({
+    defaults = {
+        mappings = {
+          i = {
+            ["<esc>"] = require('telescope.actions').close,
+          },
+        }
+    }
+})
