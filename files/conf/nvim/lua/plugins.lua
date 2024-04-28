@@ -190,4 +190,10 @@ require("lazy").setup({
         "lukas-reineke/indent-blankline.nvim",
         tag = "v3.5.4",
     },
+
+	{ -- basic ollama integration
+        "David-Kunz/gen.nvim",
+        commit = "87fbe811155b90eea58622614809705b966009ad",
+        lazy = true,
+	},
 })
