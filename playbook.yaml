@@ -490,6 +490,8 @@
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'URL Launcher'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'alacritty --option window.decorations=None --command /bin/sh --noprofile -o errexit -o nounset -o pipefail -c "export SUBSTITUTE=\"$(gpaste-client get --use-index 0)\" ; export DESTINATION=$(cat ~/.url-launcher | fzf | sed \"s#SUBSTITUTE#${SUBSTITUTE}#g\") ; test \"${DESTINATION}\" != \"\" ; firefox \"${DESTINATION}\""'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Control><Alt>u'
+      tags:
+        - url-launcher
 
         #- name: Ensure Gnome fractional scaling enabled
         #  ansible.builtin.command:
