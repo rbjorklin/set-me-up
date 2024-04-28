@@ -32,12 +32,13 @@ require("lazy").setup({
 	{ -- snippet manager
         "L3MON4D3/LuaSnip",
         tag = "v2.3.0",
-        build = "make install_jsregexp"
+        build = "make install_jsregexp",
+				dependencies = { "rafamadriz/friendly-snippets" },
     },
 
 	{ -- auto-complete
         "hrsh7th/nvim-cmp",
-        commit = "8f3c541407e691af6163e2447f3af1bd6e17f9a3",
+        commit = "d884a049bb66722668ebe5de97f341327e8422cf", -- https://github.com/hrsh7th/nvim-cmp/pull/1833
 		dependencies = {
 			{ "saadparwaiz1/cmp_luasnip" },
 			{ "hrsh7th/cmp-buffer" },
