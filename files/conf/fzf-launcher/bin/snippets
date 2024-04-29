@@ -1,0 +1,7 @@
+#!/bin/env sh
+DIR=~/.fzf-launcher/snippets
+ls -1 ${DIR} | \
+	fzf \
+	--border rounded \
+	--bind "enter:execute-silent(cat ${DIR}/{} | gpaste-client)+abort" \
+	--preview="cat ${DIR}/{}"

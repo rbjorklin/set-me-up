@@ -475,23 +475,17 @@
           ansible.builtin.command:
             cmd: gsettings set org.gnome.mutter center-new-windows true
 
-        - name: Ensure Gnome keybinding to open snippets window powered by fzf
+
+        # To view use:
+        # gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name
+        - name: Ensure Gnome keybinding to open fzf powered launcher
           ansible.builtin.shell: |
             gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Snippets'
-            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'alacritty --option window.decorations=None --command /bin/sh --noprofile -c "cat ~/.snippets | fzf --read0 --print0 | gpaste-client --zero"'
+            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'alacritty --option 'window = { decorations = "none" }' --option 'window.dimensions = { columns = 140, lines = 40 }' --command /home/{{ user }}/.fzf-launcher/entrypoint.sh'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Control>space'
-
-        # To view use:
-        # gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name
-        - name: Ensure Gnome keybinding to open url-launcher window powered by fzf
-          ansible.builtin.shell: |
-            gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
-            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'URL Launcher'
-            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'alacritty --option window.decorations=None --command /bin/sh --noprofile -o errexit -o nounset -o pipefail -c "export SUBSTITUTE=\"$(gpaste-client get --use-index 0)\" ; export DESTINATION=$(cat ~/.url-launcher | fzf | sed \"s#SUBSTITUTE#${SUBSTITUTE}#g\") ; test \"${DESTINATION}\" != \"\" ; firefox \"${DESTINATION}\""'
-            gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Control><Alt>u'
       tags:
-        - url-launcher
+        - launcher
 
         #- name: Ensure Gnome fractional scaling enabled
         #  ansible.builtin.command:
@@ -559,6 +553,14 @@
             src: "{{ ansible_facts['env']['PWD'] }}/files/conf/nvim"
             dest: "/home/{{ user }}/.config/nvim"
             state: link
+
+        - name: Ensure launcher folder symlinked
+          ansible.builtin.file:
+            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/fzf-launcher"
+            dest: "/home/{{ user }}/.fzf-launcher"
+            state: link
+          tags:
+            - launcher
 
         - name: Ensure tmux config symlinked
           ansible.builtin.file:

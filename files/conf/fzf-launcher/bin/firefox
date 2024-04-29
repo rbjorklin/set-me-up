@@ -1,0 +1,7 @@
+#!/bin/env sh
+DIR=~/.fzf-launcher/urls
+cat ${DIR}/* | \
+	fzf \
+	--border rounded \
+	--bind "enter:execute(firefox \$(echo {} | sed \"s#SUBSTITUTE#\$(gpaste-client get --use-index 0)#g\"))+abort" \
+	--preview="echo {} | sed \"s#SUBSTITUTE#\$(gpaste-client get --use-index 0)#g\""
