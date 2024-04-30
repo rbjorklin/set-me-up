@@ -108,6 +108,7 @@
           - neovim
           - nmap
           - nodejs # coc-nvim
+          - nodejs-bash-language-server
           - postgresql
           - packer
           - pv

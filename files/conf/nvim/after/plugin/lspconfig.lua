@@ -46,6 +46,8 @@ lspconfig.gopls.setup({
     }
 })
 
+lspconfig.bashls.setup({})
+
 -- Use `[g` and `]g` to navigate diagnostics
 keymap("n", "]g", vim.diagnostic.goto_next, { silent = true })
 keymap("n", "[g", vim.diagnostic.goto_prev, { silent = true })
