@@ -1,7 +1,8 @@
 #!/bin/env sh
 DIR=~/.fzf-launcher/snippets
-ls -1 ${DIR} | \
+cd ${DIR}
+ls --sort=time --time=atime -1 | \
 	fzf \
 	--border rounded \
-	--bind "enter:execute-silent(cat ${DIR}/{} | gpaste-client)+abort" \
-	--preview="cat ${DIR}/{}"
+	--bind "enter:execute-silent(touch {} ; cat {} | gpaste-client)+abort" \
+	--preview="cat {}"
