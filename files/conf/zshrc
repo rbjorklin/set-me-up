@@ -29,7 +29,7 @@ export WORDCHARS=''
 # Load last used in a new terminal
 export KUBECONFIG=~/.kube/configs/$(test -d ~/.kube/configs && ls -1t ~/.kube/configs | head -n 1)
 
-function kctx () {
+kctx() {
     local KUBECONFIGS=~/.kube/configs
     local cfg=$1
     if [ -z "$1" ] ; then
@@ -44,19 +44,24 @@ function kctx () {
     touch $KUBECONFIG
 }
 
-function kubeconfig() {
+kubeconfig() {
     local context=$(echo $1 | base64 -d | yq '.contexts[0].name')
     echo $1 | base64 -d > ~/.kube/configs/${context}.yaml
     echo $context
 }
 
-kgetpodsonnode () {
+kgetpodsonnode() {
     kubectl get pods -A --field-selector spec.nodeName=$1
+}
+
+gpadd() {
+    gpaste-client add << EOF
+$1
+EOF
 }
 
 # Make nvim open files in tabs by default
 alias vim="nvim -p"
-alias clip="xclip -in" # or 'wl-clip -in' if not using Gnome
 alias urldecode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.unquote_plus(sys.argv[1]))"'
 alias urlencode='python3 -c "import sys, urllib.parse as ul; print(\"\n\" + ul.quote_plus(sys.argv[1]))"'
 alias k="kubectl"

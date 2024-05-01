@@ -1,7 +1,8 @@
 #!/bin/env sh
 DIR=~/.fzf-launcher/bin
-ls -1 ${DIR} | \
+cd ${DIR}
+ls --sort=time --time=atime -1 | \
 	fzf \
 	--border rounded \
-	--bind "enter:execute(${DIR}/{})+abort" \
-	--preview="cat ${DIR}/{}"
+	--bind "enter:execute(touch {} ; ./{})+abort" \
+	--preview="cat {}"
