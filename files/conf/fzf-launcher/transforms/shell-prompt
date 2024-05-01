@@ -3,5 +3,5 @@
 # second expression strips timestamp before prompt symbol
 gpaste-client get --use-index 0 | \
     sed \
-    -e 's/\(☸\ \S\+\ (.*)\)\ in.*/\1/g' \
-    -e 's/[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\ \(❯.*\)/\1/g'
+    -e 's/^\(☸\ \S\+\ (.*)\)\ in.*/\1/g' \
+    -e 's/^[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\ \(❯.*\)/\1/g'
