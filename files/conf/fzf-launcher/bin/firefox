@@ -1,8 +1,8 @@
 #!/bin/env sh
 DIR=~/.fzf-launcher/urls
-cd ${DIR}
-cat $(ls --sort=time --time=atime -1) | \
+cd ${DIR} || exit
+ls --sort=time --time=atime -1 | \
 	fzf \
 	--border rounded \
-    --bind "enter:execute-silent(touch \$(grep -rsIl {}) ; firefox \$(echo {} | sed \"s#SUBSTITUTE#\$(gpaste-client get --use-index 0)#g\"))+abort" \
-	--preview="echo {} | sed \"s#SUBSTITUTE#\$(gpaste-client get --use-index 0)#g\""
+	--bind "enter:execute-silent(touch {} ; firefox \$(cat {} | sed \"s#SUBSTITUTE#\$(gpaste-client get --use-index 0)#g\"))+abort" \
+	--preview="cat {} | sed \"s#SUBSTITUTE#\$(gpaste-client get --use-index 0)#g\""
