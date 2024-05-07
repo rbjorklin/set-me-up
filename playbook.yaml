@@ -87,6 +87,7 @@
           - g++ # nvim-treesitter
           - git
           - gitk
+          - gnome-screenshot
           - gnome-shell-extension-gpaste
           - gnome-tweaks
           - golang
