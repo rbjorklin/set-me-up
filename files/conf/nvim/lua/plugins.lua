@@ -121,10 +121,6 @@ require("lazy").setup({
         tag = "v0.8.0"
     },
 
-	{ -- Git blame information in-line
-        "f-person/git-blame.nvim",
-        commit = "ad1d1365c9189d89797fe8d559677d5f55dc2830",
-    },
 
     { -- Surrond word with parentheses, quotes etc.
         "tpope/vim-surround",
