@@ -121,15 +121,21 @@ require("lazy").setup({
         tag = "v0.8.0"
     },
 
+	{ -- A Magit inspired git interface
+		"NeogitOrg/neogit",
+		commit = "f4f7a1017da57f31c182c46fb2535099718fa178",
+		dependencies = {
+		  "nvim-lua/plenary.nvim",
+		  "sindrets/diffview.nvim",
+		  "nvim-telescope/telescope.nvim",
+		},
+		config = true
+	},
+
 
     { -- Surrond word with parentheses, quotes etc.
         "tpope/vim-surround",
         commit = "3d188ed2113431cf8dac77be61b842acb64433d9",
-    },
-
-    { -- Git plugin for vim
-        "tpope/vim-fugitive",
-        commit = "dac8e5c2d85926df92672bf2afb4fc48656d96c7",
     },
 
 	{ -- Treesitter
