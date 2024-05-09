@@ -9,3 +9,6 @@ keymap("n", "<leader>gc", ":Neogit commit<CR>", opts)
 keymap("n", "<leader>gp", ":Neogit pull<CR>", opts)
 keymap("n", "<leader>gP", ":Neogit push<CR>", opts)
 keymap("n", "<Leader>gb", ":Telescope git_branches<CR>", opts)
+
+-- Visual selection can be enabled with shift+v when staging changes.
+neogit.setup({})
