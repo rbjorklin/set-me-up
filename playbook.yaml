@@ -124,6 +124,7 @@
           - strace
           - sysstat # provides iostat
           - telnet
+          - tesseract
           - unzip
           - vlc
           - vmtouch
