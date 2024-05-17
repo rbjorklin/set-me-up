@@ -413,12 +413,9 @@
             cmd: "~/.cargo/bin/cargo install --version {{ item.version}} {{ item.pkg }}"
           loop:
             - pkg: starship
-              version: 1.17.1
+              version: 1.19.0
             - pkg: stylua
-              version: 0.19.1
-            - pkg: wl-clipboard-rs-tools # Does not work under Gnome
-              # https://github.com/YaLTeR/wl-clipboard-rs/issues/39
-              version: 0.8.0
+              version: 0.20.0
 
         - name: Ensure zsh-autosuggestions cloned
           ansible.builtin.git:
