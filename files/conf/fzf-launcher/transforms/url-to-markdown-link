@@ -1,0 +1,4 @@
+#!/bin/env sh
+gpaste-client get --use-index 0 | \
+    sed \
+    -e 's|\(.*/\)\(.*\)$|[\2](\1\2)|'
