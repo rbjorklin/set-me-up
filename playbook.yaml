@@ -68,6 +68,7 @@
           - 1password
           - VirtualBox
           - ShellCheck
+          - age
           - autoconf
           - akmod-VirtualBox
           - alacritty
@@ -304,6 +305,14 @@
       tags:
         - external-tool
 
+    - name: Ensure sops installed
+      ansible.builtin.get_url:
+        url: https://github.com/getsops/sops/releases/download/{{ version['sops'] }}/sops-{{ version['sops'] }}.linux.amd64
+        dest: /usr/local/bin/sops
+        mode: '0755'
+      tags:
+        - external-tool
+
     - name: Ensure user configured
       ansible.builtin.user:
         name: "{{ user }}"
@@ -401,6 +410,8 @@
           loop:
             - "/home/{{ user }}/.config/alacritty"
             - "/home/{{ user }}/.config/containers"
+            - "/home/{{ user }}/.config/sops"
+            - "/home/{{ user }}/.config/sops/age"
             - "/home/{{ user }}/.tmux/resurrect"
             - "/home/{{ user }}/.histdb"
 
