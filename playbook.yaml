@@ -105,6 +105,7 @@
           - levien-inconsolata-fonts
           - libev-devel # ocaml pkg build dependency
           - libpq-devel # ocaml pkg build dependency
+          - lnav  # local log analysis, similar to angle-grinder
           - mozilla-fira-mono-fonts
           - mozilla-fira-sans-fonts
           - neovim
@@ -427,6 +428,8 @@
               version: 1.19.0
             - pkg: stylua
               version: 0.20.0
+            - pkg: ag  # angle-grinder, local log analysis
+              version: v0.19.3
 
         - name: Ensure zsh-autosuggestions cloned
           ansible.builtin.git:
