@@ -80,7 +80,6 @@
           - dconf-editor
           - direnv
           - dnf-command(versionlock)
-          - docker-compose
           - evolution
           - fd-find
           - fira-code-fonts
@@ -291,32 +290,6 @@
         url: https://github.com/getsops/sops/releases/download/{{ version['sops'] }}/sops-{{ version['sops'] }}.linux.amd64
         dest: /usr/local/bin/sops
         mode: '0755'
-
-    - name: Ensure user configured
-      ansible.builtin.user:
-        name: "{{ user }}"
-        shell: /usr/bin/zsh
-        append: true
-        groups:
-          - docker
-
-    - name: Check for pre-existing docker/daemon.json
-      ansible.builtin.stat:
-        path: "{{ ansible_facts['env']['PWD'] }}/files/conf/daemon.json"
-      register: docker_daemon_config
-
-    - name: Ensure docker uses btrfs storage driver
-      ansible.builtin.file:
-        src: "{{ ansible_facts['env']['PWD'] }}/files/conf/daemon.json"
-        dest: "/etc/docker/daemon.json"
-        state: link
-      when: not docker_daemon_config.stat.exists
-
-    - name: Ensure docker started
-      ansible.builtin.systemd:
-        name: docker
-        state: started
-        enabled: true
 
     - name: Ensure nvim binary symlinked
       ansible.builtin.file:
