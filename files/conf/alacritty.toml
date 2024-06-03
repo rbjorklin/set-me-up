@@ -80,7 +80,7 @@ print_events = false
 render_timer = false
 
 [font]
-size = 13.0
+size = 15.0
 
 [font.bold]
 family = "FiraCode Nerd Font Mono"
