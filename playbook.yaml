@@ -2,6 +2,7 @@
 
 - hosts: localhost
   connection: local
+  gather_facts: true
   become: true
   vars_files:
   - vars.yaml
@@ -209,48 +210,36 @@
         url: https://github.com/ocaml/opam/releases/download/{{ version['opam'] }}/opam-{{ version['opam'] }}-x86_64-linux
         dest: /usr/local/bin/opam
         mode: '0755'
-      tags:
-        - external-tool
 
     - name: Ensure yq installed
       ansible.builtin.get_url:
         url: https://github.com/mikefarah/yq/releases/download/v{{ version['yq'] }}/yq_linux_amd64
         dest: /usr/local/bin/yq
         mode: '0755'
-      tags:
-        - external-tool
 
     - name: Ensure kubectl installed
       ansible.builtin.get_url:
         url: https://dl.k8s.io/release/v{{ version['kubectl'] }}/bin/linux/amd64/kubectl
         dest: /usr/local/bin/kubectl
         mode: '0755'
-      tags:
-        - external-tool
 
     - name: Ensure clusterctl installed
       ansible.builtin.get_url:
         url: https://github.com/kubernetes-sigs/cluster-api/releases/download/v{{ version['clusterctl'] }}/clusterctl-linux-amd64
         dest: /usr/local/bin/clusterctl
         mode: '0755'
-      tags:
-        - external-tool
 
     - name: Ensure kind installed
       ansible.builtin.get_url:
         url: https://github.com/kubernetes-sigs/kind/releases/download/v{{ version['kind'] }}/kind-linux-amd64
         dest: /usr/local/bin/kind
         mode: '0755'
-      tags:
-        - external-tool
 
     - name: Ensure argocd installed
       ansible.builtin.get_url:
         url: https://github.com/argoproj/argo-cd/releases/download/v{{ version['argo'] }}/argocd-linux-amd64
         dest: /usr/local/bin/argocd
         mode: '0755'
-      tags:
-        - external-tool
 
     - name: Ensure helm installed
       ansible.builtin.unarchive:
@@ -262,16 +251,12 @@
         exclude:
         - LICENSE
         - README.md
-      tags:
-        - external-tool
 
     - name: Ensure kustomize installed
       ansible.builtin.unarchive:
         src: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v{{ version['kustomize'] }}/kustomize_v{{ version['kustomize'] }}_linux_amd64.tar.gz
         dest: /usr/local/bin
         remote_src: true
-      tags:
-        - external-tool
 
     - name: Ensure hcloud installed
       ansible.builtin.unarchive:
@@ -281,8 +266,6 @@
         exclude:
         - LICENSE
         - README.md
-      tags:
-        - external-tool
 
     - name: Ensure kubeseal installed
       ansible.builtin.unarchive:
@@ -292,8 +275,6 @@
         exclude:
         - LICENSE
         - README.md
-      tags:
-        - external-tool
 
     - name: Ensure d2 installed
       ansible.builtin.unarchive:
@@ -304,16 +285,12 @@
         - --strip-components=2
         include:
          - d2-v{{ version['d2'] }}/bin/d2
-      tags:
-        - external-tool
 
     - name: Ensure sops installed
       ansible.builtin.get_url:
         url: https://github.com/getsops/sops/releases/download/{{ version['sops'] }}/sops-{{ version['sops'] }}.linux.amd64
         dest: /usr/local/bin/sops
         mode: '0755'
-      tags:
-        - external-tool
 
     - name: Ensure user configured
       ansible.builtin.user:
@@ -401,7 +378,7 @@
 
         - name: Install krew plugins
           environment:
-            PATH: "{{ ansible_facts['env']['PATH'] }}:/home/{{ user }}/.krew/bin"
+            PATH: "{{ ansible_env.PWD }}:/home/{{ user }}/.krew/bin"
           ansible.builtin.shell:
             cmd: kubectl krew install ctx ns slice edit-status sort-manifests kyverno stern rbac-tool
 
@@ -499,8 +476,6 @@
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Launcher'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'alacritty --option 'window = { decorations = "none" }' --option 'window.dimensions = { columns = 140, lines = 40 }' --command /home/{{ user }}/.fzf-launcher/entrypoint.sh'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Control>space'
-      tags:
-        - launcher
 
         #- name: Ensure Gnome fractional scaling enabled
         #  ansible.builtin.command:
@@ -547,57 +522,55 @@
 
         - name: Ensure ocamlinit symlinked
           ansible.builtin.file:
-            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/ocamlinit"
+            src: "{{ ansible_env.PWD }}/files/conf/ocamlinit"
             path: "/home/{{ user }}/.ocamlinit"
             state: link
 
         - name: Ensure gitconfig symlinked
           ansible.builtin.file:
-            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/gitconfig"
+            src: "{{ ansible_env.PWD }}/files/conf/gitconfig"
             path: "/home/{{ user }}/.gitconfig"
             state: link
 
         - name: Ensure zshrc symlinked
           ansible.builtin.file:
-            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/zshrc"
+            src: "{{ ansible_env.PWD }}/files/conf/zshrc"
             dest: "/home/{{ user }}/.zshrc"
             state: link
 
         - name: Ensure nvim config symlinked
           ansible.builtin.file:
-            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/nvim"
+            src: "{{ ansible_env.PWD }}/files/conf/nvim"
             dest: "/home/{{ user }}/.config/nvim"
             state: link
 
         - name: Ensure launcher folder symlinked
           ansible.builtin.file:
-            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/fzf-launcher"
+            src: "{{ ansible_env.PWD }}/files/conf/fzf-launcher"
             dest: "/home/{{ user }}/.fzf-launcher"
             state: link
-          tags:
-            - launcher
 
         - name: Ensure tmux config symlinked
           ansible.builtin.file:
-            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/tmux.conf"
+            src: "{{ ansible_env.PWD }}/files/conf/tmux.conf"
             dest: "/home/{{ user }}/.tmux.conf"
             state: link
 
         - name: Ensure alacritty config symlinked
           ansible.builtin.file:
-            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/alacritty.yml"
-            dest: "/home/{{ user }}/.config/alacritty/alacritty.yml"
+            src: "{{ ansible_env.PWD }}/files/conf/alacritty.toml"
+            dest: "/home/{{ user }}/.config/alacritty/alacritty.toml"
             state: link
 
         - name: Ensure starship config symlinked
           ansible.builtin.file:
-            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/starship.toml"
+            src: "{{ ansible_env.PWD }}/files/conf/starship.toml"
             dest: "/home/{{ user }}/.config/starship.toml"
             state: link
 
         - name: Ensure tmux-resurrect session symlinked
           ansible.builtin.file:
-            src: "{{ ansible_facts['env']['PWD'] }}/files/conf/tmux_resurrect.txt"
+            src: "{{ ansible_env.PWD }}/files/conf/tmux_resurrect.txt"
             dest: "/home/{{ user }}/.tmux/resurrect/last"
             state: link
 
