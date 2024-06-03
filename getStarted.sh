@@ -10,3 +10,6 @@ sudo ansible-playbook -e user=$USER --diff playbook.yaml
 # Disable websites taking over browser shortscuts/hotkeys
 # https://support.mozilla.org/en-US/questions/1241294
 echo "Set 'permissions.default.shortcuts=2' in Firefox about:config"
+
+# Install tmux plugins
+echo "tmux prefix + I to install plugins. (ctrl + b + shift + i)"

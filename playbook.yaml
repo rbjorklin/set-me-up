@@ -127,6 +127,7 @@
           - sysstat # provides iostat
           - telnet
           - tesseract
+          - tmux
           - unzip
           - vlc
           - vmtouch
@@ -135,16 +136,6 @@
           - zsh
           - libzstd  # OCaml 5.1.0
           - libzstd-devel  # OCaml 5.1.0
-
-    # https://github.com/tmux/tmux/issues/2705
-    - name: Ensure pinned tmux installed
-      ansible.builtin.package:
-        name: https://kojipkgs.fedoraproject.org/packages/tmux/3.1c/2.fc34/x86_64/tmux-3.1c-2.fc34.x86_64.rpm
-        state: present
-
-    - name: Ensure tmux pinned
-      ansible.builtin.shell:
-        cmd: dnf versionlock add tmux-3.1c-2.fc34.x86_64
 
     - name: Ensure dirty_bytes tuned
       ansible.builtin.copy:
