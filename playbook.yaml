@@ -198,9 +198,10 @@
           KEYMAP="us-colemak"
           FONT="eurlatgr"
 
-    - name: Ensure Someone Who Cares hosts file installed
+    # Previously SomeoneWhoCares
+    - name: Ensure blackhole hosts file installed
       ansible.builtin.get_url:
-        url: https://someonewhocares.org/hosts/zero/hosts
+        url: https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
         dest: /etc/hosts
 
     - name: Ensure opam installed
