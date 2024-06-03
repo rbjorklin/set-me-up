@@ -84,7 +84,7 @@ require("lazy").setup({
 
 	{ -- bufferline
         "akinsho/bufferline.nvim",
-        tag = "v4.5.3",
+        tag = "v4.6.1",
         dependencies = {'nvim-tree/nvim-web-devicons'},
     },
 
@@ -123,7 +123,8 @@ require("lazy").setup({
 
 	{ -- A Magit inspired git interface
 		"NeogitOrg/neogit",
-		commit = "f4f7a1017da57f31c182c46fb2535099718fa178",
+		tag = "v1.0.0",
+		--commit = "f4f7a1017da57f31c182c46fb2535099718fa178",
 		dependencies = {
 		  "nvim-lua/plenary.nvim",
 		  "sindrets/diffview.nvim",
