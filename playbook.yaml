@@ -113,7 +113,6 @@
           - nodejs # coc-nvim
           - nodejs-bash-language-server
           - postgresql
-          - packer
           - pv
           - python3-neovim
           - python3-rstcheck
@@ -371,7 +370,7 @@
             - pkg: stylua
               version: 0.20.0
             - pkg: ag  # angle-grinder, local log analysis
-              version: v0.19.3
+              version: 0.19.3
 
         - name: Ensure zsh-autosuggestions cloned
           ansible.builtin.git:
@@ -537,14 +536,6 @@
             src: "{{ ansible_env.PWD }}/files/conf/tmux_resurrect.txt"
             dest: "/home/{{ user }}/.tmux/resurrect/last"
             state: link
-
-        - name: Ensure nvim treesitter ocaml parser installed
-          ansible.builtin.command:
-            cmd: nvim --headless -c "TSInstallSync ocaml" -c quitall
-
-        - name: Ensure nvim treesitter ocaml_interface parser installed
-          ansible.builtin.command:
-            cmd: nvim --headless -c "TSInstallSync ocaml_interface" -c quitall
 
         - name: Ensure colemak layout is used in GDM
           ansible.builtin.command:
