@@ -198,4 +198,12 @@ require("lazy").setup({
         commit = "87fbe811155b90eea58622614809705b966009ad",
         lazy = true,
 	},
+	{ --  better marks
+		"otavioschwanck/arrow.nvim",
+		opts = {
+		  show_icons = true,
+		  leader_key = ';', -- Recommended to be a single key
+		  buffer_leader_key = 'm', -- Per Buffer Mappings
+		}
+	}
 })
