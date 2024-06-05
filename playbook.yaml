@@ -241,6 +241,24 @@
         - LICENSE
         - README.md
 
+    - name: Ensure ctlptl installed
+      ansible.builtin.unarchive:
+        src: https://github.com/tilt-dev/ctlptl/releases/download/v{{ version['ctlptl'] }}/ctlptl.{{ version['ctlptl'] }}.linux.x86_64.tar.gz
+        dest: /usr/local/bin
+        remote_src: true
+        exclude:
+        - LICENSE
+        - README.md
+
+    - name: Ensure tilt installed
+      ansible.builtin.unarchive:
+        src: https://github.com/tilt-dev/tilt/releases/download/v{{ version['tilt'] }}/tilt.{{ version['tilt'] }}.linux.x86_64.tar.gz
+        dest: /usr/local/bin
+        remote_src: true
+        exclude:
+        - LICENSE
+        - README.md
+
     - name: Ensure kustomize installed
       ansible.builtin.unarchive:
         src: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v{{ version['kustomize'] }}/kustomize_v{{ version['kustomize'] }}_linux_amd64.tar.gz

@@ -12,3 +12,5 @@ version:
   d2: "0.6.5"  # https://github.com/terrastruct/d2/releases
   kubeseal: "0.26.3"  # https://github.com/bitnami-labs/sealed-secrets/releases
   sops: "v3.8.1"  # https://github.com/getsops/sops/releases
+  ctlptl: "0.8.29"  # https://github.com/tilt-dev/ctlptl/releases
+  tilt: "0.33.15"  # https://github.com/tilt-dev/tilt/releases
