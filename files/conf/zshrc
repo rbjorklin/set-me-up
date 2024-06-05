@@ -139,3 +139,4 @@ ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here_and_now
 # opam configuration
 test -r /home/rbjorklin/.opam/opam-init/init.zsh && . /home/rbjorklin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 eval "$(starship init zsh)"
+eval "$(direnv hook zsh)"

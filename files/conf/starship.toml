@@ -23,3 +23,7 @@ disabled = true
 
 [direnv]
 disabled = false
+# The default is "bold orange" however no such ANSI color exists.
+# Use the hexadecimal RGB code for orange from here:
+# https://github.com/jan-warchol/selenized/blob/master/the-values.md#selenized-black
+style = 'bold #e67f43'
