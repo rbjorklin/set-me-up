@@ -8,6 +8,9 @@
 [includeIf "hasconfig:remote.*.url:git@*.demonware.net:*/**"]
 	path = ~/.gitconfig-demonware
 
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+
 [push]
     default = simple
 [github]
