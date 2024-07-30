@@ -96,6 +96,8 @@
           - gotags
           - gpaste
           - gpaste-ui
+          # https://docs.fedoraproject.org/en-US/quick-docs/openh264/#_installation_from_fedora_cisco_openh264_repository
+          - gstreamer1-plugin-openh264  # Teams openh264 support
           - hdparm
           - htop
           - inotify-tools # dune build --watch
@@ -108,6 +110,7 @@
           - lnav  # local log analysis, similar to angle-grinder
           - mozilla-fira-mono-fonts
           - mozilla-fira-sans-fonts
+          - mozilla-openh264  # Teams openh264 support
           - neovim
           - nmap
           - nodejs # coc-nvim
