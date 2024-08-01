@@ -67,12 +67,12 @@
         state: present
         name:
           - 1password
-          - VirtualBox
           - ShellCheck
+          - VirtualBox
           - age
-          - autoconf
           - akmod-VirtualBox
           - alacritty
+          - autoconf
           - bcc-tools # https://github.com/iovisor/bcc
           - cmake
           - code
@@ -107,6 +107,8 @@
           - levien-inconsolata-fonts
           - libev-devel # ocaml pkg build dependency
           - libpq-devel # ocaml pkg build dependency
+          - libzstd  # OCaml 5.1.0
+          - libzstd-devel  # OCaml 5.1.0
           - lnav  # local log analysis, similar to angle-grinder
           - mozilla-fira-mono-fonts
           - mozilla-fira-sans-fonts
@@ -136,8 +138,6 @@
           - yamllint
           - zip
           - zsh
-          - libzstd  # OCaml 5.1.0
-          - libzstd-devel  # OCaml 5.1.0
 
     - name: Ensure dirty_bytes tuned
       ansible.builtin.copy:
