@@ -82,6 +82,8 @@
           - dnf-command(versionlock)
           - evolution
           - fd-find
+          # https://fedoraproject.org/wiki/Firefox_Hardware_acceleration#Configure_VA-API_Video_decoding_on_AMD
+          - ffmpeg-free  # Firefox HW accelerated decoding
           - fira-code-fonts
           - firefox
           - fzf
@@ -105,11 +107,14 @@
           - kernel-modules-extra # xpad etc.
           - krita
           - levien-inconsolata-fonts
+          - libavcodec-freeworld  # Firefox HW accelerated decoding
           - libev-devel # ocaml pkg build dependency
           - libpq-devel # ocaml pkg build dependency
+          - libva-utils  # Firefox HW accelerated decoding
           - libzstd  # OCaml 5.1.0
           - libzstd-devel  # OCaml 5.1.0
           - lnav  # local log analysis, similar to angle-grinder
+          - mesa-va-drivers-freeworld  # Firefox HW accelerated decoding
           - mozilla-fira-mono-fonts
           - mozilla-fira-sans-fonts
           - mozilla-openh264  # Teams openh264 support
