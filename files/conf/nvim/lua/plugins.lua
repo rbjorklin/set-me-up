@@ -73,7 +73,7 @@ require("lazy").setup({
 
     { -- symbol outline
         'stevearc/aerial.nvim',
-        tag = "v1.7.0",
+        tag = "v2.2.0",
         opts = {},
         -- Optional dependencies
         dependencies = {
