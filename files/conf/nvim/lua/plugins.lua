@@ -132,6 +132,14 @@ require("lazy").setup({
 		config = true
 	},
 
+	{ -- vim-fugitive, really only for the GBrowse feature
+		"tpope/vim-fugitive",
+		commit = "1d18c696c4284e9ce9467a5c04d3adf8af43f994",
+		dependencies = {
+		  "tpope/vim-rhubarb",
+		}
+	},
+
 
     { -- Surrond word with parentheses, quotes etc.
         "tpope/vim-surround",
