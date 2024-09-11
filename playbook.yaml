@@ -497,6 +497,21 @@
               Name=New Terminal
               Exec=alacritty
 
+        - name: Ensure 1Password Wayland launcher exists
+          ansible.builtin.copy:
+            dest: "/home/{{ user }}/.local/share/applications/1password.desktop"
+            content: |
+              [Desktop Entry]
+              Name=1Password Wayland
+              Exec=env GTK_THEME=Adwaita:dark /opt/1Password/1password --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=wayland %U
+              Terminal=false
+              Type=Application
+              Icon=1password
+              StartupWMClass=1Password
+              Comment=Password manager and secure wallet
+              MimeType=x-scheme-handler/onepassword;x-scheme-handler/onepassword8;
+              Categories=Office;
+
         - name: Ensure Solarized colors configured
           ansible.builtin.get_url:
             url: https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
