@@ -154,7 +154,7 @@ require("lazy").setup({
 
 	{ -- provide context when scrolling
         "nvim-treesitter/nvim-treesitter-context",
-        commit = "4fe0a54e86859744968e1a5c7867b49c86855774",
+        commit = "7f7eeaa99e5a9beab518f502292871ae5f20de6f",
     },
 
 	{ -- better matching
@@ -188,7 +188,7 @@ require("lazy").setup({
     -- Inspiration from: https://www.youtube.com/watch?v=i04sSQjd-qo
 	{ -- Go
         "ray-x/go.nvim",
-        commit = "ae078b8da431f264ab488d6d4e14201761dbfdbc",
+        commit = "789aca938a9a6f140fc2e2b585380a18f9cef422",
     },
 
     { -- Debug neovim
