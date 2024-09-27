@@ -12,7 +12,7 @@ export CASE_SENSITIVE="true"
 export WORDCHARS='*?_[]~=&;!#$%^(){}'
 
 # makes ctrl + u behave the same as bash (emacs)
-bindkey "^u" backward-kill-line 
+bindkey "^u" backward-kill-line
 
 #ZSH customizations
 setopt HIST_FIND_NO_DUPS
@@ -92,49 +92,7 @@ fi
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# zsh-histdb
-source ~/.zsh/zsh-histdb/sqlite-history.zsh
-autoload -Uz add-zsh-hook
-source ~/.zsh/zsh-histdb/histdb-interactive.zsh
-
-# zsh-histdb-skim
-source ~/.zsh/zsh-histdb-skim/zsh-histdb-skim.zsh
-bindkey '^r' histdb-skim-widget
-
-_zsh_autosuggest_strategy_histdb_top_here_and_now() {
-    local query="
-WITH
-  interim_table (command) AS
-(
-  SELECT
-    commands.argv
-  FROM
-    history
-  LEFT JOIN
-    commands
-  ON
-    history.command_id = commands.id
-  WHERE
-    commands.argv
-  LIKE
-    '$(sql_escape $1)%'
-  GROUP BY
-    commands.argv,
-    history.session,
-    history.start_time
-  ORDER BY
-    history.session = '$(sql_escape $HISTDB_SESSION)' DESC,
-    history.start_time DESC
-)
-SELECT DISTINCT
-  command
-FROM
-  interim_table
-LIMIT 1"
-    suggestion=$(_histdb_query "$query")
-}
-
-ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here_and_now
+eval "$(atuin init zsh --disable-up-arrow)"
 
 # opam configuration
 test -r /home/rbjorklin/.opam/opam-init/init.zsh && . /home/rbjorklin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

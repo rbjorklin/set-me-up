@@ -120,9 +120,11 @@
           - mozilla-openh264  # Teams openh264 support
           - neovim
           - nmap
-          - nodejs # coc-nvim
+          - nodejs  # coc-nvim
           - nodejs-bash-language-server
           - postgresql
+          - protobuf-compiler  # atuin dependency
+          - protobuf-devel  # atuin dependency
           - pv
           - python3-neovim
           - python3-rstcheck
@@ -131,9 +133,9 @@
           - rr
           - rsms-inter-fonts
           - spotify-client
-          - sqlite # zsh-histdb
+          - sqlite  # atuin
           - strace
-          - sysstat # provides iostat
+          - sysstat  # provides iostat
           - telnet
           - tesseract
           - tmux
@@ -381,7 +383,6 @@
             - "/home/{{ user }}/.config/sops"
             - "/home/{{ user }}/.config/sops/age"
             - "/home/{{ user }}/.tmux/resurrect"
-            - "/home/{{ user }}/.histdb"
 
         - name: Ensure rust installed
           ansible.builtin.shell:
@@ -391,6 +392,8 @@
           ansible.builtin.shell:
             cmd: "~/.cargo/bin/cargo install --version {{ item.version}} {{ item.pkg }}"
           loop:
+            - pkg: atuin
+              version: 18.3.0
             - pkg: starship
               version: 1.19.0
             - pkg: stylua
@@ -402,16 +405,6 @@
           ansible.builtin.git:
             repo: https://github.com/zsh-users/zsh-autosuggestions
             dest: "/home/{{ user }}/.zsh/zsh-autosuggestions"
-
-        - name: Ensure zsh-histdb cloned
-          ansible.builtin.git:
-            repo: https://github.com/larkery/zsh-histdb
-            dest: "/home/{{ user }}/.zsh/zsh-histdb"
-
-        - name: Ensure zsh-histdb-skim cloned
-          ansible.builtin.git:
-            repo: https://github.com/m42e/zsh-histdb-skim
-            dest: "/home/{{ user }}/.zsh/zsh-histdb-skim"
 
         - name: Ensure tmux-plugins/tpm cloned
           ansible.builtin.git:
