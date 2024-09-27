@@ -379,6 +379,7 @@
             state: directory
           loop:
             - "/home/{{ user }}/.config/alacritty"
+            - "/home/{{ user }}/.config/atuin"
             - "/home/{{ user }}/.config/containers"
             - "/home/{{ user }}/.config/sops"
             - "/home/{{ user }}/.config/sops/age"
@@ -533,6 +534,12 @@
           ansible.builtin.file:
             src: "{{ ansible_env.PWD }}/files/conf/zshrc"
             dest: "/home/{{ user }}/.zshrc"
+            state: link
+
+        - name: Ensure atuin.toml symlinked
+          ansible.builtin.file:
+            src: "{{ ansible_env.PWD }}/files/conf/atuin.toml"
+            dest: "/home/{{ user }}/.config/atuin/config.toml"
             state: link
 
         - name: Ensure nvim config symlinked
