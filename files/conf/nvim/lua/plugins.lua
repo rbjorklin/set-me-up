@@ -15,12 +15,12 @@ require("lazy").setup({
 
 	{ -- nvim-tree file explorer
         "nvim-tree/nvim-tree.lua",
-        tag = "nvim-tree-v1.3.0",
+        tag = "nvim-tree-v1.7.0",
     },
 
     { -- File explorer in a normal buffer
         "stevearc/oil.nvim",
-        tag = "v2.9.0",
+        tag = "v2.12.2",
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
 
@@ -73,7 +73,7 @@ require("lazy").setup({
 
     { -- symbol outline
         'stevearc/aerial.nvim',
-        tag = "v2.2.0",
+        tag = "v2.3.0",
         opts = {},
         -- Optional dependencies
         dependencies = {
@@ -90,7 +90,7 @@ require("lazy").setup({
 
 	{ -- git conflict resolution
         "akinsho/git-conflict.nvim",
-		tag = "v1.3.0",
+		tag = "v2.0.0",
 		config = true,
 	},
 
@@ -118,7 +118,7 @@ require("lazy").setup({
 
 	{ -- Git information in gutter
         "lewis6991/gitsigns.nvim",
-        tag = "v0.8.1"
+        tag = "v0.9.0"
     },
 
 	{ -- A Magit inspired git interface
@@ -208,6 +208,7 @@ require("lazy").setup({
 	},
 	{ --  better marks
 		"otavioschwanck/arrow.nvim",
+    commit = "8b54450ae537564f809ee6883157c82c4f82e6ae",
 		opts = {
 		  show_icons = true,
 		  leader_key = ';', -- Recommended to be a single key
