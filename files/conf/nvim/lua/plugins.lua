@@ -148,7 +148,7 @@ require("lazy").setup({
 
 	{ -- Treesitter
         "nvim-treesitter/nvim-treesitter",
-        tag = "v0.9.2",
+        tag = "v0.9.3",
 		build = ":TSUpdate",
 	},
 
@@ -159,7 +159,7 @@ require("lazy").setup({
 
 	{ -- better matching
 		"andymass/vim-matchup",
-        commit = "6c8909b682803d8c3a054259079f158a73a0e30f",
+        commit = "5fb083de1e06fdd134c6ad8d007d4b5576b25ba7",
 	},
 
     { -- Debug using DAP

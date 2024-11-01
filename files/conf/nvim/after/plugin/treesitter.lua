@@ -19,6 +19,7 @@ ts.setup {
     -- https://github.com/nvim-treesitter/nvim-treesitter#language-parsers
     ensure_installed = {
         "bash",
+				"c",
         "comment",
         "diff",
         "dockerfile",
