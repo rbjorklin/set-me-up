@@ -115,6 +115,7 @@
           - libzstd-devel  # OCaml 5.1.0
           - lnav  # local log analysis, similar to angle-grinder
           - mesa-va-drivers-freeworld  # Firefox HW accelerated decoding
+          - moreutils  # sponge
           - mozilla-fira-mono-fonts
           - mozilla-fira-sans-fonts
           - mozilla-openh264  # Teams openh264 support
