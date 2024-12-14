@@ -203,8 +203,13 @@ require("lazy").setup({
 
 	{ -- basic ollama integration
         "David-Kunz/gen.nvim",
-        commit = "87fbe811155b90eea58622614809705b966009ad",
+        commit = "83f1d6b6ffa6a6f32f6a93a33adc853f27541a94",
         lazy = true,
+	},
+	{ -- basic ollama integration
+        "gsuuon/model.nvim",
+        commit = "d6ea8a3274fbcb464b0559ce5dfe9b14acff12f3",
+        lazy = true,  -- probably change this
 	},
 	{ --  better marks
 		"otavioschwanck/arrow.nvim",

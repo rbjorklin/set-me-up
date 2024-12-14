@@ -31,6 +31,7 @@ ts.setup {
         "lua",
         "make",
         "markdown",
+        "mchat",
         "nix",
         "ocaml",
         "ocaml_interface",

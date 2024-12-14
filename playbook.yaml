@@ -129,6 +129,7 @@
           - pv
           - python3-neovim
           - python3-rstcheck
+          - radeontop
           - reptyr
           - ripgrep
           - rr

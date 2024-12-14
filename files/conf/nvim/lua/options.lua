@@ -11,7 +11,6 @@ set.colorcolumn = "80" -- use visual indicator at 80 char mark
 set.history = 100 -- keep 100 lines of command history
 set.ruler = true -- always show the cursor position
 set.showmatch = true -- show matching brackets and parentheses
-set.smarttab = true -- inserts blanks according to 'shiftwidth'
 set.visualbell = true -- make screen flash instead of audible beep
 -- set.noerrorbells = true -- ignore errorbells
 set.backup = false -- https://github.com/neoclide/coc.nvim/issues/649#issuecomment-480086894
@@ -49,11 +48,13 @@ set.showmode = true -- display the current mode in the status line
 set.confirm = true -- start a dialog when a command fails
 
 set.autoindent = true -- automatically set the indent of a new line
+set.smarttab = true -- inserts blanks according to 'shiftwidth'
 set.smartindent = true -- do clever autoindenting
-set.tabstop = 4 -- number of spaces a <Tab> in the text stands for
-set.shiftwidth = 4 -- number of spaces used for each step of (auto)indent
+set.tabstop = 2 -- number of spaces a <Tab> in the text stands for
+set.shiftwidth = 0 -- number of spaces used for each step of (auto)indent
+set.softtabstop = 0 -- number of spaces that a <Tab> counts for
 set.backspace = { "indent", "eol", "start" } -- specifies what <BS>, CTRL-w, etc. can do in Insert mode
-set.expandtab = true -- expand <Tab> to spaces in Insert mode
+set.expandtab = false -- do not expand <Tab> to spaces
 
 --set.clipboard:prepend { "unnamedplus" } -- to put selected text on the clipboard
 set.fillchars.eob = " " -- hiding ~ that indicates filler lines

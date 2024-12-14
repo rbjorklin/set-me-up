@@ -1,0 +1,21 @@
+--local status, model = pcall(require, "model")
+--if not status then return end
+--
+--model.setup({
+--	prompts = {
+--		['ollama:qwen-coder-7b-instruct'] = {
+--			provider = ollama,
+--			params = {
+--				model = 'qwen2.5-coder:7b-instruct-q5_K_M'
+--			},
+--			builder = function(input)
+--				return {
+--					prompt = 'GPT4 Correct User: ' .. input .. '<|end_of_turn|>GPT4 Correct Assistant: '
+--				}
+--			end
+--			},
+--        instruct = { ... },
+--        code = { ... },
+--        ask = { ... }
+--      }
+--})

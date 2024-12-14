@@ -1,6 +1,6 @@
 ---
 version:
-  opam: "2.1.6"  # https://github.com/ocaml/opam/releases
+  opam: "2.2.1"  # https://github.com/ocaml/opam/releases
   yq: "4.44.1"  # https://github.com/mikefarah/yq/releases
   kubectl: "1.29.3"  # https://github.com/kubernetes/kubernetes/releases
   clusterctl: "1.7.2"  # https://github.com/kubernetes-sigs/cluster-api/releases

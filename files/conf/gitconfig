@@ -42,6 +42,7 @@
     exists = log --all --  # takes a path as an argument at returns commits where said path exists
 [core]
     autocrlf = input
+		pager = less --tabs=2
 [diff]
     tool = difftastic
     algorithm = histogram
@@ -60,3 +61,5 @@
 [mergetool]
     prompt = false
     hideResolved = true
+[credential]
+	helper = cache --timeout=300
