@@ -136,6 +136,7 @@
           - rsms-inter-fonts
           - spotify-client
           - sqlite  # atuin
+          - stow
           - strace
           - sysstat  # provides iostat
           - telnet
@@ -375,18 +376,6 @@
           ansible.builtin.shell:
             cmd: kubectl krew install ctx ns slice edit-status sort-manifests kyverno stern rbac-tool
 
-        - name: Ensure folders exist
-          ansible.builtin.file:
-            path: "{{ item }}"
-            state: directory
-          loop:
-            - "/home/{{ user }}/.config/alacritty"
-            - "/home/{{ user }}/.config/atuin"
-            - "/home/{{ user }}/.config/containers"
-            - "/home/{{ user }}/.config/sops"
-            - "/home/{{ user }}/.config/sops/age"
-            - "/home/{{ user }}/.tmux/resurrect"
-
         - name: Ensure rust installed
           ansible.builtin.shell:
             cmd: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -398,7 +387,7 @@
             - pkg: atuin
               version: 18.3.0
             - pkg: starship
-              version: 1.19.0
+              version: 1.21.1
             - pkg: stylua
               version: 0.20.0
             - pkg: ag  # angle-grinder, local log analysis
@@ -508,78 +497,13 @@
               MimeType=x-scheme-handler/onepassword;x-scheme-handler/onepassword8;
               Categories=Office;
 
-        - name: Ensure Solarized colors configured
-          ansible.builtin.get_url:
-            url: https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
-            dest: "/home/{{ user }}/.dircolors"
-            mode: '0640'
-
-        - name: Ensure utoprc-dark configured
-          ansible.builtin.get_url:
-            url: https://raw.githubusercontent.com/ocaml-community/utop/master/utoprc-dark
-            dest: "/home/{{ user }}/.utoprc"
-            mode: '0640'
-
-        - name: Ensure ocamlinit symlinked
-          ansible.builtin.file:
-            src: "{{ ansible_env.PWD }}/files/conf/ocamlinit"
-            path: "/home/{{ user }}/.ocamlinit"
-            state: link
-
-        - name: Ensure gitconfig symlinked
-          ansible.builtin.file:
-            src: "{{ ansible_env.PWD }}/files/conf/gitconfig"
-            path: "/home/{{ user }}/.gitconfig"
-            state: link
-
-        - name: Ensure zshrc symlinked
-          ansible.builtin.file:
-            src: "{{ ansible_env.PWD }}/files/conf/zshrc"
-            dest: "/home/{{ user }}/.zshrc"
-            state: link
-
-        - name: Ensure atuin.toml symlinked
-          ansible.builtin.file:
-            src: "{{ ansible_env.PWD }}/files/conf/atuin.toml"
-            dest: "/home/{{ user }}/.config/atuin/config.toml"
-            state: link
-
-        - name: Ensure nvim config symlinked
-          ansible.builtin.file:
-            src: "{{ ansible_env.PWD }}/files/conf/nvim"
-            dest: "/home/{{ user }}/.config/nvim"
-            state: link
-
-        - name: Ensure launcher folder symlinked
-          ansible.builtin.file:
-            src: "{{ ansible_env.PWD }}/files/conf/fzf-launcher"
-            dest: "/home/{{ user }}/.fzf-launcher"
-            state: link
-
-        - name: Ensure tmux config symlinked
-          ansible.builtin.file:
-            src: "{{ ansible_env.PWD }}/files/conf/tmux.conf"
-            dest: "/home/{{ user }}/.tmux.conf"
-            state: link
-
-        - name: Ensure alacritty config symlinked
-          ansible.builtin.file:
-            src: "{{ ansible_env.PWD }}/files/conf/alacritty.toml"
-            dest: "/home/{{ user }}/.config/alacritty/alacritty.toml"
-            state: link
-
-        - name: Ensure starship config symlinked
-          ansible.builtin.file:
-            src: "{{ ansible_env.PWD }}/files/conf/starship.toml"
-            dest: "/home/{{ user }}/.config/starship.toml"
-            state: link
-
-        - name: Ensure tmux-resurrect session symlinked
-          ansible.builtin.file:
-            src: "{{ ansible_env.PWD }}/files/conf/tmux_resurrect.txt"
-            dest: "/home/{{ user }}/.tmux/resurrect/last"
-            state: link
-
         - name: Ensure colemak layout is used in GDM
           ansible.builtin.command:
             cmd: localectl set-x11-keymap us pc105 colemak
+        - tags:
+            - stow
+          stow:
+            state: present
+            package: dotfiles
+            dir: stow  # 'stow' directory relative to playbook
+            target: '$HOME'

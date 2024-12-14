@@ -1,6 +1,6 @@
 *~
-files/conf/nvim/plugin/
-files/conf/nvim/lazy-lock.json
+stow/dotfiles/dot-config/nvim/plugin/
+stow/dotfiles/dot-config/nvim/lazy-lock.json
 
-files/conf/fzf-launcher/snippets/dw-*
-files/conf/fzf-launcher/urls/dw-*
+stow/dotfiles/dot-fzf-launcher/snippets/dw-*
+stow/dotfiles/dot-fzf-launcher/urls/dw-*
