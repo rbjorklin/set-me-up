@@ -14,7 +14,8 @@ You want to use this?
 Manual stow
 ===========
 
-.. code-block:: shell
+.. code-block:: bash
+
 		stow \
 				--dir stow \
 				--target ~/ \
