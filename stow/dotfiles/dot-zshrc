@@ -51,6 +51,10 @@ kubeconfig() {
 }
 
 kgetpodsonnode() {
+    kubectl get pods -A --field-selector spec.nodeName=$1 | grep -v -e kube-system -e monitoring -e rook-ceph
+}
+
+kgetallpodsonnode() {
     kubectl get pods -A --field-selector spec.nodeName=$1
 }
 
@@ -59,6 +63,16 @@ gpadd() {
 $1
 EOF
 }
+
+mouse-invert-primary() {
+    left=$(gsettings get org.gnome.desktop.peripherals.mouse left-handed)
+    if [[ "${left}" == "true" ]] ; then
+        gsettings set org.gnome.desktop.peripherals.mouse left-handed false
+    else
+        gsettings set org.gnome.desktop.peripherals.mouse left-handed true
+    fi
+}
+
 
 # Make nvim open files in tabs by default
 alias vim="nvim -p"
@@ -83,6 +97,15 @@ function kubectl() {
     fi
 
     command kubectl "$@"
+}
+
+asn-to-ip() {
+    local asn=$1
+    first_byte=$(( ( asn / (256**3) ) % 256 ))
+    second_byte=$(( ( asn / (256**2) ) % 256 ))
+    third_byte=$(( ( asn / 256 ) % 256 ))
+    fourth_byte=$(( asn % 256))
+    echo "${first_byte}.${second_byte}.${third_byte}.${fourth_byte}"
 }
 
 # Put machine specific stuff here

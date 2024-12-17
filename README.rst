@@ -11,6 +11,19 @@ You want to use this?
 * ``cd set-me-up``
 * ``sudo ./getStarted.sh <username>``
 
+Manual stow
+===========
+
+.. code-block:: shell
+		stow \
+				--dir stow \
+				--target ~/ \
+				--verbose \
+				--dotfiles \
+				--simulate \
+				dotfiles
+
+
 NixOS
 =====
 
