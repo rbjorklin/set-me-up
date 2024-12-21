@@ -7,7 +7,7 @@ Running getStarted.sh does an initial setup of the system to my liking. This is 
 You want to use this?
 =====================
 
-* ``git clone https://github.com/rbjorklin/set-me-up``
+* ``git clone --recurse-submodules https://github.com/rbjorklin/set-me-up``
 * ``cd set-me-up``
 * ``sudo ./getStarted.sh <username>``
 

@@ -1,0 +1,15 @@
+[submodule "stow/dotfiles/dot-tmux/plugins/tpm"]
+	path = stow/dotfiles/dot-tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "stow/dotfiles/dot-tmux/plugins/tmux-resurrect"]
+	path = stow/dotfiles/dot-tmux/plugins/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect
+[submodule "stow/dotfiles/dot-tmux/plugins/tmux-sensible"]
+	path = stow/dotfiles/dot-tmux/plugins/tmux-sensible
+	url = https://github.com/tmux-plugins/tmux-sensible
+[submodule "stow/dotfiles/dot-tmux/plugins/tmux-colors-solarized"]
+	path = stow/dotfiles/dot-tmux/plugins/tmux-colors-solarized
+	url = https://github.com/seebi/tmux-colors-solarized
+[submodule "stow/dotfiles/dot-tmux/plugins/extrakto"]
+	path = stow/dotfiles/dot-tmux/plugins/extrakto
+	url = https://github.com/laktak/extrakto

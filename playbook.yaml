@@ -398,21 +398,6 @@
             repo: https://github.com/zsh-users/zsh-autosuggestions
             dest: "/home/{{ user }}/.zsh/zsh-autosuggestions"
 
-        - name: Ensure tmux-plugins/tpm cloned
-          ansible.builtin.git:
-            repo: https://github.com/tmux-plugins/tpm
-            dest: "/home/{{ user }}/.tmux/plugins/tpm"
-
-        - name: Ensure tmux-plugins/tmux-sensible cloned
-          ansible.builtin.git:
-            repo: https://github.com/tmux-plugins/tmux-sensible
-            dest: "/home/{{ user }}/.tmux/plugins/tmux-sensible"
-
-        - name: Ensure tmux-plugins/tmux-resurrect cloned
-          ansible.builtin.git:
-            repo: https://github.com/tmux-plugins/tmux-resurrect
-            dest: "/home/{{ user }}/.tmux/plugins/tmux-resurrect"
-
         - name: Ensure Gnome app-switcher only applies to current workspace
           ansible.builtin.command:
             cmd: gsettings set org.gnome.shell.app-switcher current-workspace-only true
