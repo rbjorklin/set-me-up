@@ -4,12 +4,17 @@ set-me-up
 
 Running getStarted.sh does an initial setup of the system to my liking. This is meant to be used on Fedora 36 or newer.
 
-You want to use this?
-=====================
+Initialize
+==========
 
 * ``git clone --recurse-submodules https://github.com/rbjorklin/set-me-up``
 * ``cd set-me-up``
 * ``sudo ./getStarted.sh <username>``
+
+Update submodules
+=================
+
+* ``git submodule update --init --recursive``
 
 Manual stow
 ===========
