@@ -49,7 +49,7 @@ require("lazy").setup({
 
     {  -- Better diagnostics
         "folke/trouble.nvim",
-        tag = "v3.1.0",
+        tag = "v3.6.0",
         lazy = true,
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
