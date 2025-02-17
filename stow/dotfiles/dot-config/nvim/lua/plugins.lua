@@ -15,18 +15,18 @@ require("lazy").setup({
 
 	{ -- nvim-tree file explorer
         "nvim-tree/nvim-tree.lua",
-        tag = "nvim-tree-v1.7.0",
+        tag = "nvim-tree-v1.10.0",
     },
 
     { -- File explorer in a normal buffer
         "stevearc/oil.nvim",
-        tag = "v2.12.2",
+        tag = "v2.15.0",
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
 
 	{ -- lsp config
         "neovim/nvim-lspconfig",
-        tag = "v0.1.8",
+        tag = "v1.6.0",
     },
 
 	{ -- snippet manager
@@ -49,7 +49,7 @@ require("lazy").setup({
 
     {  -- Better diagnostics
         "folke/trouble.nvim",
-        tag = "v3.6.0",
+        tag = "v3.7.1",
         lazy = true,
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
@@ -73,7 +73,7 @@ require("lazy").setup({
 
     { -- symbol outline
         'stevearc/aerial.nvim',
-        tag = "v2.3.0",
+        tag = "v2.5.0",
         opts = {},
         -- Optional dependencies
         dependencies = {
@@ -84,13 +84,13 @@ require("lazy").setup({
 
 	{ -- bufferline
         "akinsho/bufferline.nvim",
-        tag = "v4.6.1",
+        tag = "v4.9.1",
         dependencies = {'nvim-tree/nvim-web-devicons'},
     },
 
 	{ -- git conflict resolution
         "akinsho/git-conflict.nvim",
-		tag = "v2.0.0",
+		tag = "v2.1.0",
 		config = true,
 	},
 
@@ -118,7 +118,7 @@ require("lazy").setup({
 
 	{ -- Git information in gutter
         "lewis6991/gitsigns.nvim",
-        tag = "v0.9.0"
+        tag = "v1.0.0"
     },
 
 	{ -- A Magit inspired git interface
@@ -169,7 +169,7 @@ require("lazy").setup({
 
     { -- Debug using DAP
         "mfussenegger/nvim-dap",
-        tag = "0.8.0",
+        tag = "0.9.0",
 		lazy = true,
 		cmd = {
 			"DapToggleBreakpoint",
@@ -203,7 +203,7 @@ require("lazy").setup({
 
     { -- indentation guides
         "lukas-reineke/indent-blankline.nvim",
-        tag = "v3.6.2",
+        tag = "v3.8.7",
     },
 
 	{ -- basic ollama integration
