@@ -155,7 +155,12 @@ require("lazy").setup({
 	{ -- provide context when scrolling
         "nvim-treesitter/nvim-treesitter-context",
         commit = "7f7eeaa99e5a9beab518f502292871ae5f20de6f",
-    },
+  },
+
+	{ -- provide syntax aware text objects
+        "beajeanm/nvim-treesitter-textobjects",
+        commit = "215c9731f38e3ea7ccab3e8e8e4ee11ba4c23ec7",
+  },
 
 	{ -- better matching
 		"andymass/vim-matchup",
