@@ -40,6 +40,7 @@
     tagl = log --no-walk --tags --simplify-by-decoration --pretty='format:%cs %D'
     gh = "!grep_history() { git grep \"$1\" $(git rev-list --all) ; }; grep_history"
     exists = log --all --  # takes a path as an argument at returns commits where said path exists
+    oo = "!open_origin() { firefox https://$(git remote get-url origin | sed -e 's#^git@##g' -e 's#:#/#g' -e 's#\\.git##g' )/tree/$(git branch --show-current) ; }; open_origin"
 [core]
     autocrlf = input
 		pager = less --tabs=2
@@ -52,14 +53,16 @@
     cmd = difft --background=light "$LOCAL" "$REMOTE"
 [pager]
     difftool = true
-[merge]
-    # https://www.git-scm.com/docs/git-mergetool#_backend_specific_hints
-    tool = nvimdiff
-    #conflictstyle = diff3 # https://git-scm.com/docs/git-merge#Documentation/git-merge.txt-mergeconflictStyle
 [init]
     defaultBranch = main
+[merge]
+    # https://www.git-scm.com/docs/git-mergetool#_backend_specific_hints
+    tool = nvim
+    #conflictstyle = diff3 # https://git-scm.com/docs/git-merge#Documentation/git-merge.txt-mergeconflictStyle
 [mergetool]
     prompt = false
     hideResolved = true
+[mergetool "nvim"]
+	cmd = "nvim -d -c \"wincmd l\" -c \"norm ]c\" \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 [credential]
 	helper = cache --timeout=300
