@@ -1,6 +1,18 @@
 local status, ts = pcall(require, "nvim-treesitter.configs")
 if (not status) then return end
 
+-- https://github.com/ngalaiko/tree-sitter-go-template/blob/5f19a36bb1eebb30454e277b222b278ceafed0dd/README.md
+vim.filetype.add({
+  extension = {
+    gotmpl = 'gotmpl',
+  },
+  pattern = {
+    [".*/templates/.*%.tpl"] = "helm",
+    [".*/templates/.*%.ya?ml"] = "helm",
+    ["helmfile.*%.ya?ml"] = "helm",
+  },
+})
+
 ts.setup {
     highlight = {
         enable = true,
@@ -26,7 +38,9 @@ ts.setup {
         "go",
         "gomod",
         "gosum",
+        "gotmpl",
         "hcl",
+        "helm",
         "json",
         "lua",
         "make",
