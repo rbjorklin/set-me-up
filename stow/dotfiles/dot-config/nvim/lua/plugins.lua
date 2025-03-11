@@ -111,8 +111,8 @@ require("lazy").setup({
     },
 
 	{ -- Diagnostics, Code Actions, Auto formating & more
-        "nvimtools/none-ls.nvim",
-        commit = "88821b67e6007041f43b802f58e3d9fa9bfce684",
+        "nvimtools/none-ls.nvim",  -- formerly null-ls
+        commit = "a117163db44c256d53c3be8717f3e1a2a28e6299",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
