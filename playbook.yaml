@@ -88,7 +88,7 @@
           - fira-code-fonts
           - firefox
           - fzf
-          - g++ # nvim-treesitter
+          - g++  # nvim-treesitter
           - gamemode  # use with Steam
           - git
           - gitk
@@ -104,14 +104,14 @@
           - gstreamer1-plugin-openh264  # Teams openh264 support
           - hdparm
           - htop
-          - inotify-tools # dune build --watch
+          - inotify-tools  # dune build --watch
           - jq
-          - kernel-modules-extra # xpad etc.
+          - kernel-modules-extra  # xpad etc.
           - krita
           - levien-inconsolata-fonts
           - libavcodec-freeworld  # Firefox HW accelerated decoding
-          - libev-devel # ocaml pkg build dependency
-          - libpq-devel # ocaml pkg build dependency
+          - libev-devel  # ocaml pkg build dependency
+          - libpq-devel  # ocaml pkg build dependency
           - libva-utils  # Firefox HW accelerated decoding
           - libzstd  # OCaml 5.1.0
           - libzstd-devel  # OCaml 5.1.0
