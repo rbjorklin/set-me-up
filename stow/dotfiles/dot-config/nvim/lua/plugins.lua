@@ -53,6 +53,10 @@ require("lazy").setup({
         lazy = true,
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
+		{
+				"folke/todo-comments.nvim",
+				dependencies = { "nvim-lua/plenary.nvim" }
+		},
 
     { -- colorscheme
         "rktjmp/lush.nvim",
