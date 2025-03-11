@@ -89,6 +89,7 @@
           - firefox
           - fzf
           - g++ # nvim-treesitter
+          - gamemode  # use with Steam
           - git
           - gitk
           - gnome-screenshot
