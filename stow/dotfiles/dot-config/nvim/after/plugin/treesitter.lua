@@ -31,7 +31,7 @@ ts.setup {
     -- https://github.com/nvim-treesitter/nvim-treesitter#language-parsers
     ensure_installed = {
         "bash",
-				"c",
+        "c",
         "comment",
         "diff",
         "dockerfile",
@@ -41,6 +41,7 @@ ts.setup {
         "gotmpl",
         "hcl",
         "helm",
+        "ini",
         "json",
         "lua",
         "make",
