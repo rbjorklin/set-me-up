@@ -26,7 +26,7 @@ require("lazy").setup({
 
 	{ -- lsp config
         "neovim/nvim-lspconfig",
-        tag = "v1.6.0",
+        tag = "v1.7.0",
     },
 
 	{ -- snippet manager
