@@ -51,10 +51,10 @@ set.autoindent = true -- automatically set the indent of a new line
 set.smarttab = true -- inserts blanks according to 'shiftwidth'
 set.smartindent = true -- do clever autoindenting
 set.tabstop = 2 -- number of spaces a <Tab> in the text stands for
-set.shiftwidth = 0 -- number of spaces used for each step of (auto)indent
-set.softtabstop = 0 -- number of spaces that a <Tab> counts for
+set.shiftwidth = 2 -- number of spaces used for each step of (auto)indent
+set.softtabstop = 2 -- number of spaces that a <Tab> counts for
 set.backspace = { "indent", "eol", "start" } -- specifies what <BS>, CTRL-w, etc. can do in Insert mode
-set.expandtab = false -- do not expand <Tab> to spaces
+set.expandtab = true -- expand <Tab> to spaces in Insert mode
 
 --set.clipboard:prepend { "unnamedplus" } -- to put selected text on the clipboard
 set.fillchars.eob = " " -- hiding ~ that indicates filler lines
