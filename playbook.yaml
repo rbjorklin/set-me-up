@@ -73,7 +73,7 @@
           - akmod-VirtualBox
           - alacritty
           - autoconf
-          - bcc-tools # https://github.com/iovisor/bcc
+          - bcc-tools  # https://github.com/iovisor/bcc
           - cmake
           - code
           - ctags
@@ -126,6 +126,7 @@
           - nmap
           - nodejs  # coc-nvim
           - nodejs-bash-language-server
+          - obs-studio
           - postgresql
           - protobuf-compiler  # atuin dependency
           - protobuf-devel  # atuin dependency
@@ -147,6 +148,8 @@
           - tmux
           - unzip
           - vlc
+          - vlc-plugin-ffmpeg
+          - vlc-plugin-gstreamer
           - vmtouch
           - yamllint
           - zip
