@@ -91,6 +91,7 @@
           - g++  # nvim-treesitter
           - gamemode  # use with Steam
           - git
+          - git-delta  # https://github.com/dandavison/delta
           - gitk
           - gnome-screenshot
           - gnome-shell-extension-gpaste
