@@ -94,6 +94,7 @@
           - git-delta  # https://github.com/dandavison/delta
           - gitk
           - gnome-screenshot
+          - gnome-shell-extension-auto-move-windows
           - gnome-shell-extension-gpaste
           - gnome-tweaks
           - golang
@@ -108,6 +109,7 @@
           - inotify-tools  # dune build --watch
           - ipcalc
           - jq
+          - just
           - kernel-modules-extra  # xpad etc.
           - krita
           - levien-inconsolata-fonts
@@ -405,9 +407,40 @@
             repo: https://github.com/zsh-users/zsh-autosuggestions
             dest: "/home/{{ user }}/.zsh/zsh-autosuggestions"
 
-        - name: Ensure Gnome app-switcher only applies to current workspace
+        - name: Ensure Gnome has been configured
           ansible.builtin.command:
-            cmd: gsettings set org.gnome.shell.app-switcher current-workspace-only true
+            cmd: "gsettings set {{ item.schema }} {{ item.key }} {{ item.value }}
+          loop:
+            - schema: org.gnome.shell.app-switcher
+              key: current-workspace-only
+              value: true
+            - schema: org.gnome.desktop.interface
+              key: enable-hot-corners
+              value: false
+            - schema: org.gnome.desktop.wm.preferences
+              key: num-workspaces
+              value: 4
+            - schema: org.gnome.mutter
+              key: dynamic-workspaces
+              value: false
+            - schema: org.gnome.mutter
+              key: workspaces-only-on-primary
+              value: true
+            - schema: org.gnome.shell.app-switcher
+              key: current-workspace-only
+              value: true
+            - schema: org.gnome.desktop.wm.keybindings
+              key:  switch-to-workspace-1
+              value: "['<Super>1']"
+            - schema: org.gnome.desktop.wm.keybindings
+              key:  switch-to-workspace-2
+              value: "['<Super>2']"
+            - schema: org.gnome.desktop.wm.keybindings
+              key:  switch-to-workspace-3
+              value: "['<Super>3']"
+            - schema: org.gnome.desktop.wm.keybindings
+              key:  switch-to-workspace-4
+              value: "['<Super>4']"
 
         - name: Ensure Gnome Calendar shows week
           ansible.builtin.command:
@@ -432,7 +465,6 @@
         - name: Ensure Gnome new windows spawn at the center of the screen to draw attention
           ansible.builtin.command:
             cmd: gsettings set org.gnome.mutter center-new-windows true
-
 
         # To view use:
         # gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name
