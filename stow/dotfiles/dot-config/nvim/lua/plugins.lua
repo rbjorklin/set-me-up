@@ -70,11 +70,6 @@ require("lazy").setup({
         }
     },
 
-    {  -- Easier block commenting
-        "numToStr/Comment.nvim",
-        tag = "v0.8.0",
-    },
-
     { -- symbol outline
         'stevearc/aerial.nvim',
         tag = "v2.5.0",
