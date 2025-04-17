@@ -67,8 +67,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		keymap("n", "gi", vim.lsp.buf.implementation, opts)
 		--keymap("n", "gr", vim.lsp.buf.references, opts)
 		keymap("n", "<leader>td", vim.lsp.buf.type_definition, opts)
-		keymap("n", "K", vim.lsp.buf.hover, opts)
-		keymap("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+		keymap("n", "K", function() vim.lsp.buf.hover({ border = "rounded"}) end, opts)
+		keymap("n", "<C-k>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, opts)
 		keymap("n", "<leader>rn", vim.lsp.buf.rename, opts)
 		keymap({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 		keymap("n", "<leader>fo", function()
@@ -76,7 +76,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end, opts)
 	end,
 })
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })

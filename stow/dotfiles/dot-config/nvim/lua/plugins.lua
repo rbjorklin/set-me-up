@@ -26,7 +26,7 @@ require("lazy").setup({
 
   { -- lsp config
         "neovim/nvim-lspconfig",
-        tag = "v1.7.0",
+        tag = "v2.0.0",
     },
 
   { -- snippet manager
@@ -38,13 +38,14 @@ require("lazy").setup({
 
   { -- auto-complete
         "hrsh7th/nvim-cmp",
-        commit = "d884a049bb66722668ebe5de97f341327e8422cf", -- https://github.com/hrsh7th/nvim-cmp/pull/1833
-    dependencies = {
-      { "saadparwaiz1/cmp_luasnip" },
-      { "hrsh7th/cmp-buffer" },
-      { "hrsh7th/cmp-path" },
-      { "hrsh7th/cmp-nvim-lsp" },
-    },
+        commit = "b5311ab3ed9c846b585c0c15b7559be131ec4be9",
+        -- commit = "d884a049bb66722668ebe5de97f341327e8422cf", -- https://github.com/hrsh7th/nvim-cmp/pull/1833
+        dependencies = {
+          { "saadparwaiz1/cmp_luasnip" },
+          { "hrsh7th/cmp-buffer" },
+          { "hrsh7th/cmp-path" },
+          { "hrsh7th/cmp-nvim-lsp" },
+        },
   },
 
     {  -- Better diagnostics
@@ -65,8 +66,8 @@ require("lazy").setup({
   {
         "loganswartz/selenized.nvim",
         commit = "6f31b954da7e15190c2af1d550ce2f22bf675d97",
-    dependencies = {
-      { "rktjmp/lush.nvim" }
+        dependencies = {
+          { "rktjmp/lush.nvim" }
         }
     },
 
