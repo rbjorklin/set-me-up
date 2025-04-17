@@ -13,11 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
-  { -- nvim-tree file explorer
-        "nvim-tree/nvim-tree.lua",
-        tag = "nvim-tree-v1.10.0",
-    },
-
     { -- File explorer in a normal buffer
         "stevearc/oil.nvim",
         tag = "v2.15.0",
