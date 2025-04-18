@@ -57,7 +57,9 @@ y = 0
 # Make "C-i" send "F12 Tab". Then from tmux we send the `CSI u`-encoded
 # version of "C-i" ("\x1b[105;5u").
 [[keyboard.bindings]]
-chars = "\u001B[24~\t" # '\u001B' is Escape, '24' is F12, '\t' is Tab
+#chars = "\u001B[24~\t" # '\u001B' is Escape, '24' is F12, '\t' is Tab
+#chars = "\u001B[105;5u" # '\u001B' is Escape, '105' is 'I', 'u' terminates the escape sequence
+chars = "î"
 key = "I"
 mods = "Control"
 
