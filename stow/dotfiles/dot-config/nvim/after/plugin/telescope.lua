@@ -7,6 +7,7 @@ if (not status) then return end
 local keymap = vim.keymap.set
 keymap('n', '<LEADER>tf', builtin.find_files, {})
 keymap('n', '<LEADER>tg', builtin.live_grep, {})
+keymap('n', '<LEADER>bc', builtin.git_bcommits, {})
 keymap('n', '<LEADER>t?', builtin.oldfiles, { desc = '[t?] Find recently opened files'})
 keymap('n', '<LEADER>t<SPACE>', builtin.buffers, { desc = '[t ] Find existing buffers'})
 keymap('n', '<LEADER>t/', function()
