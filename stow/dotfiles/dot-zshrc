@@ -5,8 +5,8 @@ autoload -Uz compinit && compinit
 export GOPATH=${HOME}/go
 export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${KREW_ROOT:-$HOME/.krew}/bin:${GOPATH}/bin:${PATH}"
 
-# Adapt autosuggest color to Solarized
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=11"
+# Adapt autosuggest color to Selenized
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
 
 export CASE_SENSITIVE="true"
 export WORDCHARS='*?_[]~=&;!#$%^(){}'
