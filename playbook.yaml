@@ -404,11 +404,6 @@
             - pkg: ag  # angle-grinder, local log analysis
               version: 0.19.3
 
-        - name: Ensure zsh-autosuggestions cloned
-          ansible.builtin.git:
-            repo: https://github.com/zsh-users/zsh-autosuggestions
-            dest: "/home/{{ user }}/.zsh/zsh-autosuggestions"
-
         - name: Ensure Gnome has been configured
           ansible.builtin.command:
             cmd: "gsettings set {{ item.schema }} {{ item.key }} {{ item.value }}

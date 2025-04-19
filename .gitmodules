@@ -13,3 +13,6 @@
 [submodule "stow/dotfiles/dot-tmux/plugins/extrakto"]
 	path = stow/dotfiles/dot-tmux/plugins/extrakto
 	url = https://github.com/laktak/extrakto
+[submodule "stow/dotfiles/dot-zsh/zsh-autosuggestions"]
+	path = stow/dotfiles/dot-zsh/zsh-autosuggestions
+	url = git@github.com:ElementW/zsh-autosuggestions.git
