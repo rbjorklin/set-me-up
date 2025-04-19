@@ -89,7 +89,8 @@
           - firefox
           - fzf
           - g++  # nvim-treesitter
-          - gamemode  # use with Steam
+          - gamemode   # use with Steam
+          - gamescope  # use with Steam
           - git
           - git-delta  # https://github.com/dandavison/delta
           - gitk
@@ -120,6 +121,7 @@
           - libzstd  # OCaml 5.1.0
           - libzstd-devel  # OCaml 5.1.0
           - lnav  # local log analysis, similar to angle-grinder
+          - mangohud  # use with Steam
           - mesa-va-drivers-freeworld  # Firefox HW accelerated decoding
           - moreutils  # sponge
           - mozilla-fira-mono-fonts

@@ -38,6 +38,17 @@ NixOS
 
     nixos-rebuild switch --flake .#virtualbox
 
+Steam
+=====
+
+.. code-block:: console
+   :caption: Custom launch command to explicitly set the resolution with a working Steam overly
+    env -u LD_PRELOAD gamemoderun gamescope --output-width 3440 --output-height 1440 --nested-width 3440 --nested-height 1440 --hdr-enabled --fullscreen --adaptive-sync --steam --mangoapp --expose-wayland --backend wayland -- env LD_PRELOAD="${LD_PRELOAD}" %command% &> /tmp/steam-error.log
+
+    # For optimal functionality make sure to also set:
+    sudo setcap CAP_SYS_NICE=eip /usr/bin/gamescope
+    # Where e=Effective, i=Inheritable, p=Permitted
+
 Acknowledgements
 ================
 
