@@ -338,9 +338,11 @@
           loop:
             - "/usr/local/share/fonts/Monaspace"
             - "/usr/local/share/fonts/FiraCodeNerdFont"
+          tags:
+            - fonts
         - name: Ensure Monaspace font installed
           ansible.builtin.unarchive:
-            src: https://github.com/githubnext/monaspace/releases/download/v1.000/monaspace-v1.000.zip
+            src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Monaspace.zip
             dest: /usr/local/share/fonts/Monaspace
             creates: /usr/local/share/fonts/Monaspace/MonaspaceArgon-Regular.otf
             remote_src: true
@@ -349,16 +351,24 @@
               - '*.otf'
             extra_opts:
               - -j
+          tags:
+            - fonts
           # Ignore errors as path validation breaks due to '-j / junk paths'
           ignore_errors: true
         - name: Ensure Fira Code Nerd Font installed
           ansible.builtin.unarchive:
-            src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip
+            src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
             dest: /usr/local/share/fonts/FiraCodeNerdFont
             creates: /usr/local/share/fonts/FiraCodeNerdFont/FiraCodeNerdFontMono-Regular.ttf
             remote_src: true
             include:
               - '*.ttf'
+            extra_opts:
+              - -j
+          tags:
+            - fonts
+          # Ignore errors as path validation breaks due to '-j / junk paths'
+          ignore_errors: true
         - name: Ensure font cache has been updated after installing new fonts
           ansible.builtin.command:
             cmd: fc-cache -v
