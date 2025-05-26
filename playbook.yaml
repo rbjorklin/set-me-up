@@ -133,6 +133,7 @@
           - nodejs-bash-language-server
           - obs-studio
           - postgresql
+          - pre-commit
           - protobuf-compiler  # atuin dependency
           - protobuf-devel  # atuin dependency
           - pv
@@ -395,7 +396,7 @@
           environment:
             PATH: "{{ ansible_env.PWD }}:/home/{{ user }}/.krew/bin"
           ansible.builtin.shell:
-            cmd: kubectl krew install ctx ns slice edit-status sort-manifests kyverno stern rbac-tool
+            cmd: kubectl krew install ctx neat ns slice edit-status sort-manifests kyverno stern rbac-tool
 
         - name: Ensure rust installed
           ansible.builtin.shell:
