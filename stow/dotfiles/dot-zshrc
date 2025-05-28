@@ -2,6 +2,11 @@
 # adds completion for git etc.
 autoload -Uz compinit && compinit
 
+# Enable Ctrl-x-e to edit command line
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
 export GOPATH=${HOME}/go
 export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${KREW_ROOT:-$HOME/.krew}/bin:${GOPATH}/bin:${PATH}"
 
@@ -107,6 +112,9 @@ asn-to-ip() {
     fourth_byte=$(( asn % 256))
     echo "${first_byte}.${second_byte}.${third_byte}.${fourth_byte}"
 }
+
+# After working for over a decade all of a sudden I apparently need this...
+alias ls='ls --color'
 
 # Put machine specific stuff here
 if [[ -f ~/.zshrc.custom ]] ; then
