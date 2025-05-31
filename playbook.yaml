@@ -76,6 +76,7 @@
           - bcc-tools  # https://github.com/iovisor/bcc
           - cmake
           - code
+          - corectrl  # amdgpu fan-control
           - ctags
           - dconf-editor
           - difftastic
