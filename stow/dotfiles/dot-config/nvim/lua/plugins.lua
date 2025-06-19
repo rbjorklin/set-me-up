@@ -21,12 +21,12 @@ require("lazy").setup({
 
   { -- lsp config
         "neovim/nvim-lspconfig",
-        tag = "v2.0.0",
+        tag = "v2.3.0",
     },
 
   { -- snippet manager
         "L3MON4D3/LuaSnip",
-        tag = "v2.3.0",
+        tag = "v2.4.0",
         build = "make install_jsregexp",
         dependencies = { "rafamadriz/friendly-snippets" },
     },
@@ -116,12 +116,16 @@ require("lazy").setup({
         tag = "v1.0.2"
     },
 
+  { -- Much improved diff viewer
+    "sindrets/diffview.nvim",
+    commit = "4516612fe98ff56ae0415a259ff6361a89419b0a",
+  },
+
   { -- A Magit inspired git interface
     "NeogitOrg/neogit",
     commit = "3d58bf1d548f6fafdaab8ce4d75e25c438aee92c",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
     config = true
@@ -135,7 +139,6 @@ require("lazy").setup({
     }
   },
 
-
     { -- Surrond word with parentheses, quotes etc.
         "tpope/vim-surround",
         commit = "3d188ed2113431cf8dac77be61b842acb64433d9",
@@ -143,18 +146,18 @@ require("lazy").setup({
 
   { -- Treesitter
         "nvim-treesitter/nvim-treesitter",
-        tag = "v0.9.3",
+        tag = "v0.10.0",
         build = ":TSUpdate",
   },
 
   { -- provide context when scrolling
         "nvim-treesitter/nvim-treesitter-context",
-        commit = "93b29a32d5f4be10e39226c6b796f28d68a8b483",
+        commit = "1a1a7c5d6d75cb49bf64049dafab15ebe294a79f",
   },
 
   { -- provide syntax aware text objects
         "nvim-treesitter/nvim-treesitter-textobjects",
-        commit = "9937e5e356e5b227ec56d83d0a9d0a0f6bc9cad4",
+        commit = "89ebe73cd2836db80a22d9748999ace0241917a5",
   },
 
   { -- better matching
@@ -164,7 +167,7 @@ require("lazy").setup({
 
     { -- Debug using DAP
         "mfussenegger/nvim-dap",
-        tag = "0.9.0",
+        tag = "0.10.0",
         lazy = true,
         cmd = {
           "DapToggleBreakpoint",
