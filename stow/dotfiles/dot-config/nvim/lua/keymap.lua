@@ -61,3 +61,6 @@ keymap("n", "<Leader>l", [[ :g/^\s*$/d<CR> ]], { noremap = true })
 -- Shift Insert does something magic?
 keymap("", "<S-Insert>", [[ "*gP ]] )
 keymap({"c", "i"}, "<S-Insert>", "<C-R>*")
+
+-- Close current tab
+keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
