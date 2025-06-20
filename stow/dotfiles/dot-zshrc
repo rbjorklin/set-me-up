@@ -8,7 +8,7 @@ zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
 export GOPATH=${HOME}/go
-export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${KREW_ROOT:-$HOME/.krew}/bin:${GOPATH}/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${KREW_ROOT:-$HOME/.krew}/bin:${GOPATH}/bin:${PATH}:${HOME}/.luarocks/bin"
 
 # Adapt autosuggest color to Selenized
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
