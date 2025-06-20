@@ -1,0 +1,7 @@
+sed -i 's/http/https/g' /etc/apt/sources.list ;\
+sed -i 's/http/https/g' /etc/apt/sources.list.d/debian.sources ;\
+echo 'Acquire::https::deb.debian.org::Verify-Host "false";' >> /etc/apt/apt.conf.d/debian-skip-cert-validation ;\
+echo 'Acquire::https::deb.debian.org::Verify-Peer "false";' >> /etc/apt/apt.conf.d/debian-skip-cert-validation ;\
+apt-get update ;\
+apt-get install -y ca-certificates ;\
+rm -f /etc/apt/apt.conf.d/debian-skip-cert-validation

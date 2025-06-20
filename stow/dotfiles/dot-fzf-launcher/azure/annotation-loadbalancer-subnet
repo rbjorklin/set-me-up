@@ -1,0 +1,1 @@
+service.beta.kubernetes.io/azure-load-balancer-internal-subnet: <name of subnet>
