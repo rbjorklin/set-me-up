@@ -28,4 +28,8 @@ local function telescope_commits_to_diffview()
   })
 end
 
+local actions = require("diffview.actions")
+
 keymap("n", "<leader>gd", telescope_commits_to_diffview, opts)
+keymap("n", "<leader>gdn", actions.select_next_commit, opts)
+keymap("n", "<leader>gdp", actions.select_prev_commit, opts)

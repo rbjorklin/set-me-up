@@ -117,9 +117,13 @@ require("lazy").setup({
     },
 
   { -- Much improved diff viewer
-    "sindrets/diffview.nvim",
-    commit = "4516612fe98ff56ae0415a259ff6361a89419b0a",
+    "rbjorklin/diffview.nvim",
+    commit = "be55bf10a1cba8a3d0db20a461538d3a4dd833c2",
   },
+  --{
+  --  dir = "~/git/diffview.nvim",
+  --  dev = true
+  --},
 
   { -- A Magit inspired git interface
     "NeogitOrg/neogit",
