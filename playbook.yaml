@@ -419,62 +419,29 @@
 
         - name: Ensure Gnome has been configured
           ansible.builtin.command:
-            cmd: "gsettings set {{ item.schema }} {{ item.key }} {{ item.value }}
+            cmd: "gsettings set {{ item }}"
           loop:
-            - schema: org.gnome.shell.app-switcher
-              key: current-workspace-only
-              value: true
-            - schema: org.gnome.desktop.interface
-              key: enable-hot-corners
-              value: false
-            - schema: org.gnome.desktop.wm.preferences
-              key: num-workspaces
-              value: 4
-            - schema: org.gnome.mutter
-              key: dynamic-workspaces
-              value: false
-            - schema: org.gnome.mutter
-              key: workspaces-only-on-primary
-              value: true
-            - schema: org.gnome.shell.app-switcher
-              key: current-workspace-only
-              value: true
-            - schema: org.gnome.desktop.wm.keybindings
-              key:  switch-to-workspace-1
-              value: "['<Super>1']"
-            - schema: org.gnome.desktop.wm.keybindings
-              key:  switch-to-workspace-2
-              value: "['<Super>2']"
-            - schema: org.gnome.desktop.wm.keybindings
-              key:  switch-to-workspace-3
-              value: "['<Super>3']"
-            - schema: org.gnome.desktop.wm.keybindings
-              key:  switch-to-workspace-4
-              value: "['<Super>4']"
+            - "org.gnome.shell.app-switcher current-workspace-only true"
+            - "org.gnome.desktop.interface enable-hot-corners false"
+            - "org.gnome.desktop.wm.preferences num-workspaces 4"
+            - "org.gnome.mutter dynamic-workspaces false"
+            - "org.gnome.mutter workspaces-only-on-primary true"
+            - "org.gnome.shell.app-switcher current-workspace-only true"
+            - "org.gnome.desktop.wm.keybindings switch-to-workspace-1 \"['<Super>1']\""
+            - "org.gnome.desktop.wm.keybindings switch-to-workspace-2 \"['<Super>2']\""
+            - "org.gnome.desktop.wm.keybindings switch-to-workspace-3 \"['<Super>3']\""
+            - "org.gnome.desktop.wm.keybindings switch-to-workspace-4 \"['<Super>4']\""
+            - "org.gnome.desktop.calendar show-weekdate true"
+            - "org.gnome.desktop.session idle-delay 900"
+            - "org.gnome.desktop.interface color-scheme prefer-dark"
+            - "org.gnome.desktop.wm.preferences focus-new-windows smart"
+            - "org.gnome.desktop.wm.preferences focus-mode click"
+            - "org.gnome.mutter center-new-windows true"
+            #- "org.gnome.mutter experimental-features \"['scale-monitor-framebuffer']\""
+            - "org.gnome.mutter experimental-features \"['variable-refresh-rate']\""
 
-        - name: Ensure Gnome Calendar shows week
-          ansible.builtin.command:
-            cmd: gsettings set org.gnome.desktop.calendar show-weekdate true
-
-        - name: Ensure Gnome screen-blank timeout is 15 min
-          ansible.builtin.command:
-            cmd: gsettings set org.gnome.desktop.session idle-delay 900
-
-        - name: Ensure Gnome color-scheme is dark
-          ansible.builtin.command:
-            cmd: gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-
-        - name: Ensure Gnome window mode is smart to focus on new windows
-          ansible.builtin.command:
-            cmd: gsettings set org.gnome.desktop.wm.preferences focus-new-windows smart
-
-        - name: Ensure Gnome window focus-mode is click to focus on new windows
-          ansible.builtin.command:
-            cmd: gsettings set org.gnome.desktop.wm.preferences focus-mode click
-
-        - name: Ensure Gnome new windows spawn at the center of the screen to draw attention
-          ansible.builtin.command:
-            cmd: gsettings set org.gnome.mutter center-new-windows true
+          tags:
+            - gnome
 
         # To view use:
         # gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name
@@ -484,14 +451,6 @@
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Launcher'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'alacritty --option 'window = { decorations = "none" }' --option 'window.dimensions = { columns = 140, lines = 40 }' --command /home/{{ user }}/.fzf-launcher/entrypoint.sh'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Control>space'
-
-        #- name: Ensure Gnome fractional scaling enabled
-        #  ansible.builtin.command:
-        #    cmd: gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
-
-        - name: Ensure Gnome Variable Refresh Rate enabled
-          ansible.builtin.command:
-            cmd: gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate']"
 
         - name: Copy using inline content
           ansible.builtin.copy:
