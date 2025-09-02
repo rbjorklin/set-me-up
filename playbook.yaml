@@ -111,6 +111,7 @@
           - htop
           - inotify-tools  # dune build --watch
           - ipcalc
+          - jc  # because json output from cmd tools is so much easier to work with
           - jq
           - just
           - kernel-modules-extra  # xpad etc.
@@ -398,7 +399,7 @@
           environment:
             PATH: "{{ ansible_env.PWD }}:/home/{{ user }}/.krew/bin"
           ansible.builtin.shell:
-            cmd: kubectl krew install blame ctx neat ns slice edit-status sort-manifests kyverno stern rbac-tool klock
+            cmd: kubectl krew install blame ctx neat ns slice edit-status sort-manifests kyverno stern rbac-tool klock tree topology
 
         - name: Ensure rust installed
           ansible.builtin.shell:
