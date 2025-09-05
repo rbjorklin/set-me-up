@@ -21,7 +21,7 @@ require("lazy").setup({
 
   { -- lsp config
         "neovim/nvim-lspconfig",
-        tag = "v2.3.0",
+        tag = "v2.4.0",
     },
 
   { -- snippet manager
@@ -51,6 +51,7 @@ require("lazy").setup({
     },
     {
         "folke/todo-comments.nvim",
+        commit = "304a8d204ee787d2544d8bc23cd38d2f929e7cc5",
         dependencies = { "nvim-lua/plenary.nvim" }
     },
 
@@ -156,7 +157,7 @@ require("lazy").setup({
 
   { -- provide context when scrolling
         "nvim-treesitter/nvim-treesitter-context",
-        commit = "1a1a7c5d6d75cb49bf64049dafab15ebe294a79f",
+        commit = "66a9b5fa9e806918b5fe3dba00c6cce7e230abd2",
   },
 
   { -- provide syntax aware text objects
