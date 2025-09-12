@@ -236,5 +236,10 @@ require("lazy").setup({
           "nvim-lua/plenary.nvim",
           "nvim-treesitter/nvim-treesitter",
         }
+  },
+  {
+      "cappyzawa/trim.nvim",
+      tag = "v0.10.2",
+      opts = {}
   }
 })
