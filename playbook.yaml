@@ -160,6 +160,10 @@
           - vlc-plugin-ffmpeg
           - vlc-plugin-gstreamer
           - vmtouch
+          - wireguard-tools
+          - wireshark
+          - wireshark-cli
+          - xxd  # hex dump tool, useful for turning binary data into ascii
           - yamllint
           - zip
           - zsh
@@ -326,6 +330,12 @@
         url: https://github.com/getsops/sops/releases/download/{{ version['sops'] }}/sops-{{ version['sops'] }}.linux.amd64
         dest: /usr/local/bin/sops
         mode: '0755'
+
+    - name: Ensure mitmproxy installed
+      ansible.builtin.unarchive:
+        src: https://downloads.mitmproxy.org/{{ version['mitmproxy'] }}/mitmproxy-{{ version['mitmproxy'] }}-linux-x86_64.tar.gz
+        dest: /usr/local/bin
+        remote_src: true
 
     - name: Ensure nvim binary symlinked
       ansible.builtin.file:
