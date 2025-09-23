@@ -65,6 +65,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		keymap("n", "gd", vim.lsp.buf.definition, opts)
 		keymap("n", "gD", vim.lsp.buf.declaration, opts)
 		keymap("n", "gi", vim.lsp.buf.implementation, opts)
+		keymap("n", "grt", vim.lsp.buf.type_definition, opts)
 		--keymap("n", "gr", vim.lsp.buf.references, opts)
 		keymap("n", "<leader>td", vim.lsp.buf.type_definition, opts)
 		keymap("n", "K", function() vim.lsp.buf.hover({ border = "rounded"}) end, opts)
