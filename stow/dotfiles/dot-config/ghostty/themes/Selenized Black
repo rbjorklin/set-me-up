@@ -1,0 +1,50 @@
+# https://github.com/jan-warchol/selenized/blob/master/the-values.md#selenized-black
+# https://github.com/jan-warchol/selenized/blob/master/manual-installation.md#using-selenized-palette
+# bg_0
+background = #181818
+# fg_0
+foreground = #b9b9b9
+# dim_0
+cursor-color = #777777
+# bg_0
+cursor-text = #181818
+# bg_2
+selection-background = #3b3b3b
+
+# fg_1
+bold-color = #dedede
+faint-opacity = 0.625
+
+# https://www.ditig.com/256-colors-cheat-sheet
+# Black   (bg_1)
+palette = 0=#252525
+# Maroon  (red)
+palette = 1=#ed4a46
+# Green   (green)
+palette = 2=#70b433
+# Olive   (yellow)
+palette = 3=#dbb32d
+# Navy    (blue)
+palette = 4=#368aeb
+# Purple  (magenta)
+palette = 5=#eb6eb7
+# Teal    (cyan)
+palette = 6=#3fc5b7
+# Silver  (dim_0)
+palette = 7=#777777
+# Grey    (bg_2)
+palette = 8=#3b3b3b
+# Red     (br_red)
+palette = 9=#ff5e56
+# Lime    (br_green)
+palette = 10=#83c746
+# Yellow  (br_yellow)
+palette = 11=#efc541
+# Blue    (br_blue)
+palette = 12=#4f9cfe
+# Fuchsia (br_magenta)
+palette = 13=#ff81ca
+# Aqua    (br_cyan)
+palette = 14=#56d8c9
+# White   (fg_1)
+palette = 15=#dedede
