@@ -8,8 +8,8 @@ foreground = #b9b9b9
 cursor-color = #777777
 # bg_0
 cursor-text = #181818
-# bg_2
-selection-background = #3b3b3b
+# dim_0
+selection-background = #777777
 
 # fg_1
 bold-color = #dedede
@@ -30,9 +30,9 @@ palette = 4=#368aeb
 palette = 5=#eb6eb7
 # Teal    (cyan)
 palette = 6=#3fc5b7
-# Silver  (dim_0)
+# Silver  (dim_0), used for ghost text/auto suggest must be darker than foreground
 palette = 7=#777777
-# Grey    (bg2->dim_0)
+# Grey    (bg_2->dim_0), 'ls' uses this to highlight .bak files, can't be too dark
 palette = 8=#777777
 # Red     (br_red)
 palette = 9=#ff5e56
