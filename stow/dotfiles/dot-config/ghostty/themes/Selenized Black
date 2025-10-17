@@ -32,8 +32,8 @@ palette = 5=#eb6eb7
 palette = 6=#3fc5b7
 # Silver  (dim_0)
 palette = 7=#777777
-# Grey    (bg_2)
-palette = 8=#3b3b3b
+# Grey    (bg2->dim_0)
+palette = 8=#777777
 # Red     (br_red)
 palette = 9=#ff5e56
 # Lime    (br_green)
