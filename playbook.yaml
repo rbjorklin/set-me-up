@@ -443,10 +443,7 @@
             - "org.gnome.mutter dynamic-workspaces false"
             - "org.gnome.mutter workspaces-only-on-primary true"
             - "org.gnome.shell.app-switcher current-workspace-only true"
-            - "org.gnome.desktop.wm.keybindings switch-to-workspace-1 \"['<Super>1']\""
-            - "org.gnome.desktop.wm.keybindings switch-to-workspace-2 \"['<Super>2']\""
-            - "org.gnome.desktop.wm.keybindings switch-to-workspace-3 \"['<Super>3']\""
-            - "org.gnome.desktop.wm.keybindings switch-to-workspace-4 \"['<Super>4']\""
+            - "favorite-apps \"['com.mitchellh.ghostty.desktop', 'org.mozilla.firefox.desktop', 'com.slack.Slack.desktop']\""
             - "org.gnome.desktop.calendar show-weekdate true"
             - "org.gnome.desktop.session idle-delay 900"
             - "org.gnome.desktop.interface color-scheme prefer-dark"
@@ -467,44 +464,6 @@
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Launcher'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'alacritty --option 'window = { decorations = "none" }' --option 'window.dimensions = { columns = 140, lines = 40 }' --command /home/{{ user }}/.fzf-launcher/entrypoint.sh'
             gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Control>space'
-
-        - name: Copy using inline content
-          ansible.builtin.copy:
-            dest: "/home/{{ user }}/.local/share/applications/alacritty-tmux.desktop"
-            content: |
-              [Desktop Entry]
-              Type=Application
-              TryExec=alacritty
-              Exec=alacritty -e tmux
-              Icon=Alacritty
-              Terminal=false
-              Categories=System;TerminalEmulator;
-
-              Name=Alacritty Tmux
-              GenericName=Terminal
-              Comment=A fast, cross-platform, OpenGL terminal emulator
-              StartupNotify=true
-              StartupWMClass=Alacritty
-              Actions=New;
-
-              [Desktop Action New]
-              Name=New Terminal
-              Exec=alacritty
-
-        - name: Ensure 1Password Wayland launcher exists
-          ansible.builtin.copy:
-            dest: "/home/{{ user }}/.local/share/applications/1password.desktop"
-            content: |
-              [Desktop Entry]
-              Name=1Password Wayland
-              Exec=env GTK_THEME=Adwaita:dark /opt/1Password/1password --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=wayland %U
-              Terminal=false
-              Type=Application
-              Icon=1password
-              StartupWMClass=1Password
-              Comment=Password manager and secure wallet
-              MimeType=x-scheme-handler/onepassword;x-scheme-handler/onepassword8;
-              Categories=Office;
 
         - name: Ensure colemak layout is used in GDM
           ansible.builtin.command:
