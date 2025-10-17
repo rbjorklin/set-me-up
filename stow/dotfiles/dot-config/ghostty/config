@@ -11,7 +11,7 @@
 # a full restart to take effect.
 
 font-family = "FiraCode Nerd Font Mono"
-theme = Selenized Black
+theme = Selenized Black Custom
 gtk-tabs-location = hidden
 gtk-titlebar-style = tabs
 gtk-titlebar-hide-when-maximized = true
