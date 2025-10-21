@@ -241,5 +241,12 @@ require("lazy").setup({
       "cappyzawa/trim.nvim",
       tag = "v0.10.2",
       opts = {}
+  },
+  {
+      "tarides/ocaml.nvim",
+      commit = "5c28a5fd1bb00f36b532c7c4ad55ff77642be2b1",
+      config = function()
+        require("ocaml").setup()
+      end
   }
 })
