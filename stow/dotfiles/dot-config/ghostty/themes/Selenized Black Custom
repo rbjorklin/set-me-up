@@ -8,19 +8,22 @@ foreground = #b9b9b9
 cursor-color = #777777
 # bg_0
 cursor-text = #181818
-# dim_0
-selection-background = #777777
+# bg_2
+selection-background = #3b3b3b
+
+# https://github.com/ghostty-org/ghostty/discussions/2656
+selection-foreground = cell-foreground
 
 # fg_1
 bold-color = #dedede
 faint-opacity = 0.625
 
 # https://www.ditig.com/256-colors-cheat-sheet
-# Black   (bg_1)
+# Black   (bg_1) # used by 'k explore' fuzzy selector background color
 palette = 0=#252525
 # Maroon  (red)
 palette = 1=#ed4a46
-# Green   (green)
+# Green   (green) # used by 'k explore' fuzzy character match color
 palette = 2=#70b433
 # Olive   (yellow)
 palette = 3=#dbb32d
