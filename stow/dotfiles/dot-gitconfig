@@ -39,11 +39,18 @@
     addi = add --intent-to-add
     addu = add --update # add/update already managed files only
     fixr = "!gitfixr() { git commit --fixup=$1 && git rebase -i --autosquash $1^; }; gitfixr"
-    fixs = "!gitfixs() { commit=$(git log --oneline --max-count 20 | fzf --accept-nth 1) && git commit --fixup ${commit} && git rebase --interactive --autosquash ${commit}^ ; } ; gitfixs" 
+    fixs = "!gitfixs() { commit=$(git log --oneline --max-count 20 | fzf --accept-nth 1) && git commit --fixup ${commit} && git rebase --interactive --autosquash ${commit}^ ; } ; gitfixs"
     tagl = log --no-walk --tags --simplify-by-decoration --pretty='format:%cs %D'
     gh = "!grep_history() { git grep \"$1\" $(git rev-list --all) ; }; grep_history"
     exists = log --all --  # takes a path as an argument at returns commits where said path exists
     oo = "!open_origin() { firefox https://$(git remote get-url origin | sed -e 's#^git@##g' -e 's#:#/#g' -e 's#\\.git##g' )/tree/$(git branch --show-current) ; }; open_origin"
+    cmt = "!f() { \
+        ISSUE=$(git rev-parse --abbrev-ref HEAD | grep -oE '^[a-zA-Z]+-[0-9]+'); \
+        if [ -z \"$ISSUE\" ]; then \
+            echo 'No ticket found in branch name.' >&2; exit 1; \
+        fi; \
+        git commit --trailer \"Issue: $ISSUE\" --trailer \"Tracker: Jira\" \"$@\"; \
+    }; f"
 [core]
     autocrlf = input
 		pager = less --tabs=2
