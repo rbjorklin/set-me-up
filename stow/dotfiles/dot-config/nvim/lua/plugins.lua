@@ -230,7 +230,7 @@ require("lazy").setup({
   },
   {
         "olimorris/codecompanion.nvim",
-        tag = "v17.21.0",
+        tag = "v17.29.0",
         opts = {},
         dependencies = {
           "nvim-lua/plenary.nvim",
