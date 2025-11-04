@@ -77,6 +77,7 @@
           - age
           - akmod-VirtualBox
           - alacritty
+          - atuin
           - autoconf
           - bcc-tools  # https://github.com/iovisor/bcc
           - cmake
@@ -106,6 +107,7 @@
           - gnome-shell-extension-gpaste
           - gnome-tweaks
           - golang
+          - golang-oras  # OCI Registry As Service
           - golang-x-tools-gopls
           - gotags
           - gpaste
@@ -424,8 +426,6 @@
           ansible.builtin.shell:
             cmd: "~/.cargo/bin/cargo install --version {{ item.version}} {{ item.pkg }}"
           loop:
-            - pkg: atuin
-              version: 18.3.0
             - pkg: starship
               version: 1.21.1
             - pkg: stylua

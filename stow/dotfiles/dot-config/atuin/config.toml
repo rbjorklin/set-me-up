@@ -1,6 +1,6 @@
 ## which style to use
 ## possible values: auto, full, compact
-style = "full"
+style = "compact"
 
 ## use ctrl instead of alt as the shortcut modifier key for numerical UI shortcuts
 ## alt-0 .. alt-9
@@ -14,8 +14,7 @@ enter_accept = false
 ## Alternatively, set env NO_MOTION=true
 prefers_reduced_motion = true
 
-## Invert the UI - put the search bar at the top , Default to `false`
-invert = true
+inline_height = 20
 
 [stats]
 ## Set commands where we should consider the subcommand for statistics. Eg, kubectl get vs just kubectl
