@@ -432,6 +432,8 @@
               version: 0.20.0
             - pkg: ag  # angle-grinder, local log analysis
               version: 0.19.3
+            - pkg: git-absorb
+              version: 0.8.0
 
         - name: Ensure Gnome has been configured
           ansible.builtin.command:
