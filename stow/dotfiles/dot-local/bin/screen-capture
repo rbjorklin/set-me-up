@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+import dbus
+import sys
+from dbus.mainloop.glib import DBusGMainLoop
+from gi.repository import GLib
+from urllib.parse import unquote, urlparse
+
+# Initialize D-Bus main loop
+DBusGMainLoop(set_as_default=True)
+
+def on_screenshot_response(response_code, results):
+    """Handle screenshot response"""
+    if response_code == 0:  # Success
+        uri = results.get('uri', '')
+        if uri:
+            print(unquote(urlparse(uri).path))
+
+    loop.quit()
+
+loop = GLib.MainLoop()
+
+# Connect to D-Bus
+bus = dbus.SessionBus()
+portal = bus.get_object('org.freedesktop.portal.Desktop', '/org/freedesktop/portal/desktop')
+iface = dbus.Interface(portal, 'org.freedesktop.portal.Screenshot')
+
+# Make the screenshot request
+response_path = iface.Screenshot('', {'interactive': dbus.Boolean(True)})
+
+# Subscribe to the response signal BEFORE waiting
+request_obj = bus.get_object('org.freedesktop.portal.Desktop', response_path)
+request_iface = dbus.Interface(request_obj, 'org.freedesktop.portal.Request')
+request_iface.connect_to_signal('Response', on_screenshot_response)
+
+try:
+    loop.run()
+except KeyboardInterrupt:
+    sys.exit(1)

@@ -1,7 +1,6 @@
 #!/bin/env sh
-FILE=$(mktemp /tmp/tesseract-ocr-XXX)
-nohup /bin/sh -c "\
-	gnome-screenshot --area --file ${FILE} &&\
-	tesseract ${FILE} - 2> /dev/null |\
-	gpaste-client add &&\
-	rm ${FILE}" > /dev/null &
+
+nohup /bin/sh -c 'sleep 0.1 &&\
+  FILE="$(~/.local/bin/screen-capture)" &&\
+  tesseract "${FILE}" - | gpaste-client add &&\
+  rm "${FILE}"' &> /dev/null &
