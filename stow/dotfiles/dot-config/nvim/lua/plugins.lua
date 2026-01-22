@@ -45,9 +45,12 @@ require("lazy").setup({
 
     {  -- Better diagnostics
         "folke/trouble.nvim",
+        -- https://github.com/folke/trouble.nvim/issues/422#issuecomment-2239520468
+        opts = {}, -- stirctly required or the plugin doesn't work...
         tag = "v3.7.1",
         lazy = true,
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        cmd = "Trouble",
+        dependencies = { "nvim-tree/nvim-web-devicons" }
     },
     {
         "folke/todo-comments.nvim",
@@ -110,6 +113,11 @@ require("lazy").setup({
         "nvimtools/none-ls.nvim",  -- formerly null-ls
         commit = "a117163db44c256d53c3be8717f3e1a2a28e6299",
     dependencies = { "nvim-lua/plenary.nvim" },
+  },
+
+  { -- Linting, maybe combine with stevearc/conform.nvim?
+        "mfussenegger/nvim-lint",
+        commit = "ca6ea12daf0a4d92dc24c5c9ae22a1f0418ade37",
   },
 
   { -- Git information in gutter
@@ -248,5 +256,12 @@ require("lazy").setup({
       config = function()
         require("ocaml").setup()
       end
+  },
+  {
+    "github/copilot.vim",
+    tag = "v1.55.0",
+    init = function()
+      vim.g.copilot_enabled = false -- Disable by default, enable manually as needed
+    end
   }
 })
