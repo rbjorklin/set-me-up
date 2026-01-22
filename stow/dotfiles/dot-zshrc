@@ -8,7 +8,7 @@ zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
 export GOPATH=${HOME}/go
-export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${KREW_ROOT:-$HOME/.krew}/bin:${GOPATH}/bin:${PATH}:${HOME}/.luarocks/bin"
+export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${KREW_ROOT:-$HOME/.krew}/bin:${GOPATH}/bin:${PATH}:${HOME}/.luarocks/bin:${HOME}/bin"
 
 # Adapt autosuggest color to Selenized
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
@@ -52,7 +52,7 @@ kctx() {
 kubeconfig() {
     local context=$(echo $1 | base64 -d | yq '.contexts[0].name')
     echo $1 | base64 -d > ~/.kube/configs/${context}.yaml
-    echo $context
+    kctx $context
 }
 
 kgetpodsonnode() {
@@ -124,6 +124,11 @@ fi
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 eval "$(atuin init zsh --disable-up-arrow)"
+
+# Tmux tries to be clever when $EDITOR=nvim but I actually want emacs at the shell.
+if [[ -n "$TMUX" ]]; then
+  bindkey -e
+fi
 
 # opam configuration
 test -r /home/rbjorklin/.opam/opam-init/init.zsh && . /home/rbjorklin/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
