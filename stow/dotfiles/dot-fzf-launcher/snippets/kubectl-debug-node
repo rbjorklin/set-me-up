@@ -1,0 +1,1 @@
+k debug node/NODE_NAME -it --profile=sysadmin --image=mcr.microsoft.com/cbl-mariner/busybox:2.0 -- chroot /host
