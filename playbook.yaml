@@ -435,6 +435,13 @@
             - pkg: git-absorb
               version: 0.8.0
 
+        - name: Ensure linters installed
+          ansible.builtin.shell:
+            cmd: "npm install {{ item }}"
+          loop:
+            - markdownlint-cli2
+            - jsonlint
+
         - name: Ensure Gnome has been configured
           ansible.builtin.command:
             cmd: "gsettings set {{ item }}"
