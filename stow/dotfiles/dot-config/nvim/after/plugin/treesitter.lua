@@ -13,6 +13,15 @@ vim.filetype.add({
   },
 })
 
+-- Neovim filetype detection for Tiltfiles
+vim.filetype.add({
+  pattern = {
+    [".*/Tiltfile"] = "starlark",     -- exact filename anywhere
+    [".*/Tiltfile%..*"] = "starlark", -- e.g. Tiltfile.dev
+    [".*%.tiltfile"] = "starlark",    -- e.g. localdev.tiltfile
+  },
+})
+
 ts.setup {
     highlight = {
         enable = true,
@@ -53,6 +62,7 @@ ts.setup {
         "rst",
         "rust",
         "sql",
+        "starlark",
         "toml",
         "terraform",
         "yaml",
