@@ -32,7 +32,7 @@ export SAVEHIST=100000 # Number of commands that are stored in the zsh history f
 export HISTSIZE=100000 # Number of commands that are loaded into memory from the history file
 export WORDCHARS=''
 # Load last used in a new terminal
-export KUBECONFIG=~/.kube/configs/$(test -d ~/.kube/configs && ls -1t ~/.kube/configs | head -n 1)
+export KUBECONFIG=~/.kube/configs/$(test -d ~/.kube/configs && ls -1t ~/.kube/configs | grep -v gke_gcloud_auth_plugin_cache | head -n 1)
 
 kctx() {
     local KUBECONFIGS=~/.kube/configs
@@ -42,7 +42,7 @@ kctx() {
     fi
     # Use previous
     if [ "$1" = "-" ] ; then
-        local cfg=$(ls -1t ${KUBECONFIGS} | head -n 2 | tail -n 1 | sed 's/.ya\?ml//')
+        local cfg=$(ls -1t ${KUBECONFIGS} | grep -v gke_gcloud_auth_plugin_cache | head -n 2 | tail -n 1 | sed 's/.ya\?ml//')
     fi
     export KUBECONFIG=${KUBECONFIGS}/${cfg}.yaml
     # Touching the file makes list by last modify timestamp useful
