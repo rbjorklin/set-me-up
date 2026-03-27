@@ -1,0 +1,1 @@
+kubectl api-resources --namespaced -o name | while read resource ; do echo $resource ; kubectl get --ignore-not-found $resource ; done
