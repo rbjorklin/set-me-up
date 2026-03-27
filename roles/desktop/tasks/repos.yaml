@@ -1,0 +1,10 @@
+---
+
+- name: Ensure repositories have been configured
+  ansible.builtin.copy:
+    src: "files/{{ item }}"
+    dest: "/etc/yum.repos.d/{{ item }}"
+  loop:
+    - 1password.repo
+    - docker-ce.repo
+    - gh-cli.repo

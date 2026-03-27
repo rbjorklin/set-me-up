@@ -1,0 +1,4 @@
+---
+
+- name: Include repository tasks
+  include_tasks: repos.yaml

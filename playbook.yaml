@@ -7,6 +7,19 @@
   vars_files:
   - vars.yaml
   tasks:
+    tasks:
+    - name: Detect rpm-ostree
+      ansible.builtin.stat:
+        path: /run/ostree-booted
+      register: ostree_booted
+      changed_when: false
+    - name: Set rpmOstree fact
+      ansible.builtin.set_fact:
+        rpmOstree: "{{ ostree_booted.stat.exists | bool }}"
+    - ansible.builtin.import_role:
+        name: desktop
+      vars:
+        rpmOstree: "{{ rpmOstree }}"
     - name: Ensure curl installed
       ansible.builtin.package:
         name: curl
