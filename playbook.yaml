@@ -203,6 +203,11 @@
         src: "files/conf/02-swappiness.conf"
         dest: /etc/sysctl.d/02-swappiness.conf
 
+    - name: Ensure inotify tuned
+      ansible.builtin.copy:
+        src: "files/conf/03-inotify.conf"
+        dest: /etc/sysctl.d/03-inotify.conf
+
     - name: Ensure PackageKit stopped
       ansible.builtin.systemd:
         name: packagekit
