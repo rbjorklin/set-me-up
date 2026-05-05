@@ -315,6 +315,16 @@
         - LICENSE
         - README.md
 
+    - name: Ensure jira CLI installed
+      ansible.builtin.unarchive:
+        src: https://github.com/ankitpokhrel/jira-cli/releases/download/v{{ version['jira'] }}/jira_{{ version['jira] }}_linux_x86_64.tar.gz
+        dest: /usr/local/bin
+        remote_src: true
+        extra_opts:
+        - --strip-components=2
+        exclude:
+        - LICENSE
+
     - name: Ensure ctlptl installed
       ansible.builtin.unarchive:
         src: https://github.com/tilt-dev/ctlptl/releases/download/v{{ version['ctlptl'] }}/ctlptl.{{ version['ctlptl'] }}.linux.x86_64.tar.gz
