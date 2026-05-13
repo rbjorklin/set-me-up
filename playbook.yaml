@@ -156,6 +156,8 @@
           - mozilla-fira-sans-fonts
           - mozilla-openh264  # Teams openh264 support
           - neovim
+          - nix-core  # DevEnv prerequisite
+          - nix-daemon  # DevEnv prerequisite
           - nmap
           - nodejs  # coc-nvim
           - nodejs-bash-language-server
@@ -207,6 +209,13 @@
       ansible.builtin.copy:
         src: "files/conf/03-inotify.conf"
         dest: /etc/sysctl.d/03-inotify.conf
+
+    - name: Ensure Nix Daemon started
+      ansible.builtin.systemd:
+        name: nix-daemon
+        daemon_reload: true
+        enabled: true
+        state: started
 
     - name: Ensure PackageKit stopped
       ansible.builtin.systemd:
@@ -466,6 +475,10 @@
         - name: Ensure rust installed
           ansible.builtin.shell:
             cmd: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+        - name: Ensure DevEnv installed
+          ansible.builtin.shell:
+            cmd: "nix profile add nixpkgs#devenv"
 
         - name: Ensure starship installed
           ansible.builtin.shell:
