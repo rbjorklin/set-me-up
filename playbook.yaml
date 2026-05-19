@@ -105,6 +105,7 @@
           - difftastic
           - direnv
           - dnf-command(versionlock)
+          - entr  # kubefwd dependency
           - evolution
           - fd-find
           # https://fedoraproject.org/wiki/Firefox_Hardware_acceleration#Configure_VA-API_Video_decoding_on_AMD
@@ -351,6 +352,11 @@
         exclude:
         - LICENSE
         - README.md
+
+    - name: Ensure kubefwd installed
+      ansible.builtin.dnf:
+        name: "https://github.com/txn2/kubefwd/releases/download/v{{ version['kubefwd'] }}/kubefwd_amd64.rpm"
+        state: present
 
     - name: Ensure kustomize installed
       ansible.builtin.unarchive:
