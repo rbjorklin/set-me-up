@@ -263,5 +263,9 @@ require("lazy").setup({
     init = function()
       vim.g.copilot_enabled = false -- Disable by default, enable manually as needed
     end
+  },
+  {
+      "NickvanDyke/opencode.nvim",
+      commit = "8cb752f295664ab0736ad4498f659324e506e074"
   }
 })
