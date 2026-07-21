@@ -72,7 +72,7 @@ require("lazy").setup({
 
     { -- symbol outline
         'stevearc/aerial.nvim',
-        tag = "v2.6.1",
+        tag = "v4.0.0",
         opts = {},
         -- Optional dependencies
         dependencies = {
@@ -111,7 +111,7 @@ require("lazy").setup({
 
   { -- Diagnostics, Code Actions, Auto formating & more
         "nvimtools/none-ls.nvim",  -- formerly null-ls
-        commit = "a117163db44c256d53c3be8717f3e1a2a28e6299",
+        commit = "01f8e62ea11603e59ad9ff7afcfa94fd183f76d6",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 
@@ -175,7 +175,7 @@ require("lazy").setup({
 
   { -- better matching
         "andymass/vim-matchup",
-        commit = "aca23ce53ebfe34e02c4fe07e29e9133a2026481",
+        commit = "055881643e1b37038a572c883de7b1969716db77",
   },
 
     { -- Debug using DAP
