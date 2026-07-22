@@ -267,5 +267,14 @@ require("lazy").setup({
   {
       "NickvanDyke/opencode.nvim",
       commit = "8cb752f295664ab0736ad4498f659324e506e074"
+  },
+  {  -- PlantUML syntax highlighting
+    "javiorfo/nvim-soil",
+    commit = "6f6c3d2ddb6d450feaa5b173e293dd914e4bd712",
+    lazy = true,
+    ft = "plantuml",
+    dependencies = {
+      "javiorfo/nvim-nyctophilia"
+    }
   }
 })
