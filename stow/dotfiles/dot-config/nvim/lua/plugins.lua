@@ -252,7 +252,7 @@ require("lazy").setup({
   },
   {
       "tarides/ocaml.nvim",
-      commit = "5c28a5fd1bb00f36b532c7c4ad55ff77642be2b1",
+      commit = "d74934117fb7a513e64601ad1d1b53a34b00b01f",
       config = function()
         require("ocaml").setup()
       end
