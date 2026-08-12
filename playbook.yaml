@@ -525,6 +525,7 @@
             - "org.gnome.mutter center-new-windows true"
             #- "org.gnome.mutter experimental-features \"['scale-monitor-framebuffer']\""
             - "org.gnome.mutter experimental-features \"['variable-refresh-rate']\""
+            - "org.gnome.desktop.interface gtk-enable-primary-paste true"
 
           tags:
             - gnome
