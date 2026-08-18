@@ -163,6 +163,7 @@
           - nodejs  # coc-nvim
           - nodejs-bash-language-server
           - obs-studio
+          - pgcli
           - postgresql
           - pre-commit
           - protobuf-compiler  # atuin dependency
@@ -498,6 +499,10 @@
               version: 0.19.3
             - pkg: git-absorb
               version: 0.8.0
+
+        - name: Ensure fq installed
+          ansible.builtin.shell:
+            cmd: "go install github.com/wader/fq@latest"
 
         - name: Ensure linters installed
           ansible.builtin.shell:
